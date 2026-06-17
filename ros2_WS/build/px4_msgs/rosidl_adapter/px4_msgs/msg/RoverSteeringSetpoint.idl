@@ -1,0 +1,21 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/RoverSteeringSetpoint.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "Rover Steering setpoint")
+    struct RoverSteeringSetpoint {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "[-] [@range -1 (Left), 1 (Right)] [@frame Body] Ackermann: Normalized steering angle, Differential/Mecanum: Normalized speed difference between the left and right wheels")
+      float normalized_steering_setpoint;
+    };
+  };
+};

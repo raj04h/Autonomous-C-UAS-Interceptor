@@ -1,0 +1,81 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/AirspeedValidated.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    module AirspeedValidated_Constants {
+      const uint32 MESSAGE_VERSION = 1;
+      @verbatim (language="comment", text=
+        "Disabled")
+      const int8 SOURCE_DISABLED = -1;
+      @verbatim (language="comment", text=
+        "Ground speed minus wind")
+      const int8 SOURCE_GROUND_MINUS_WIND = 0;
+      @verbatim (language="comment", text=
+        "Sensor 1")
+      const int8 SOURCE_SENSOR_1 = 1;
+      @verbatim (language="comment", text=
+        "Sensor 2")
+      const int8 SOURCE_SENSOR_2 = 2;
+      @verbatim (language="comment", text=
+        "Sensor 3")
+      const int8 SOURCE_SENSOR_3 = 3;
+      @verbatim (language="comment", text=
+        "Synthetic airspeed")
+      const int8 SOURCE_SYNTHETIC = 4;
+    };
+    @verbatim (language="comment", text=
+      "Validated airspeed" "\n"
+      "" "\n"
+      "Provides information about airspeed (indicated, true, calibrated) and the source of the data." "\n"
+      "Used by controllers, estimators and for airspeed reporting to operator.")
+    struct AirspeedValidated {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "[m/s] [@invalid NaN] Indicated airspeed (IAS)")
+      float indicated_airspeed_m_s;
+
+      @verbatim (language="comment", text=
+        "[m/s] [@invalid NaN] Calibrated airspeed (CAS)")
+      float calibrated_airspeed_m_s;
+
+      @verbatim (language="comment", text=
+        "[m/s] [@invalid NaN] True airspeed (TAS)")
+      float true_airspeed_m_s;
+
+      @verbatim (language="comment", text=
+        "Source of currently published airspeed values")
+      @unit (value="@enum SOURCE")
+      int8 airspeed_source;
+
+      @verbatim (language="comment", text=
+        "[m/s] [@invalid NaN] CAS calculated from groundspeed - windspeed, where windspeed is estimated based on a zero-sideslip assumption")
+      float calibrated_ground_minus_wind_m_s;
+
+      @verbatim (language="comment", text=
+        "[m/s] [@invalid NaN] Synthetic airspeed")
+      float calibraded_airspeed_synth_m_s;
+
+      @verbatim (language="comment", text=
+        "Filtered indicated airspeed derivative")
+      @unit (value="m/s^2")
+      float airspeed_derivative_filtered;
+
+      @verbatim (language="comment", text=
+        "Filtered fixed-wing throttle")
+      @unit (value="-")
+      float throttle_filtered;
+
+      @verbatim (language="comment", text=
+        "Filtered pitch")
+      @unit (value="rad")
+      float pitch_filtered;
+    };
+  };
+};

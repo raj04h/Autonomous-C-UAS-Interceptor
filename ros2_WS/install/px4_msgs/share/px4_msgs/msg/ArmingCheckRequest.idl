@@ -1,0 +1,37 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/ArmingCheckRequest.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    module ArmingCheckRequest_Constants {
+      const uint32 MESSAGE_VERSION = 1;
+    };
+    @verbatim (language="comment", text=
+      "Arming check request" "\n"
+      "" "\n"
+      "Broadcast message to request arming checks be reported by all registered components, such as external ROS 2 navigation modes." "\n"
+      "All registered components should respond with an ArmingCheckReply message that indicates their current mode requirements, and any arming failure information." "\n"
+      "The request is sent regularly, even while armed, so that the FMU always knows the current arming state for external modes, and can forward it to ground stations." "\n"
+      "" "\n"
+      "The reply will include the published request_id, allowing correlation of all arming check information for a particular request." "\n"
+      "The reply will also include the registration_id for each external component, provided to it during the registration process (RegisterExtComponentReply).")
+    struct ArmingCheckRequest {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Id of this request. Allows correlation with associated ArmingCheckReply messages.")
+      @unit (value="-")
+      uint8 request_id;
+
+      @verbatim (language="comment", text=
+        "Bitmask of valid registration ID's (the bit is also cleared if flagged as unresponsive)")
+      @unit (value="-")
+      uint32 valid_registrations_mask;
+    };
+  };
+};

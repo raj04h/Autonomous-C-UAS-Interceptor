@@ -1,0 +1,21 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/RoverRateSetpoint.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "Rover Rate setpoint")
+    struct RoverRateSetpoint {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "[rad/s] [@range -inf, inf] [@frame NED] Yaw rate setpoint")
+      float yaw_rate_setpoint;
+    };
+  };
+};

@@ -1,0 +1,52 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/EstimatorAidSource2d.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    typedef double double__2[2];
+    typedef float float__2[2];
+    struct EstimatorAidSource2d {
+      @verbatim (language="comment", text=
+        "time since system start (microseconds)")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "the timestamp of the raw data (microseconds)")
+      uint64 timestamp_sample;
+
+      uint8 estimator_instance;
+
+      uint32 device_id;
+
+      uint64 time_last_fuse;
+
+      double__2 observation;
+
+      float__2 observation_variance;
+
+      float__2 innovation;
+
+      float__2 innovation_filtered;
+
+      float__2 innovation_variance;
+
+      @verbatim (language="comment", text=
+        "normalized innovation squared")
+      float__2 test_ratio;
+
+      @verbatim (language="comment", text=
+        "signed filtered test ratio")
+      float__2 test_ratio_filtered;
+
+      @verbatim (language="comment", text=
+        "true if the observation has been rejected")
+      boolean innovation_rejected;
+
+      @verbatim (language="comment", text=
+        "true if the sample was successfully fused")
+      boolean fused;
+    };
+  };
+};

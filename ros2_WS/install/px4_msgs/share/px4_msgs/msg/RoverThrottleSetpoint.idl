@@ -1,0 +1,25 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/RoverThrottleSetpoint.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "Rover Throttle setpoint")
+    struct RoverThrottleSetpoint {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "[-] [@range -1 (Backwards), 1 (Forwards)] [@frame Body] Throttle setpoint along body X axis")
+      float throttle_body_x;
+
+      @verbatim (language="comment", text=
+        "[-] [@range -1 (Left), 1 (Right)] [@frame Body] [@invalid NaN If not mecanum] Mecanum only: Throttle setpoint along body Y axis")
+      float throttle_body_y;
+    };
+  };
+};

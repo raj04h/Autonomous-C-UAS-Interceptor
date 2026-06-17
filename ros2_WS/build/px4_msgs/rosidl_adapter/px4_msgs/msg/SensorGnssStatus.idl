@@ -1,0 +1,40 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/SensorGnssStatus.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "Gnss quality indicators")
+    struct SensorGnssStatus {
+      @verbatim (language="comment", text=
+        "time since system start (microseconds)")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "unique device ID for the sensor that does not change between power cycles")
+      uint32 device_id;
+
+      @verbatim (language="comment", text=
+        "Set to true if quality indicators are available")
+      boolean quality_available;
+
+      @verbatim (language="comment", text=
+        "Corrections quality from 0 to 10, or 255 if not available")
+      uint8 quality_corrections;
+
+      @verbatim (language="comment", text=
+        "Overall receiver operating status from 0 to 10, or 255 if not available")
+      uint8 quality_receiver;
+
+      @verbatim (language="comment", text=
+        "Quality of GNSS signals from 0 to 10, or 255 if not available")
+      uint8 quality_gnss_signals;
+
+      @verbatim (language="comment", text=
+        "Expected post processing quality from 0 to 10, or 255 if not available")
+      uint8 quality_post_processing;
+    };
+  };
+};

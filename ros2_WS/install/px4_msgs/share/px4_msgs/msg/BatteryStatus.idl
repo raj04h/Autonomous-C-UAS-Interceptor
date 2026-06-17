@@ -1,0 +1,263 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/BatteryStatus.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    typedef float float__14[14];
+    module BatteryStatus_Constants {
+      const uint32 MESSAGE_VERSION = 1;
+      const uint8 MAX_INSTANCES = 3;
+      @verbatim (language="comment", text=
+        "Power module (analog ADC or I2C power monitor)")
+      const uint8 SOURCE_POWER_MODULE = 0;
+      @verbatim (language="comment", text=
+        "External (MAVLink, CAN, or external driver)")
+      const uint8 SOURCE_EXTERNAL = 1;
+      @verbatim (language="comment", text=
+        "ESCs (via ESC telemetry)")
+      const uint8 SOURCE_ESCS = 2;
+      @verbatim (language="comment", text=
+        "No battery low voltage warning active")
+      const uint8 WARNING_NONE = 0;
+      @verbatim (language="comment", text=
+        "Low voltage warning")
+      const uint8 WARNING_LOW = 1;
+      @verbatim (language="comment", text=
+        "Critical voltage, return / abort immediately")
+      const uint8 WARNING_CRITICAL = 2;
+      @verbatim (language="comment", text=
+        "Immediate landing required")
+      const uint8 WARNING_EMERGENCY = 3;
+      @verbatim (language="comment", text=
+        "Battery has failed completely")
+      const uint8 WARNING_FAILED = 4;
+      @verbatim (language="comment", text=
+        "Battery is diagnosed to be defective or an error occurred, usage is discouraged / prohibited. Possible causes (faults) are listed in faults field")
+      const uint8 STATE_UNHEALTHY = 6;
+      @verbatim (language="comment", text=
+        "Battery is charging")
+      const uint8 STATE_CHARGING = 7;
+      @verbatim (language="comment", text=
+        "Battery has deep discharged")
+      const uint8 FAULT_DEEP_DISCHARGE = 0;
+      @verbatim (language="comment", text=
+        "Voltage spikes")
+      const uint8 FAULT_SPIKES = 1;
+      @verbatim (language="comment", text=
+        "One or more cells have failed")
+      const uint8 FAULT_CELL_FAIL = 2;
+      @verbatim (language="comment", text=
+        "Over-current")
+      const uint8 FAULT_OVER_CURRENT = 3;
+      @verbatim (language="comment", text=
+        "Over-temperature")
+      const uint8 FAULT_OVER_TEMPERATURE = 4;
+      @verbatim (language="comment", text=
+        "Under-temperature fault")
+      const uint8 FAULT_UNDER_TEMPERATURE = 5;
+      @verbatim (language="comment", text=
+        "Vehicle voltage is not compatible with this battery (batteries on same power rail should have similar voltage)")
+      const uint8 FAULT_INCOMPATIBLE_VOLTAGE = 6;
+      @verbatim (language="comment", text=
+        "Battery firmware is not compatible with current autopilot firmware")
+      const uint8 FAULT_INCOMPATIBLE_FIRMWARE = 7;
+      @verbatim (language="comment", text=
+        "Battery model is not supported by the system")
+      const uint8 FAULT_INCOMPATIBLE_MODEL = 8;
+      @verbatim (language="comment", text=
+        "Hardware problem")
+      const uint8 FAULT_HARDWARE_FAILURE = 9;
+      @verbatim (language="comment", text=
+        "Battery had a problem while arming")
+      const uint8 FAULT_FAILED_TO_ARM = 10;
+      @verbatim (language="comment", text=
+        "Counter. Keep this as last element")
+      const uint8 FAULT_COUNT = 11;
+    };
+    @verbatim (language="comment", text=
+      "Battery status" "\n"
+      "" "\n"
+      "Battery status information for up to 3 battery instances." "\n"
+      "These are populated from power module and smart battery device drivers, and one battery updated from MAVLink." "\n"
+      "Battery instance information is also logged and streamed in MAVLink telemetry.")
+    struct BatteryStatus {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Whether or not a battery is connected. For power modules this is based on a voltage threshold.")
+      boolean connected;
+
+      @verbatim (language="comment", text=
+        "[V] [@invalid 0] Battery voltage")
+      float voltage_v;
+
+      @verbatim (language="comment", text=
+        "[A] [@invalid -1] Battery current")
+      float current_a;
+
+      @verbatim (language="comment", text=
+        "[A] [@invalid -1] Battery current average (for FW average in level flight)")
+      float current_average_a;
+
+      @verbatim (language="comment", text=
+        "[mAh] [@invalid -1] Discharged amount")
+      float discharged_mah;
+
+      @verbatim (language="comment", text=
+        "[@range 0,1] Remaining capacity")
+      @unit (value="@invalid -1")
+      float remaining;
+
+      @verbatim (language="comment", text=
+        "[-] [@range 1,] [@invalid -1] Scaling factor to compensate for lower actuation power caused by voltage sag")
+      float scale;
+
+      @verbatim (language="comment", text=
+        "[s] [@invalid NaN] Predicted time remaining until battery is empty under previous averaged load")
+      float time_remaining_s;
+
+      @verbatim (language="comment", text=
+        "[degC] [@invalid NaN] Temperature of the battery")
+      float temperature;
+
+      @verbatim (language="comment", text=
+        "[-] [@invalid 0] Number of cells")
+      uint8 cell_count;
+
+      @verbatim (language="comment", text=
+        "Battery source")
+      @unit (value="@enum SOURCE")
+      uint8 source;
+
+      @verbatim (language="comment", text=
+        "Zero based priority is the connection on the Power Controller V1..Vn AKA BrickN-1")
+      @unit (value="-")
+      uint8 priority;
+
+      @verbatim (language="comment", text=
+        "Capacity of the battery when fully charged")
+      @unit (value="mAh")
+      uint16 capacity;
+
+      @verbatim (language="comment", text=
+        "Number of discharge cycles the battery has experienced")
+      @unit (value="-")
+      uint16 cycle_count;
+
+      @verbatim (language="comment", text=
+        "Predicted remaining battery capacity based on the average rate of discharge")
+      @unit (value="minutes")
+      uint16 average_time_to_empty;
+
+      @verbatim (language="comment", text=
+        "Manufacture date, part of serial number of the battery pack. Formatted as: Day + Month×32 + (Year–1980)×512")
+      @unit (value="-")
+      uint16 manufacture_date;
+
+      @verbatim (language="comment", text=
+        "[@range 0, 100] State of health. FullChargeCapacity/DesignCapacity")
+      @unit (value="%")
+      uint16 state_of_health;
+
+      @verbatim (language="comment", text=
+        "[@range 1, 100] Max error, expected margin of error in the state-of-charge calculation")
+      @unit (value="%")
+      uint16 max_error;
+
+      @verbatim (language="comment", text=
+        "ID number of a battery. Should be unique and consistent for the lifetime of a vehicle. 1-indexed")
+      @unit (value="-")
+      uint8 id;
+
+      @verbatim (language="comment", text=
+        "Interface error counter")
+      @unit (value="-")
+      uint16 interface_error;
+
+      @verbatim (language="comment", text=
+        "[V] [@invalid 0] Battery individual cell voltages")
+      float__14 voltage_cell_v;
+
+      @verbatim (language="comment", text=
+        "Max difference between individual cell voltages")
+      @unit (value="V")
+      float max_cell_voltage_delta;
+
+      @verbatim (language="comment", text=
+        "Power off event imminent indication, false if unknown")
+      boolean is_powering_off;
+
+      @verbatim (language="comment", text=
+        "Set if the battery is explicitly required before arming")
+      boolean is_required;
+
+      @verbatim (language="comment", text=
+        "Current battery warning")
+      @unit (value="@enum WARNING STATE")
+      uint8 warning;
+
+      @verbatim (language="comment", text=
+        "Smart battery supply status/fault flags (bitmask) for health indication")
+      @unit (value="@enum FAULT")
+      uint16 faults;
+
+      @verbatim (language="comment", text=
+        "Compensated battery capacity")
+      @unit (value="Wh")
+      float full_charge_capacity_wh;
+
+      @verbatim (language="comment", text=
+        "[Wh] [@invalid NaN] Compensated battery capacity remaining")
+      float remaining_capacity_wh;
+
+      @verbatim (language="comment", text=
+        "Number of battery overdischarge")
+      @unit (value="-")
+      uint16 over_discharge_count;
+
+      @verbatim (language="comment", text=
+        "[V] [@invalid NaN] Nominal voltage of the battery pack")
+      float nominal_voltage;
+
+      @verbatim (language="comment", text=
+        "Internal resistance per cell estimate")
+      @unit (value="Ohm")
+      float internal_resistance_estimate;
+
+      @verbatim (language="comment", text=
+        "Open circuit voltage estimate")
+      @unit (value="V")
+      float ocv_estimate;
+
+      @verbatim (language="comment", text=
+        "Filtered open circuit voltage estimate")
+      @unit (value="V")
+      float ocv_estimate_filtered;
+
+      @verbatim (language="comment", text=
+        "[@range 0, 1] Normalized volt based state of charge estimate")
+      @unit (value="-")
+      float volt_based_soc_estimate;
+
+      @verbatim (language="comment", text=
+        "Predicted voltage")
+      @unit (value="V")
+      float voltage_prediction;
+
+      @verbatim (language="comment", text=
+        "Prediction error")
+      @unit (value="V")
+      float prediction_error;
+
+      @verbatim (language="comment", text=
+        "Norm of the covariance matrix")
+      @unit (value="-")
+      float estimation_covariance_norm;
+    };
+  };
+};

@@ -1,0 +1,47 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/FixedWingLongitudinalSetpoint.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    module FixedWingLongitudinalSetpoint_Constants {
+      const uint32 MESSAGE_VERSION = 0;
+    };
+    @verbatim (language="comment", text=
+      "Fixed Wing Longitudinal Setpoint message" "\n"
+      "" "\n"
+      "Used by the fw_lateral_longitudinal_control module" "\n"
+      "If pitch_direct and throttle_direct are not both finite, then the controller relies on altitude/height_rate and equivalent_airspeed to control vertical motion." "\n"
+      "If both altitude and height_rate are NAN, the controller maintains the current altitude.")
+    struct FixedWingLongitudinalSetpoint {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Altitude setpoint AMSL, not controlled directly if NAN or if height_rate is finite")
+      @unit (value="m")
+      float altitude;
+
+      @verbatim (language="comment", text=
+        "[m/s] [@frame ENU] Scalar height rate setpoint. NAN if not controlled directly")
+      float height_rate;
+
+      @verbatim (language="comment", text=
+        "[@range 0, inf] Scalar equivalent airspeed setpoint. NAN if system default should be used")
+      @unit (value="m/s")
+      float equivalent_airspeed;
+
+      @verbatim (language="comment", text=
+        "[rad] [@range -pi, pi] [@frame FRD] NAN if not controlled, overrides total energy controller")
+      float pitch_direct;
+
+      @verbatim (language="comment", text=
+        "[@range 0,1] NAN if not controlled, overrides total energy controller")
+      @unit (value="norm")
+      float throttle_direct;
+    };
+  };
+};

@@ -1,0 +1,118 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/ArmingCheckReply.msg
+// generated code does not contain a copyright notice
+
+#include "px4_msgs/msg/Event.idl"
+
+module px4_msgs {
+  module msg {
+    typedef px4_msgs::msg::Event px4_msgs__msg__Event;
+    typedef px4_msgs__msg__Event px4_msgs__msg__Event__5[5];
+    module ArmingCheckReply_Constants {
+      const uint32 MESSAGE_VERSION = 1;
+      @verbatim (language="comment", text=
+        "Index of health component for which this response applies")
+      const uint8 HEALTH_COMPONENT_INDEX_NONE = 0;
+      @verbatim (language="comment", text=
+        "Must be >= ExternalChecks::MAX_NUM_REGISTRATIONS so replies from all registered" "\n"        "modes fit in the queue within a single request cycle (otherwise replies from the" "\n"        "5th+ mode overwrite earlier ones, causing spurious \"unresponsive mode\" failures).")
+      const uint8 ORB_QUEUE_LENGTH = 8;
+    };
+    @verbatim (language="comment", text=
+      "Arming check reply" "\n"
+      "" "\n"
+      "This is a response to an ArmingCheckRequest message sent by the FMU to an external component, such as a ROS 2 navigation mode." "\n"
+      "The response contains the current set of external mode requirements, and a queue of events indicating recent failures to set the mode (which the FMU may then forward to a ground station)." "\n"
+      "The request is sent regularly to all registered ROS modes, even while armed, so that the FMU always knows and can forward the current state." "\n"
+      "" "\n"
+      "Note that the external component is identified by its registration_id, which is allocated to the component during registration (arming_check_id in RegisterExtComponentReply)." "\n"
+      "The message is not used by internal/FMU components, as their mode requirements are known at compile time.")
+    struct ArmingCheckReply {
+      @verbatim (language="comment", text=
+        "Time since system start.")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Id of ArmingCheckRequest for which this is a response")
+      @unit (value="-")
+      uint8 request_id;
+
+      @verbatim (language="comment", text=
+        "Id of external component emitting this response")
+      @unit (value="-")
+      uint8 registration_id;
+
+      @unit (value="@enum HEALTH_COMPONENT_INDEX")
+      uint8 health_component_index;
+
+      @verbatim (language="comment", text=
+        "Unused. Intended for use with health events interface (health_component_t in events.json)")
+      boolean health_component_is_present;
+
+      @verbatim (language="comment", text=
+        "Unused. Intended for use with health events interface (health_component_t in events.json)")
+      boolean health_component_warning;
+
+      @verbatim (language="comment", text=
+        "Unused. Intended for use with health events interface (health_component_t in events.json)")
+      boolean health_component_error;
+
+      @verbatim (language="comment", text=
+        "True if the component can arm. For navigation mode components, true if the component can arm in the mode or switch to the mode when already armed")
+      boolean can_arm_and_run;
+
+      @verbatim (language="comment", text=
+        "Number of queued failure messages (Event) in the events field")
+      uint8 num_events;
+
+      @verbatim (language="comment", text=
+        "Arming failure reasons (Queue of events to report to GCS)")
+      px4_msgs__msg__Event__5 events;
+
+      @verbatim (language="comment", text=
+        "Mode requirements" "\n"
+        "Requires angular velocity estimate (e.g. from gyroscope)")
+      boolean mode_req_angular_velocity;
+
+      @verbatim (language="comment", text=
+        "Requires an attitude estimate")
+      boolean mode_req_attitude;
+
+      @verbatim (language="comment", text=
+        "Requires a local altitude estimate")
+      boolean mode_req_local_alt;
+
+      @verbatim (language="comment", text=
+        "Requires a local position estimate")
+      boolean mode_req_local_position;
+
+      @verbatim (language="comment", text=
+        "Requires a more relaxed global position estimate")
+      boolean mode_req_local_position_relaxed;
+
+      @verbatim (language="comment", text=
+        "Requires a global position estimate")
+      boolean mode_req_global_position;
+
+      @verbatim (language="comment", text=
+        "Requires a relaxed global position estimate")
+      boolean mode_req_global_position_relaxed;
+
+      @verbatim (language="comment", text=
+        "Requires an uploaded mission")
+      boolean mode_req_mission;
+
+      @verbatim (language="comment", text=
+        "Requires a home position (such as RTL/Return mode)")
+      boolean mode_req_home_position;
+
+      @verbatim (language="comment", text=
+        "Prevent arming (such as in Land mode)")
+      boolean mode_req_prevent_arming;
+
+      @verbatim (language="comment", text=
+        "Requires a manual controller")
+      boolean mode_req_manual_control;
+    };
+  };
+};

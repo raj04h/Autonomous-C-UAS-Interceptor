@@ -1,0 +1,47 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/EscEepromWrite.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    typedef uint8 uint8__48[48];
+    typedef uint32 uint32__2[2];
+    module EscEepromWrite_Constants {
+      @verbatim (language="comment", text=
+        "To support 8 queued up requests")
+      const uint8 ORB_QUEUE_LENGTH = 8;
+    };
+    struct EscEepromWrite {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "ESC firmware type (see ESC_FIRMWARE enum in MAVLink)")
+      @unit (value="-")
+      uint8 firmware;
+
+      @verbatim (language="comment", text=
+        "Index of the ESC (0 = ESC1, 1 = ESC2, etc, 255 = All)")
+      @unit (value="-")
+      uint8 index;
+
+      @verbatim (language="comment", text=
+        "Length of valid data")
+      @unit (value="-")
+      uint16 length;
+
+      @verbatim (language="comment", text=
+        "Raw ESC EEPROM data")
+      @unit (value="-")
+      uint8__48 data;
+
+      @verbatim (language="comment", text=
+        "Bitmask indicating which bytes in the data array should be written (max 48 values)")
+      @unit (value="-")
+      uint32__2 write_mask;
+    };
+  };
+};

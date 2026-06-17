@@ -1,0 +1,66 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/Wind.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    module Wind_Constants {
+      const uint32 MESSAGE_VERSION = 0;
+    };
+    @verbatim (language="comment", text=
+      "Wind estimate (from EKF2)" "\n"
+      "" "\n"
+      "Contains the system-wide estimate of horizontal wind velocity and its variance." "\n"
+      "Published by the navigation filter (EKF2) for use by other flight modules and libraries.")
+    struct Wind {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Timestamp of the raw data")
+      @unit (value="us")
+      uint64 timestamp_sample;
+
+      @verbatim (language="comment", text=
+        "Wind component in north / X direction")
+      @unit (value="m/s")
+      float windspeed_north;
+
+      @verbatim (language="comment", text=
+        "Wind component in east / Y direction")
+      @unit (value="m/s")
+      float windspeed_east;
+
+      @verbatim (language="comment", text=
+        "[(m/s)^2] [@invalid 0 if not estimated] Wind estimate error variance in north / X direction")
+      float variance_north;
+
+      @verbatim (language="comment", text=
+        "[(m/s)^2] [@invalid 0 if not estimated] Wind estimate error variance in east / Y direction")
+      float variance_east;
+
+      @verbatim (language="comment", text=
+        "True airspeed innovation")
+      @unit (value="m/s")
+      float tas_innov;
+
+      @verbatim (language="comment", text=
+        "True airspeed innovation variance")
+      @unit (value="(m/s)^2")
+      float tas_innov_var;
+
+      @verbatim (language="comment", text=
+        "Sideslip measurement innovation")
+      @unit (value="rad")
+      float beta_innov;
+
+      @verbatim (language="comment", text=
+        "Sideslip measurement innovation variance")
+      @unit (value="rad^2")
+      float beta_innov_var;
+    };
+  };
+};

@@ -1,0 +1,58 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/FixedWingLateralGuidanceStatus.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "Fixed Wing Lateral Guidance Status message" "\n"
+      "Published by fw_pos_control module to report the resultant lateral setpoints and NPFG debug outputs")
+    struct FixedWingLateralGuidanceStatus {
+      @verbatim (language="comment", text=
+        "time since system start (microseconds)")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "[@range -pi, pi] Desired direction of travel over ground w.r.t (true) North. Set by guidance law")
+      @unit (value="rad")
+      float course_setpoint;
+
+      @verbatim (language="comment", text=
+        "[m/s^2] [FRD] lateral acceleration demand only for maintaining curvature")
+      float lateral_acceleration_ff;
+
+      @verbatim (language="comment", text=
+        "[@range 0,1] bearing feasibility")
+      float bearing_feas;
+
+      @verbatim (language="comment", text=
+        "[@range 0,1] on-track bearing feasibility")
+      float bearing_feas_on_track;
+
+      @verbatim (language="comment", text=
+        "signed track error")
+      @unit (value="m")
+      float signed_track_error;
+
+      @verbatim (language="comment", text=
+        "track error bound")
+      @unit (value="m")
+      float track_error_bound;
+
+      @verbatim (language="comment", text=
+        "[m] [@range 0, INF] [@INVALID NaN] distance from the current waypoint at which the navigator should advance to the next one (turn anticipation). If below NAV_ACC_RAD, the parameter value is used instead.")
+      float switch_distance;
+
+      @verbatim (language="comment", text=
+        "adapted period (if auto-tuning enabled)")
+      @unit (value="s")
+      float adapted_period;
+
+      @verbatim (language="comment", text=
+        "true = wind estimate is valid and/or being used by controller (also indicates if wind estimate usage is disabled despite being valid)")
+      @unit (value="boolean")
+      uint8 wind_est_valid;
+    };
+  };
+};

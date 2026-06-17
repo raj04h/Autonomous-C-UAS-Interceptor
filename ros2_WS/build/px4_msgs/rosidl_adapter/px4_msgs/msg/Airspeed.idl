@@ -1,0 +1,39 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/Airspeed.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "Airspeed data from sensors" "\n"
+      "" "\n"
+      "This is published by airspeed sensor drivers, CAN airspeed sensors, simulators." "\n"
+      "It is subscribed by the airspeed selector module, which validates the data from multiple sensors and passes on a single estimation to the EKF, controllers and telemetry providers.")
+    struct Airspeed {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Timestamp of the raw data")
+      @unit (value="us")
+      uint64 timestamp_sample;
+
+      @verbatim (language="comment", text=
+        "Indicated airspeed")
+      @unit (value="m/s")
+      float indicated_airspeed_m_s;
+
+      @verbatim (language="comment", text=
+        "True airspeed")
+      @unit (value="m/s")
+      float true_airspeed_m_s;
+
+      @verbatim (language="comment", text=
+        "[@range 0,1] Confidence value for this sensor")
+      float confidence;
+    };
+  };
+};

@@ -1,0 +1,79 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/EscStatus.msg
+// generated code does not contain a copyright notice
+
+#include "px4_msgs/msg/EscReport.idl"
+
+module px4_msgs {
+  module msg {
+    typedef px4_msgs::msg::EscReport px4_msgs__msg__EscReport;
+    typedef px4_msgs__msg__EscReport px4_msgs__msg__EscReport__12[12];
+    module EscStatus_Constants {
+      @verbatim (language="comment", text=
+        "The number of ESCs supported (Motor1-Motor12)")
+      const uint8 CONNECTED_ESC_MAX = 12;
+      @verbatim (language="comment", text=
+        "Traditional PPM ESC")
+      const uint8 ESC_CONNECTION_TYPE_PPM = 0;
+      @verbatim (language="comment", text=
+        "Serial Bus connected ESC")
+      const uint8 ESC_CONNECTION_TYPE_SERIAL = 1;
+      @verbatim (language="comment", text=
+        "One Shot PPM")
+      const uint8 ESC_CONNECTION_TYPE_ONESHOT = 2;
+      @verbatim (language="comment", text=
+        "I2C")
+      const uint8 ESC_CONNECTION_TYPE_I2C = 3;
+      @verbatim (language="comment", text=
+        "CAN-Bus")
+      const uint8 ESC_CONNECTION_TYPE_CAN = 4;
+      @verbatim (language="comment", text=
+        "DShot")
+      const uint8 ESC_CONNECTION_TYPE_DSHOT = 5;
+    };
+    struct EscStatus {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Incremented by the writing thread everytime new data is stored")
+      @unit (value="-")
+      uint16 counter;
+
+      @verbatim (language="comment", text=
+        "Number of connected ESCs")
+      @unit (value="-")
+      uint8 esc_count;
+
+      @verbatim (language="comment", text=
+        "How ESCs connected to the system")
+      @unit (value="@enum ESC_CONNECTION_TYPE")
+      uint8 esc_connectiontype;
+
+      @verbatim (language="comment", text=
+        "Bitmask indicating which ESC is online/offline (in motor order)")
+      uint16 esc_online_flags;
+
+      @verbatim (language="comment", text=
+        "esc_online_flags bit 0 : Set to 1 if Motor1 is online" "\n"
+        "esc_online_flags bit 1 : Set to 1 if Motor2 is online" "\n"
+        "esc_online_flags bit 2 : Set to 1 if Motor3 is online" "\n"
+        "esc_online_flags bit 3 : Set to 1 if Motor4 is online" "\n"
+        "esc_online_flags bit 4 : Set to 1 if Motor5 is online" "\n"
+        "esc_online_flags bit 5 : Set to 1 if Motor6 is online" "\n"
+        "esc_online_flags bit 6 : Set to 1 if Motor7 is online" "\n"
+        "esc_online_flags bit 7 : Set to 1 if Motor8 is online" "\n"
+        "esc_online_flags bit 8 : Set to 1 if Motor9 is online" "\n"
+        "esc_online_flags bit 9 : Set to 1 if Motor10 is online" "\n"
+        "esc_online_flags bit 10: Set to 1 if Motor11 is online" "\n"
+        "esc_online_flags bit 11: Set to 1 if Motor12 is online" "\n"
+        "[-] Bitmask indicating which ESC is armed (in motor order)")
+      @unit (value="-")
+      uint16 esc_armed_flags;
+
+      px4_msgs__msg__EscReport__12 esc;
+    };
+  };
+};

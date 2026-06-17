@@ -1,0 +1,66 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/LongitudinalControlConfiguration.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    module LongitudinalControlConfiguration_Constants {
+      const uint32 MESSAGE_VERSION = 0;
+    };
+    @verbatim (language="comment", text=
+      "Fixed Wing Longitudinal Control Configuration message" "\n"
+      "" "\n"
+      "Used by the fw_lateral_longitudinal_control module and TECS to constrain FixedWingLongitudinalSetpoint messages" "\n"
+      "and configure the resultant setpoints.")
+    struct LongitudinalControlConfiguration {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "[@range -pi, pi] Defaults to FW_P_LIM_MIN if NAN.")
+      @unit (value="rad")
+      float pitch_min;
+
+      @verbatim (language="comment", text=
+        "[@range -pi, pi] Defaults to FW_P_LIM_MAX if NAN.")
+      @unit (value="rad")
+      float pitch_max;
+
+      @verbatim (language="comment", text=
+        "[@range 0,1] Defaults to FW_THR_MIN if NAN.")
+      @unit (value="norm")
+      float throttle_min;
+
+      @verbatim (language="comment", text=
+        "[@range 0,1] Defaults to FW_THR_MAX if NAN.")
+      @unit (value="norm")
+      float throttle_max;
+
+      @verbatim (language="comment", text=
+        "Target climbrate to change altitude. Defaults to FW_T_CLIMB_MAX if NAN. Not used if height_rate is directly set in FixedWingLongitudinalSetpoint.")
+      @unit (value="m/s")
+      float climb_rate_target;
+
+      @verbatim (language="comment", text=
+        "Target sinkrate to change altitude. Defaults to FW_T_SINK_MAX if NAN. Not used if height_rate is directly set in FixedWingLongitudinalSetpoint.")
+      @unit (value="m/s")
+      float sink_rate_target;
+
+      @verbatim (language="comment", text=
+        "[@range 0,2] 0=pitch controls altitude only, 2=pitch controls airspeed only")
+      @unit (value="-")
+      float speed_weight;
+
+      @verbatim (language="comment", text=
+        "If true, the altitude controller is configured with an alternative timeconstant for tighter altitude tracking")
+      boolean enforce_low_height_condition;
+
+      @verbatim (language="comment", text=
+        "If true, underspeed handling is disabled in the altitude controller")
+      boolean disable_underspeed_protection;
+    };
+  };
+};

@@ -1,0 +1,57 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/RaptorInput.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    typedef float float__3[3];
+    typedef float float__4[4];
+    module RaptorInput_Constants {
+      @verbatim (language="comment", text=
+        "The exact inputs to the Raptor foundation policy." "\n"        "Having access to the exact inputs helps with debugging and post-hoc analysis.")
+      const uint32 MESSAGE_VERSION = 0;
+      @verbatim (language="comment", text=
+        "Policy output dimensionality (for quadrotors)")
+      const uint8 ACTION_DIM = 4;
+    };
+    @verbatim (language="comment", text=
+      "Raptor Input")
+    struct RaptorInput {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Sampling timestamp of the data this control response is based on")
+      @unit (value="us")
+      uint64 timestamp_sample;
+
+      @verbatim (language="comment", text=
+        "Signals if the policy is active (aka publishing actuator_motors)")
+      boolean active;
+
+      @verbatim (language="comment", text=
+        "[m] [@frame FLU] Position of the vehicle_local_position frame")
+      float__3 position;
+
+      @verbatim (language="comment", text=
+        "Orientation in the vehicle_attitude frame but using the FLU convention as a unit quaternion (w, x, y, z)")
+      @unit (value="-")
+      float__4 orientation;
+
+      @verbatim (language="comment", text=
+        "[m/s] [@frame FLU] Linear velocity in the vehicle_local_position frame")
+      float__3 linear_velocity;
+
+      @verbatim (language="comment", text=
+        "[rad/s]  [@frame FLU] Angular velocity in the body frame")
+      float__3 angular_velocity;
+
+      @verbatim (language="comment", text=
+        "[@range -1, 1] Previous action. Motor commands normalized to [-1, 1]")
+      float__4 previous_action;
+    };
+  };
+};

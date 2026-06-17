@@ -1,0 +1,17 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/OpenDroneIdArmStatus.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    typedef uint8 uint8__50[50];
+    struct OpenDroneIdArmStatus {
+      uint64 timestamp;
+
+      uint8 status;
+
+      uint8__50 error;
+    };
+  };
+};

@@ -1,0 +1,30 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/BatteryInfo.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    typedef uint8 uint8__32[32];
+    @verbatim (language="comment", text=
+      "Battery information" "\n"
+      "" "\n"
+      "Static or near-invariant battery information." "\n"
+      "Should be streamed at low rate.")
+    struct BatteryInfo {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Must match the id in the battery_status message for the same battery")
+      uint8 id;
+
+      @verbatim (language="comment", text=
+        "Serial number of the battery pack in ASCII characters, 0 terminated")
+      @unit (value="@invalid 0 All bytes")
+      uint8__32 serial_number;
+    };
+  };
+};

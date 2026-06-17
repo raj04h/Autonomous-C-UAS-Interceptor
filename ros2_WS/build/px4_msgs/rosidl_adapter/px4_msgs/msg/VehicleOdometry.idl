@@ -1,0 +1,100 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/VehicleOdometry.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    typedef float float__3[3];
+    typedef float float__4[4];
+    module VehicleOdometry_Constants {
+      const uint32 MESSAGE_VERSION = 0;
+      @verbatim (language="comment", text=
+        "Unknown frame")
+      const uint8 POSE_FRAME_UNKNOWN = 0;
+      @verbatim (language="comment", text=
+        "North-East-Down (NED) navigation frame. Aligned with True North.")
+      const uint8 POSE_FRAME_NED = 1;
+      @verbatim (language="comment", text=
+        "Forward-Right-Down (FRD) frame. Constant arbitrary heading offset from True North. Z is down.")
+      const uint8 POSE_FRAME_FRD = 2;
+      @verbatim (language="comment", text=
+        "Unknown frame")
+      const uint8 VELOCITY_FRAME_UNKNOWN = 0;
+      @verbatim (language="comment", text=
+        "NED navigation frame at current position.")
+      const uint8 VELOCITY_FRAME_NED = 1;
+      @verbatim (language="comment", text=
+        "FRD navigation frame at current position. Constant arbitrary heading offset from True North. Z is down.")
+      const uint8 VELOCITY_FRAME_FRD = 2;
+      @verbatim (language="comment", text=
+        "FRD body-fixed frame")
+      const uint8 VELOCITY_FRAME_BODY_FRD = 3;
+    };
+    @verbatim (language="comment", text=
+      "Vehicle odometry data" "\n"
+      "" "\n"
+      "Fits ROS REP 147 for aerial vehicles")
+    struct VehicleOdometry {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Timestamp sample")
+      @unit (value="us")
+      uint64 timestamp_sample;
+
+      @verbatim (language="comment", text=
+        "Position and orientation frame of reference")
+      @unit (value="@enum POSE_FRAME")
+      uint8 pose_frame;
+
+      @verbatim (language="comment", text=
+        "[m] [@frame local frame] [@invalid NaN If invalid/unknown] Position. Origin is position of GC at startup.")
+      float__3 position;
+
+      @verbatim (language="comment", text=
+        "[-] [@invalid NaN First value if invalid/unknown] Attitude (expressed as a quaternion) relative to pose reference frame at current location. Follows the Hamiltonian convention (w, x, y, z, right-handed, passive rotations from body to world)")
+      float__4 q;
+
+      @verbatim (language="comment", text=
+        "Reference frame of the velocity data")
+      @unit (value="@enum VELOCITY_FRAME")
+      uint8 velocity_frame;
+
+      @verbatim (language="comment", text=
+        "[m/s] [@frame @velocity_frame] [@invalid NaN If invalid/unknown] Velocity.")
+      float__3 velocity;
+
+      @verbatim (language="comment", text=
+        "[rad/s] [@frame @VELOCITY_FRAME_BODY_FRD] [@invalid NaN If invalid/unknown] Angular velocity in body-fixed frame")
+      float__3 angular_velocity;
+
+      @verbatim (language="comment", text=
+        "Variance of position error")
+      @unit (value="m^2")
+      float__3 position_variance;
+
+      @verbatim (language="comment", text=
+        "Variance of orientation/attitude error (expressed in body frame)")
+      @unit (value="rad^2")
+      float__3 orientation_variance;
+
+      @verbatim (language="comment", text=
+        "Variance of velocity error")
+      @unit (value="m^2/s^2")
+      float__3 velocity_variance;
+
+      @verbatim (language="comment", text=
+        "Reset counter. Counts reset events on attitude, velocity and position.")
+      @unit (value="-")
+      uint8 reset_counter;
+
+      @verbatim (language="comment", text=
+        "[-] [@invalid 0] Quality. Unused.")
+      int8 quality;
+    };
+  };
+};

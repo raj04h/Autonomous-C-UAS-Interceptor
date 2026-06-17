@@ -1,0 +1,47 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/SatelliteInfo.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    typedef uint8 uint8__40[40];
+    module SatelliteInfo_Constants {
+      const uint8 SAT_INFO_MAX_SATELLITES = 40;
+    };
+    struct SatelliteInfo {
+      @verbatim (language="comment", text=
+        "time since system start (microseconds)")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Number of satellites visible to the receiver")
+      uint8 count;
+
+      @verbatim (language="comment", text=
+        "Space vehicle ID, see scheme below")
+      @unit (value="1..255")
+      uint8__40 svid;
+
+      @verbatim (language="comment", text=
+        "0: Satellite not used, 1: used for navigation")
+      uint8__40 used;
+
+      @verbatim (language="comment", text=
+        "Elevation (0: right on top of receiver, 90: on the horizon) of satellite")
+      uint8__40 elevation;
+
+      @verbatim (language="comment", text=
+        "Direction of satellite, 0: 0 deg, 255: 360 deg.")
+      uint8__40 azimuth;
+
+      @verbatim (language="comment", text=
+        "dBHz, Signal to noise ratio of satellite C/N0, range 0..99, zero when not tracking this satellite.")
+      uint8__40 snr;
+
+      @verbatim (language="comment", text=
+        "Satellite PRN code assignment, (psuedorandom number SBAS, valid codes are 120-144)")
+      uint8__40 prn;
+    };
+  };
+};

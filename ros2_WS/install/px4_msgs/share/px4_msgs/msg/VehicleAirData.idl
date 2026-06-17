@@ -1,0 +1,56 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/VehicleAirData.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "Vehicle air data" "\n"
+      "" "\n"
+      "Data from the currently selected barometer (plus ambient temperature from the source specified in temperature_source)." "\n"
+      "Includes calculated data such as barometric altitude and air density.")
+    struct VehicleAirData {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Timestamp of the raw data")
+      @unit (value="us")
+      uint64 timestamp_sample;
+
+      @verbatim (language="comment", text=
+        "Unique device ID for the selected barometer")
+      uint32 baro_device_id;
+
+      @verbatim (language="comment", text=
+        "[m] [@frame MSL] Altitude above MSL calculated from temperature compensated baro sensor data using an ISA corrected for sea level pressure SENS_BARO_QNH")
+      float baro_alt_meter;
+
+      @verbatim (language="comment", text=
+        "Absolute pressure")
+      @unit (value="Pa")
+      float baro_pressure_pa;
+
+      @verbatim (language="comment", text=
+        "Ambient temperature")
+      @unit (value="degC")
+      float ambient_temperature;
+
+      @verbatim (language="comment", text=
+        "Source of temperature data: 0: Default Temperature (15°C), 1: External Baro, 2: Airspeed")
+      uint8 temperature_source;
+
+      @verbatim (language="comment", text=
+        "Air density")
+      @unit (value="kg/m^3")
+      float rho;
+
+      @verbatim (language="comment", text=
+        "Calibration changed counter. Monotonically increases whenever calibration changes.")
+      uint8 calibration_count;
+    };
+  };
+};

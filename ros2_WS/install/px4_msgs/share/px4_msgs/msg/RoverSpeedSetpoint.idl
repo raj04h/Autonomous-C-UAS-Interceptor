@@ -1,0 +1,25 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/RoverSpeedSetpoint.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "Rover Speed Setpoint")
+    struct RoverSpeedSetpoint {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "[m/s] [@range -inf (Backwards), inf (Forwards)] [@frame Body] Speed setpoint in body x direction")
+      float speed_body_x;
+
+      @verbatim (language="comment", text=
+        "[m/s] [@range -inf (Left), inf (Right)] [@frame Body] [@invalid NaN If not mecanum] Mecanum only: Speed setpoint in body y direction")
+      float speed_body_y;
+    };
+  };
+};

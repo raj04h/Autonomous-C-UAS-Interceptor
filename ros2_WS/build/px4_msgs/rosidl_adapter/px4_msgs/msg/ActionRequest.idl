@@ -1,0 +1,77 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/ActionRequest.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    module ActionRequest_Constants {
+      @verbatim (language="comment", text=
+        "Disarm vehicle")
+      const uint8 ACTION_DISARM = 0;
+      @verbatim (language="comment", text=
+        "Arm vehicle")
+      const uint8 ACTION_ARM = 1;
+      @verbatim (language="comment", text=
+        "Toggle arming")
+      const uint8 ACTION_TOGGLE_ARMING = 2;
+      @verbatim (language="comment", text=
+        "Revert a kill action")
+      const uint8 ACTION_UNKILL = 3;
+      @verbatim (language="comment", text=
+        "Kill vehicle (instantly stop the motors)")
+      const uint8 ACTION_KILL = 4;
+      @verbatim (language="comment", text=
+        "Switch mode. The target mode is set in the `mode` field.")
+      const uint8 ACTION_SWITCH_MODE = 5;
+      @verbatim (language="comment", text=
+        "Transition to hover flight")
+      const uint8 ACTION_VTOL_TRANSITION_TO_MULTICOPTER = 6;
+      @verbatim (language="comment", text=
+        "Transition to fast forward flight")
+      const uint8 ACTION_VTOL_TRANSITION_TO_FIXEDWING = 7;
+      @verbatim (language="comment", text=
+        "Irreversibly output failsafe values on all outputs, trigger parachute")
+      const uint8 ACTION_TERMINATION = 8;
+      @verbatim (language="comment", text=
+        "Triggered by holding the sticks in a certain position")
+      const uint8 SOURCE_STICK_GESTURE = 0;
+      @verbatim (language="comment", text=
+        "Triggered by an RC switch moving into a certain position")
+      const uint8 SOURCE_RC_SWITCH = 1;
+      @verbatim (language="comment", text=
+        "Triggered by a momentary button on the RC being pressed or held")
+      const uint8 SOURCE_RC_BUTTON = 2;
+      @verbatim (language="comment", text=
+        "Mode change through the RC mode selection mechanism")
+      const uint8 SOURCE_RC_MODE_SLOT = 3;
+      const uint8 ORB_QUEUE_LENGTH = 4;
+    };
+    @verbatim (language="comment", text=
+      "Action request for the vehicle's main state" "\n"
+      "" "\n"
+      "Message represents actions requested by a PX4 internal component towards the main state machine such as a request to arm or switch mode." "\n"
+      "It allows mapping triggers from various external interfaces like RC channels or MAVLink to cause an action." "\n"
+      "Request are published by `manual_control` and subscribed by the `commander` and `vtol_att_control` modules.")
+    struct ActionRequest {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Requested action")
+      @unit (value="@enum ACTION")
+      uint8 action;
+
+      @verbatim (language="comment", text=
+        "Request trigger type, such as a switch, button or gesture")
+      @unit (value="@enum SOURCE")
+      uint8 source;
+
+      @verbatim (language="comment", text=
+        "Requested mode. Only applies when `action` is `ACTION_SWITCH_MODE`. Values for this field are defined by the `vehicle_status_s::NAVIGATION_STATE_*` enumeration.")
+      uint8 mode;
+    };
+  };
+};

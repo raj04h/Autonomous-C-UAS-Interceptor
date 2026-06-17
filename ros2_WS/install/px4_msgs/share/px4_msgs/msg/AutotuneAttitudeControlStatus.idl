@@ -1,0 +1,147 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/AutotuneAttitudeControlStatus.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    typedef float float__5[5];
+    typedef float float__3[3];
+    module AutotuneAttitudeControlStatus_Constants {
+      @verbatim (language="comment", text=
+        "Idle (not running)")
+      const uint8 STATE_IDLE = 0;
+      @verbatim (language="comment", text=
+        "Initialize filters and setup")
+      const uint8 STATE_INIT = 1;
+      @verbatim (language="comment", text=
+        "FW only: determine required excitation amplitude (roll)")
+      const uint8 STATE_ROLL_AMPLITUDE_DETECTION = 2;
+      @verbatim (language="comment", text=
+        "Roll-axis excitation and model identification")
+      const uint8 STATE_ROLL = 3;
+      @verbatim (language="comment", text=
+        "Pause to return to level flight")
+      const uint8 STATE_ROLL_PAUSE = 4;
+      @verbatim (language="comment", text=
+        "FW only: determine required excitation amplitude (pitch)")
+      const uint8 STATE_PITCH_AMPLITUDE_DETECTION = 5;
+      @verbatim (language="comment", text=
+        "Pitch-axis excitation and model identification")
+      const uint8 STATE_PITCH = 6;
+      @verbatim (language="comment", text=
+        "Pause to return to level flight")
+      const uint8 STATE_PITCH_PAUSE = 7;
+      @verbatim (language="comment", text=
+        "FW only: determine required excitation amplitude (yaw)")
+      const uint8 STATE_YAW_AMPLITUDE_DETECTION = 8;
+      @verbatim (language="comment", text=
+        "Yaw-axis excitation and model identification")
+      const uint8 STATE_YAW = 9;
+      @verbatim (language="comment", text=
+        "Pause to return to level flight")
+      const uint8 STATE_YAW_PAUSE = 10;
+      @verbatim (language="comment", text=
+        "Verify model and candidate gains")
+      const uint8 STATE_VERIFICATION = 11;
+      @verbatim (language="comment", text=
+        "Apply gains")
+      const uint8 STATE_APPLY = 12;
+      @verbatim (language="comment", text=
+        "Test gains in closed-loop")
+      const uint8 STATE_TEST = 13;
+      @verbatim (language="comment", text=
+        "Tuning completed successfully")
+      const uint8 STATE_COMPLETE = 14;
+      @verbatim (language="comment", text=
+        "Tuning failed (model invalid or controller unstable)")
+      const uint8 STATE_FAIL = 15;
+      @verbatim (language="comment", text=
+        "Waiting for disarm before finalizing")
+      const uint8 STATE_WAIT_FOR_DISARM = 16;
+    };
+    @verbatim (language="comment", text=
+      "Autotune attitude control status" "\n"
+      "" "\n"
+      "This message is published by the fw_autotune_attitude_control and mc_autotune_attitude_control modules when the user engages autotune," "\n"
+      "and is subscribed to by the respective attitude controllers to command rate setpoints." "\n"
+      "" "\n"
+      "The rate_sp field is consumed by the controllers, while the remaining fields (model coefficients, gains, filters, and autotune state) are used for logging and debugging.")
+    struct AutotuneAttitudeControlStatus {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Coefficients of the identified discrete-time model")
+      @unit (value="-")
+      float__5 coeff;
+
+      @verbatim (language="comment", text=
+        "Coefficients' variance of the identified discrete-time model")
+      @unit (value="-")
+      float__5 coeff_var;
+
+      @verbatim (language="comment", text=
+        "Fitness of the parameter estimate")
+      @unit (value="-")
+      float fitness;
+
+      @verbatim (language="comment", text=
+        "Innovation (residual error between model and measured output)")
+      @unit (value="rad/s")
+      float innov;
+
+      @verbatim (language="comment", text=
+        "Model sample time used for identification")
+      @unit (value="s")
+      float dt_model;
+
+      @verbatim (language="comment", text=
+        "Proportional rate-loop gain (ideal form)")
+      @unit (value="-")
+      float kc;
+
+      @verbatim (language="comment", text=
+        "Integral rate-loop gain (ideal form)")
+      @unit (value="-")
+      float ki;
+
+      @verbatim (language="comment", text=
+        "Derivative rate-loop gain (ideal form)")
+      @unit (value="-")
+      float kd;
+
+      @verbatim (language="comment", text=
+        "Feedforward rate-loop gain")
+      @unit (value="-")
+      float kff;
+
+      @verbatim (language="comment", text=
+        "Proportional attitude gain")
+      @unit (value="-")
+      float att_p;
+
+      @verbatim (language="comment", text=
+        "Rate setpoint commanded to the attitude controller.")
+      @unit (value="rad/s")
+      float__3 rate_sp;
+
+      @verbatim (language="comment", text=
+        "Filtered input signal (normalized torque setpoint) used in system identification.")
+      @unit (value="-")
+      float u_filt;
+
+      @verbatim (language="comment", text=
+        "Filtered output signal (angular velocity) used in system identification.")
+      @unit (value="rad/s")
+      float y_filt;
+
+      @verbatim (language="comment", text=
+        "Current state of the autotune procedure.")
+      @unit (value="@enum STATE")
+      uint8 state;
+    };
+  };
+};

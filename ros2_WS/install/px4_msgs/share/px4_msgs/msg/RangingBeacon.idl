@@ -1,0 +1,81 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/RangingBeacon.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    module RangingBeacon_Constants {
+      @verbatim (language="comment", text=
+        "Altitude above WGS84 ellipsoid")
+      const uint8 ALT_TYPE_WGS84 = 0;
+      @verbatim (language="comment", text=
+        "Altitude above Mean Sea Level (AMSL)")
+      const uint8 ALT_TYPE_MSL = 1;
+    };
+    @verbatim (language="comment", text=
+      "Ranging beacon measurement data (e.g. LoRa, UWB)")
+    struct RangingBeacon {
+      @verbatim (language="comment", text=
+        "time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "the timestamp of the raw data")
+      @unit (value="us")
+      uint64 timestamp_sample;
+
+      uint8 beacon_id;
+
+      @verbatim (language="comment", text=
+        "Range measurement")
+      @unit (value="m")
+      float range;
+
+      @verbatim (language="comment", text=
+        "Latitude")
+      @unit (value="deg")
+      double lat;
+
+      @verbatim (language="comment", text=
+        "Longitude")
+      @unit (value="deg")
+      double lon;
+
+      @verbatim (language="comment", text=
+        "Beacon altitude (frame defined in alt_type)")
+      @unit (value="m")
+      float alt;
+
+      @verbatim (language="comment", text=
+        "Altitude frame for alt field")
+      @unit (value="@enum ALT_TYPE")
+      uint8 alt_type;
+
+      @verbatim (language="comment", text=
+        "Groundbeacon horizontal accuracy")
+      @unit (value="m")
+      float hacc;
+
+      @verbatim (language="comment", text=
+        "Groundbeacon vertical accuracy")
+      @unit (value="m")
+      float vacc;
+
+      uint8 sequence_nr;
+
+      uint8 status;
+
+      @verbatim (language="comment", text=
+        "Carrier frequency")
+      @unit (value="MHz")
+      uint16 carrier_freq;
+
+      @verbatim (language="comment", text=
+        "Range accuracy estimate")
+      @unit (value="m")
+      float range_accuracy;
+    };
+  };
+};

@@ -1,0 +1,96 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/AirspeedWind.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    module AirspeedWind_Constants {
+      @verbatim (language="comment", text=
+        "Wind estimate only based on synthetic sideslip fusion")
+      const uint8 SOURCE_AS_BETA_ONLY = 0;
+      @verbatim (language="comment", text=
+        "Combined synthetic sideslip and airspeed fusion (data from first airspeed sensor)")
+      const uint8 SOURCE_AS_SENSOR_1 = 1;
+      @verbatim (language="comment", text=
+        "Combined synthetic sideslip and airspeed fusion (data from second airspeed sensor)")
+      const uint8 SOURCE_AS_SENSOR_2 = 2;
+      @verbatim (language="comment", text=
+        "Combined synthetic sideslip and airspeed fusion (data from third airspeed sensor)")
+      const uint8 SOURCE_AS_SENSOR_3 = 3;
+    };
+    @verbatim (language="comment", text=
+      "Wind estimate (from airspeed_selector)" "\n"
+      "" "\n"
+      "Contains wind estimation and airspeed innovation information estimated by the WindEstimator" "\n"
+      "in the airspeed selector module." "\n"
+      "" "\n"
+      "This message is published by the airspeed selector for debugging purposes, and is not" "\n"
+      "subscribed to by any other modules.")
+    struct AirspeedWind {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Timestamp of the raw data")
+      @unit (value="us")
+      uint64 timestamp_sample;
+
+      @verbatim (language="comment", text=
+        "Wind component in north / X direction")
+      @unit (value="m/s")
+      float windspeed_north;
+
+      @verbatim (language="comment", text=
+        "Wind component in east / Y direction")
+      @unit (value="m/s")
+      float windspeed_east;
+
+      @verbatim (language="comment", text=
+        "[(m/s)^2] [@invalid 0 if not estimated] Wind estimate error variance in north / X direction")
+      float variance_north;
+
+      @verbatim (language="comment", text=
+        "[(m/s)^2] [@invalid 0 if not estimated] Wind estimate error variance in east / Y direction")
+      float variance_east;
+
+      @verbatim (language="comment", text=
+        "True airspeed innovation")
+      @unit (value="m/s")
+      float tas_innov;
+
+      @verbatim (language="comment", text=
+        "True airspeed innovation variance")
+      @unit (value="m/s")
+      float tas_innov_var;
+
+      @verbatim (language="comment", text=
+        "Estimated true airspeed scale factor (not validated)")
+      float tas_scale_raw;
+
+      @verbatim (language="comment", text=
+        "True airspeed scale factor variance")
+      float tas_scale_raw_var;
+
+      @verbatim (language="comment", text=
+        "Estimated true airspeed scale factor after validation")
+      float tas_scale_validated;
+
+      @verbatim (language="comment", text=
+        "Sideslip measurement innovation")
+      @unit (value="rad")
+      float beta_innov;
+
+      @verbatim (language="comment", text=
+        "Sideslip measurement innovation variance")
+      @unit (value="rad^2")
+      float beta_innov_var;
+
+      @verbatim (language="comment", text=
+        "source of wind estimate")
+      uint8 source;
+    };
+  };
+};

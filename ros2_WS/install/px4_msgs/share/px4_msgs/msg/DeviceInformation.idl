@@ -1,0 +1,97 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/DeviceInformation.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    typedef uint8 uint8__80[80];
+    typedef uint8 uint8__24[24];
+    typedef uint8 uint8__33[33];
+    module DeviceInformation_Constants {
+      @verbatim (language="comment", text=
+        "Generic/unknown sensor")
+      const uint8 DEVICE_TYPE_GENERIC = 0;
+      @verbatim (language="comment", text=
+        "Airspeed sensor")
+      const uint8 DEVICE_TYPE_AIRSPEED = 1;
+      @verbatim (language="comment", text=
+        "ESC")
+      const uint8 DEVICE_TYPE_ESC = 2;
+      @verbatim (language="comment", text=
+        "Servo")
+      const uint8 DEVICE_TYPE_SERVO = 3;
+      @verbatim (language="comment", text=
+        "GPS")
+      const uint8 DEVICE_TYPE_GPS = 4;
+      @verbatim (language="comment", text=
+        "Magnetometer")
+      const uint8 DEVICE_TYPE_MAGNETOMETER = 5;
+      @verbatim (language="comment", text=
+        "Parachute")
+      const uint8 DEVICE_TYPE_PARACHUTE = 6;
+      @verbatim (language="comment", text=
+        "Rangefinder")
+      const uint8 DEVICE_TYPE_RANGEFINDER = 7;
+      @verbatim (language="comment", text=
+        "Winch")
+      const uint8 DEVICE_TYPE_WINCH = 8;
+      @verbatim (language="comment", text=
+        "Barometer")
+      const uint8 DEVICE_TYPE_BAROMETER = 9;
+      @verbatim (language="comment", text=
+        "Optical flow")
+      const uint8 DEVICE_TYPE_OPTICAL_FLOW = 10;
+      @verbatim (language="comment", text=
+        "Accelerometer")
+      const uint8 DEVICE_TYPE_ACCELEROMETER = 11;
+      @verbatim (language="comment", text=
+        "Gyroscope")
+      const uint8 DEVICE_TYPE_GYROSCOPE = 12;
+      @verbatim (language="comment", text=
+        "Differential pressure")
+      const uint8 DEVICE_TYPE_DIFFERENTIAL_PRESSURE = 13;
+      @verbatim (language="comment", text=
+        "Battery")
+      const uint8 DEVICE_TYPE_BATTERY = 14;
+      @verbatim (language="comment", text=
+        "Hygrometer")
+      const uint8 DEVICE_TYPE_HYGROMETER = 15;
+    };
+    @verbatim (language="comment", text=
+      "Device information" "\n"
+      "" "\n"
+      "Can be used to uniquely associate a device_id from a sensor topic with a physical device using serial number." "\n"
+      "as well as tracking of the used firmware versions on the devices.")
+    struct DeviceInformation {
+      @verbatim (language="comment", text=
+        "time since system start (microseconds)")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Type of the device. Matches MAVLink DEVICE_TYPE enum")
+      @unit (value="@enum DEVICE_TYPE")
+      uint8 device_type;
+
+      @verbatim (language="comment", text=
+        "Name of device e.g. DroneCAN node name")
+      uint8__80 name;
+
+      @verbatim (language="comment", text=
+        "[-] [@invalid 0 if not available] Unique device ID for the sensor. Does not change between power cycles.")
+      uint32 device_id;
+
+      @verbatim (language="comment", text=
+        "[-] [@invalid empty if not available] Firmware version.")
+      uint8__24 firmware_version;
+
+      @verbatim (language="comment", text=
+        "[-] [@invalid empty if not available] Hardware version.")
+      uint8__24 hardware_version;
+
+      @verbatim (language="comment", text=
+        "[-] [@invalid empty if not available] Device serial number or unique identifier.")
+      uint8__33 serial_number;
+    };
+  };
+};

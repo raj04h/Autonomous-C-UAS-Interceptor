@@ -1,0 +1,44 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/FixedWingRunwayControl.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    module FixedWingRunwayControl_Constants {
+      @verbatim (language="comment", text=
+        "ramping up throttle")
+      const uint8 STATE_THROTTLE_RAMP = 0;
+      @verbatim (language="comment", text=
+        "clamped to runway, controlling yaw directly (wheel or rudder)")
+      const uint8 STATE_CLAMPED_TO_RUNWAY = 1;
+      @verbatim (language="comment", text=
+        "climbout to safe height before navigation")
+      const uint8 STATE_CLIMBOUT = 2;
+      @verbatim (language="comment", text=
+        "navigate freely")
+      const uint8 STATE_FLYING = 3;
+    };
+    @verbatim (language="comment", text=
+      "Auxiliary control fields for fixed-wing runway takeoff/landing")
+    struct FixedWingRunwayControl {
+      @verbatim (language="comment", text=
+        "Passes information from the FixedWingModeManager to the FixedWingAttitudeController (wheel control) and FixedWingLandDetector (takeoff state)" "\n"
+        "[us] time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Current state of runway takeoff state machine")
+      uint8 runway_takeoff_state;
+
+      @verbatim (language="comment", text=
+        "Flag that enables the wheel steering.")
+      boolean wheel_steering_enabled;
+
+      @verbatim (language="comment", text=
+        "[norm] [@range -1, 1] [FRD] Manual wheel nudging, added to controller output. NAN is interpreted as 0.")
+      float wheel_steering_nudging_rate;
+    };
+  };
+};

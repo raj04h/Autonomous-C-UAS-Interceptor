@@ -1,0 +1,68 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/Vtx.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    typedef uint8 uint8__12[12];
+    typedef uint8 uint8__4[4];
+    module Vtx_Constants {
+      const uint8 BAND_NAME_LENGTH = 12;
+      const uint8 POWER_LABEL_LENGTH = 4;
+      @verbatim (language="comment", text=
+        "No protocol is detected, usually an error")
+      const uint8 PROTOCOL_NONE = 0;
+      const uint8 PROTOCOL_SMART_AUDIO_V1 = 10;
+      const uint8 PROTOCOL_SMART_AUDIO_V2 = 20;
+      const uint8 PROTOCOL_SMART_AUDIO_V2_1 = 21;
+      const uint8 PROTOCOL_TRAMP = 100;
+      const uint8 DEVICE_UNKNOWN = 0;
+      const uint8 DEVICE_PEAK_THOR_T67 = 20;
+      const uint8 DEVICE_RUSH_MAX_SOLO = 40;
+      const uint8 MODE_NORMAL = 0;
+      const uint8 MODE_PIT = 1;
+    };
+    struct Vtx {
+      @verbatim (language="comment", text=
+        "time since system start (microseconds)")
+      uint64 timestamp;
+
+      uint8 protocol;
+
+      uint8 device;
+
+      uint8 mode;
+
+      @verbatim (language="comment", text=
+        "Band and Channel are 0-indexed! But the user expects a 1-indexed display!" "\n"
+        "Band number (0-23), negative values indicate frequency mode")
+      int8 band;
+
+      @verbatim (language="comment", text=
+        "Channel number (0-15), negative values indicate frequency mode")
+      int8 channel;
+
+      @verbatim (language="comment", text=
+        "Frequency in MHz, zero indicates unknown")
+      uint16 frequency;
+
+      @verbatim (language="comment", text=
+        "Band letter as ASCII")
+      uint8 band_letter;
+
+      @verbatim (language="comment", text=
+        "Band name in ASCII without null termination")
+      uint8__12 band_name;
+
+      @verbatim (language="comment", text=
+        "Also 0-indexed, but the user expects a 1-indexed display!" "\n"
+        "Current power level (0-15), negative values indicate unknown")
+      int8 power_level;
+
+      @verbatim (language="comment", text=
+        "Current power label in ASCII without null termination")
+      uint8__4 power_label;
+    };
+  };
+};

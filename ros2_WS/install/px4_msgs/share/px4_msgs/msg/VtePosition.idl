@@ -1,0 +1,73 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/VtePosition.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    typedef float float__3[3];
+    @verbatim (language="comment", text=
+      "Vision Target Estimator position state, exposing the full per-axis Kalman filter state with covariances for logging and tuning." "\n"
+      "" "\n"
+      "Published by: vision_target_estimator (VTEPosition)." "\n"
+      "Subscribed by: logger only. The position-related fields consumed elsewhere (precision landing, EKF2 aiding) are exposed on landing_target_pose." "\n"
+      "" "\n"
+      "vel_target and acc_target are only populated when the firmware is built with CONFIG_VTEST_MOVING=y; otherwise they stay at zero.")
+    struct VtePosition {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Relative position estimate valid")
+      @unit (value="-")
+      boolean rel_pos_valid;
+
+      @verbatim (language="comment", text=
+        "Relative velocity estimate valid")
+      @unit (value="-")
+      boolean rel_vel_valid;
+
+      @verbatim (language="comment", text=
+        "[m] [@frame NED] Target position relative to vehicle")
+      float__3 rel_pos;
+
+      @verbatim (language="comment", text=
+        "[m/s] [@frame NED] Vehicle velocity")
+      float__3 vel_uav;
+
+      @verbatim (language="comment", text=
+        "[m/s] [@frame NED] Target velocity")
+      float__3 vel_target;
+
+      @verbatim (language="comment", text=
+        "[m] [@frame NED] GNSS bias between vehicle and target receivers")
+      float__3 bias;
+
+      @verbatim (language="comment", text=
+        "[m/s^2] [@frame NED] Target acceleration")
+      float__3 acc_target;
+
+      @verbatim (language="comment", text=
+        "[m^2] [@frame NED] Variance of rel_pos")
+      float__3 cov_rel_pos;
+
+      @verbatim (language="comment", text=
+        "[(m/s)^2] [@frame NED] Variance of vel_uav")
+      float__3 cov_vel_uav;
+
+      @verbatim (language="comment", text=
+        "[m^2] [@frame NED] Variance of bias")
+      float__3 cov_bias;
+
+      @verbatim (language="comment", text=
+        "[(m/s)^2] [@frame NED] Variance of vel_target")
+      float__3 cov_vel_target;
+
+      @verbatim (language="comment", text=
+        "[(m/s^2)^2] [@frame NED] Variance of acc_target")
+      float__3 cov_acc_target;
+    };
+  };
+};

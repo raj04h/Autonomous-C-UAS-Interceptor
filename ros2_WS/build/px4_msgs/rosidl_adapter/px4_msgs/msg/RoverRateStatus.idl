@@ -1,0 +1,30 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/RoverRateStatus.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "Rover Rate Status")
+    struct RoverRateStatus {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "[rad/s] [@range -inf, inf] [@frame NED] Measured yaw rate")
+      float measured_yaw_rate;
+
+      @verbatim (language="comment", text=
+        "[rad/s] [@range -inf, inf] [@frame NED] Yaw rate setpoint that is being tracked (Applied slew rates)")
+      float adjusted_yaw_rate_setpoint;
+
+      @verbatim (language="comment", text=
+        "[@range -1, 1] Integral of the PID for the closed loop yaw rate controller")
+      @unit (value="-")
+      float pid_yaw_rate_integral;
+    };
+  };
+};

@@ -1,0 +1,34 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/FiducialMarkerYawReport.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "Yaw of a precision-landing target relative to the NED (North, East, Down) frame, reported by a vision pipeline." "\n"
+      "" "\n"
+      "Published by: vision pipelines (on-board or off-board over MAVLink TARGET_RELATIVE), decoded in mavlink_receiver." "\n"
+      "Subscribed by: vision_target_estimator (VTEOrientation).")
+    struct FiducialMarkerYawReport {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Timestamp of the raw observation")
+      @unit (value="us")
+      uint64 timestamp_sample;
+
+      @verbatim (language="comment", text=
+        "[rad] [@frame NED] Orientation of the target relative to the NED frame [-Pi ; Pi]")
+      float yaw_ned;
+
+      @verbatim (language="comment", text=
+        "Orientation uncertainty")
+      @unit (value="rad^2")
+      float yaw_var_ned;
+    };
+  };
+};

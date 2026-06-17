@@ -1,0 +1,25 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/RoverAttitudeStatus.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "Rover Attitude Status")
+    struct RoverAttitudeStatus {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "[rad] [@range -pi, pi] [@frame NED]Measured yaw")
+      float measured_yaw;
+
+      @verbatim (language="comment", text=
+        "[rad] [@range -pi, pi] [@frame NED] Yaw setpoint that is being tracked (Applied slew rates)")
+      float adjusted_yaw_setpoint;
+    };
+  };
+};

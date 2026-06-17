@@ -1,0 +1,38 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/RoverPositionSetpoint.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    typedef float float__2[2];
+    @verbatim (language="comment", text=
+      "Rover Position Setpoint")
+    struct RoverPositionSetpoint {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "[m] [@range -inf, inf] [@frame NED] Target position")
+      float__2 position_ned;
+
+      @verbatim (language="comment", text=
+        "[m] [@range -inf, inf] [@frame NED] [@invalid NaN Defaults to vehicle position] Start position which specifies a line for the rover to track")
+      float__2 start_ned;
+
+      @verbatim (language="comment", text=
+        "[m/s] [@range 0, inf] [@invalid NaN Defaults to maximum speed] Cruising speed")
+      float cruising_speed;
+
+      @verbatim (language="comment", text=
+        "[m/s] [@range 0, inf] [@invalid NaN Defaults to 0] Speed the rover should arrive at the target with")
+      float arrival_speed;
+
+      @verbatim (language="comment", text=
+        "[rad] [@range -pi,pi] [@frame NED] [@invalid NaN Defaults to vehicle yaw] Mecanum only: Specify vehicle yaw during travel")
+      float yaw;
+    };
+  };
+};

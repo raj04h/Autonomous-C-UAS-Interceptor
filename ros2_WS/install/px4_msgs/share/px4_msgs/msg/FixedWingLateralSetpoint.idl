@@ -1,0 +1,37 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/FixedWingLateralSetpoint.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    module FixedWingLateralSetpoint_Constants {
+      const uint32 MESSAGE_VERSION = 0;
+    };
+    @verbatim (language="comment", text=
+      "Fixed Wing Lateral Setpoint message" "\n"
+      "" "\n"
+      "Used by the fw_lateral_longitudinal_control module" "\n"
+      "At least one of course, airspeed_direction, or lateral_acceleration must be finite.")
+    struct FixedWingLateralSetpoint {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "[@range -pi, pi] Desired direction of travel over ground w.r.t (true) North. NAN if not controlled directly.")
+      @unit (value="rad")
+      float course;
+
+      @verbatim (language="comment", text=
+        "[@range -pi, pi] Desired horizontal angle of airspeed vector w.r.t. (true) North. Same as vehicle heading if in the absence of sideslip. NAN if not controlled directly, takes precedence over course if finite.")
+      @unit (value="rad")
+      float airspeed_direction;
+
+      @verbatim (language="comment", text=
+        "[m/s^2] [@frame FRD] Lateral acceleration setpoint. NAN if not controlled directly, used as feedforward if either course setpoint or airspeed_direction is finite.")
+      float lateral_acceleration;
+    };
+  };
+};

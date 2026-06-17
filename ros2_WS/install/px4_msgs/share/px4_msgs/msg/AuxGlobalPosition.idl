@@ -1,0 +1,90 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/AuxGlobalPosition.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    module AuxGlobalPosition_Constants {
+      const uint32 MESSAGE_VERSION = 1;
+      @verbatim (language="comment", text=
+        "Unknown source")
+      const uint8 SOURCE_UNKNOWN = 0;
+      @verbatim (language="comment", text=
+        "GNSS")
+      const uint8 SOURCE_GNSS = 1;
+      @verbatim (language="comment", text=
+        "Vision")
+      const uint8 SOURCE_VISION = 2;
+      @verbatim (language="comment", text=
+        "Pseudolites")
+      const uint8 SOURCE_PSEUDOLITES = 3;
+      @verbatim (language="comment", text=
+        "Terrain")
+      const uint8 SOURCE_TERRAIN = 4;
+      @verbatim (language="comment", text=
+        "Magnetic")
+      const uint8 SOURCE_MAGNETIC = 5;
+      @verbatim (language="comment", text=
+        "Estimator")
+      const uint8 SOURCE_ESTIMATOR = 6;
+      @verbatim (language="comment", text=
+        "Low Earth Orbit satellite-based positioning")
+      const uint8 SOURCE_LEO = 7;
+    };
+    @verbatim (language="comment", text=
+      "Auxiliary global position" "\n"
+      "" "\n"
+      "This message provides global position data from an external source such as" "\n"
+      "pseudolites, visual navigation, or other positioning system.")
+    struct AuxGlobalPosition {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Timestamp of the raw data")
+      @unit (value="us")
+      uint64 timestamp_sample;
+
+      @verbatim (language="comment", text=
+        "Unique identifier for the AGP source")
+      @unit (value="-")
+      uint8 id;
+
+      @verbatim (language="comment", text=
+        "Source type of the position data (based on mavlink::GLOBAL_POSITION_SRC)")
+      @unit (value="@enum SOURCE")
+      uint8 source;
+
+      @verbatim (language="comment", text=
+        "lat, lon: required for horizontal position fusion, alt: required for vertical position fusion" "\n"
+        "[deg] Latitude in WGS84")
+      @unit (value="deg")
+      double lat;
+
+      @verbatim (language="comment", text=
+        "Longitude in WGS84")
+      @unit (value="deg")
+      double lon;
+
+      @verbatim (language="comment", text=
+        "[m] [@invalid NaN] Altitude above mean sea level (AMSL)")
+      float alt;
+
+      @verbatim (language="comment", text=
+        "[m] [@invalid NaN] Std dev of horizontal position, lower bounded by NOISE param")
+      float eph;
+
+      @verbatim (language="comment", text=
+        "[m] [@invalid NaN] Std dev of vertical position, lower bounded by NOISE param")
+      float epv;
+
+      @verbatim (language="comment", text=
+        "Counter for reset events on horizontal position coordinates")
+      @unit (value="-")
+      uint8 lat_lon_reset_counter;
+    };
+  };
+};

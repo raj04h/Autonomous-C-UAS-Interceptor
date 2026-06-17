@@ -1,0 +1,80 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/TargetGnss.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "Landing target GNSS position in WGS84 coordinates, and optional NED velocity, from a target-mounted receiver." "\n"
+      "" "\n"
+      "Published by: mavlink_receiver (when decoding TARGET_ABSOLUTE with position/velocity capability bits set)." "\n"
+      "Subscribed by: vision_target_estimator (VTEPosition)." "\n"
+      "" "\n"
+      "abs_pos_updated / vel_ned_updated tell the estimator which fields in this sample are fresh.")
+    struct TargetGnss {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Timestamp of the raw observation")
+      @unit (value="us")
+      uint64 timestamp_sample;
+
+      @verbatim (language="comment", text=
+        "Latitude, allows centimeter level RTK precision")
+      @unit (value="deg")
+      double latitude_deg;
+
+      @verbatim (language="comment", text=
+        "Longitude, allows centimeter level RTK precision")
+      @unit (value="deg")
+      double longitude_deg;
+
+      @verbatim (language="comment", text=
+        "Altitude above MSL")
+      @unit (value="m")
+      float altitude_msl_m;
+
+      @verbatim (language="comment", text=
+        "GNSS horizontal position accuracy")
+      @unit (value="m")
+      float eph;
+
+      @verbatim (language="comment", text=
+        "GNSS vertical position accuracy")
+      @unit (value="m")
+      float epv;
+
+      @verbatim (language="comment", text=
+        "True if WGS84 position is updated")
+      boolean abs_pos_updated;
+
+      @verbatim (language="comment", text=
+        "GNSS North velocity")
+      @unit (value="m/s")
+      float vel_n_m_s;
+
+      @verbatim (language="comment", text=
+        "GNSS East velocity")
+      @unit (value="m/s")
+      float vel_e_m_s;
+
+      @verbatim (language="comment", text=
+        "GNSS Down velocity")
+      @unit (value="m/s")
+      float vel_d_m_s;
+
+      @verbatim (language="comment", text=
+        "GNSS speed accuracy estimate")
+      @unit (value="m/s")
+      float s_acc_m_s;
+
+      @verbatim (language="comment", text=
+        "True if NED velocity is updated")
+      boolean vel_ned_updated;
+    };
+  };
+};

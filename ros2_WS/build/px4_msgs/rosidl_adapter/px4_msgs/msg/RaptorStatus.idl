@@ -1,0 +1,157 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/RaptorStatus.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    typedef float float__3[3];
+    module RaptorStatus_Constants {
+      @verbatim (language="comment", text=
+        "Diagnostic messages for the Raptor foundation policy." "\n"        "This diagnostic data is useful for debugging (e.g. identifying missing input information).")
+      const uint32 MESSAGE_VERSION = 0;
+      @verbatim (language="comment", text=
+        "No exit reason => Raptor control step was executed (actuator_motors should have been published)")
+      const uint8 EXIT_REASON_NONE = 0;
+      @verbatim (language="comment", text=
+        "We synchronize the control onto the input observation with the highest update frequency, which is vehicle_angular_velocity. If there was no update, we do not need to execute the policy again")
+      const uint8 EXIT_REASON_NO_ANGULAR_VELOCITY_UPDATE = 1;
+      @verbatim (language="comment", text=
+        "We can not execute the policy if not all observations are available")
+      const uint8 EXIT_REASON_NOT_ALL_OBSERVATIONS_SET = 2;
+      @verbatim (language="comment", text=
+        "If OBSERVATION_TIMEOUT_ANGULAR_VELOCITY is exceeded, we treat the vehicle_angular_velocity as stale and can not run the policy")
+      const uint8 EXIT_REASON_ANGULAR_VELOCITY_STALE = 3;
+      @verbatim (language="comment", text=
+        "If OBSERVATION_TIMEOUT_LOCAL_POSITION is exceeded, we treat the vehicle_local_position as stale and can not run the policy")
+      const uint8 EXIT_REASON_LOCAL_POSITION_STALE = 4;
+      @verbatim (language="comment", text=
+        "If OBSERVATION_TIMEOUT_ATTITUDE is exceeded, we treat the vehicle_attitude as stale and can not run the policy")
+      const uint8 EXIT_REASON_ATTITUDE_STALE = 5;
+      @verbatim (language="comment", text=
+        "The executor that runs the policy can run in oversampling mode, where it decides if the policy should be ran based on the timestamp and not based on fixed synchronization onto the vehicle_angular_velocity. In this case the executor can decide to skip running the policy if the interval is too small, in which case this flag is set.")
+      const uint8 EXIT_REASON_EXECUTOR_STATUS_SOURCE_NOT_CONTROL = 6;
+    };
+    @verbatim (language="comment", text=
+      "Raptor Status")
+    struct RaptorStatus {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Sampling timestamp of the data this control response is based on")
+      @unit (value="us")
+      uint64 timestamp_sample;
+
+      @verbatim (language="comment", text=
+        "Flag signalling if the vehicle_angular_velocity was updated")
+      @unit (value="bool")
+      boolean subscription_update_angular_velocity;
+
+      @verbatim (language="comment", text=
+        "Flag signalling if the vehicle_local_position was updated")
+      @unit (value="bool")
+      boolean subscription_update_local_position;
+
+      @verbatim (language="comment", text=
+        "Flag signalling if the vehicle_attitude was updated")
+      @unit (value="bool")
+      boolean subscription_update_attitude;
+
+      @verbatim (language="comment", text=
+        "Flag signalling if the trajectory_setpoint was updated")
+      @unit (value="bool")
+      boolean subscription_update_trajectory_setpoint;
+
+      @verbatim (language="comment", text=
+        "Flag signalling if the vehicle_status was updated")
+      @unit (value="bool")
+      boolean subscription_update_vehicle_status;
+
+      @verbatim (language="comment", text=
+        "Exit reason identifier. Representing conditions that lead to the Raptor policy not being executed")
+      @unit (value="enum")
+      uint8 exit_reason;
+
+      @verbatim (language="comment", text=
+        "Timestamp of the last received vehicle_angular_velocity message")
+      @unit (value="us")
+      uint32 timestamp_last_vehicle_angular_velocity;
+
+      @verbatim (language="comment", text=
+        "Timestamp of the last received vehicle_local_position message")
+      @unit (value="us")
+      uint32 timestamp_last_vehicle_local_position;
+
+      @verbatim (language="comment", text=
+        "Timestamp of the last received vehicle_attitude message")
+      @unit (value="us")
+      uint32 timestamp_last_vehicle_attitude;
+
+      @verbatim (language="comment", text=
+        "Timestamp of the last received trajectory_setpoint message")
+      @unit (value="us")
+      uint32 timestamp_last_trajectory_setpoint;
+
+      @verbatim (language="comment", text=
+        "True if vehicle_angular_velocity data is considered stale (exceeded timeout)")
+      @unit (value="bool")
+      boolean vehicle_angular_velocity_stale;
+
+      @verbatim (language="comment", text=
+        "True if vehicle_local_position data is considered stale (exceeded timeout)")
+      @unit (value="bool")
+      boolean vehicle_local_position_stale;
+
+      @verbatim (language="comment", text=
+        "True if vehicle_attitude data is considered stale (exceeded timeout)")
+      @unit (value="bool")
+      boolean vehicle_attitude_stale;
+
+      @verbatim (language="comment", text=
+        "True if trajectory_setpoint data is considered stale (exceeded timeout)")
+      @unit (value="bool")
+      boolean trajectory_setpoint_stale;
+
+      @verbatim (language="comment", text=
+        "True if the Raptor policy is currently active (publishing actuator_motors)")
+      @unit (value="bool")
+      boolean active;
+
+      @verbatim (language="comment", text=
+        "The policy is trained at a fixed frequency (e.g. 100 Hz) but we might want to use it for control at higher frequencies (e.g. 400 Hz), which leads to a number of intermediate steps before the actual policy state is advanced (in this case 4 = 400 Hz / 100 Hz). This field provides the current substep (e.g. 0-3).")
+      @unit (value="-")
+      uint8 substep;
+
+      @verbatim (language="comment", text=
+        "Time interval between control updates")
+      @unit (value="s")
+      float control_interval;
+
+      @verbatim (language="comment", text=
+        "The average trajectory setpoint arrival time interval (since Raptor mode activation within NUM_TRAJECTORY_SETPOINT_DTS received trajectory_setpoint messages)")
+      @unit (value="us")
+      float trajectory_setpoint_dt_mean;
+
+      @verbatim (language="comment", text=
+        "The max trajectory setpoint arrival time interval (since Raptor mode activation and within NUM_TRAJECTORY_SETPOINT_DTS received trajectory_setpoint messages)")
+      @unit (value="us")
+      float trajectory_setpoint_dt_max;
+
+      @verbatim (language="comment", text=
+        "The max trajectory setpoint arrival time interval (since Raptor mode activation)")
+      @unit (value="us")
+      float trajectory_setpoint_dt_max_since_activation;
+
+      @verbatim (language="comment", text=
+        "[m] [@frame FLU] Internal reference position")
+      float__3 internal_reference_position;
+
+      @verbatim (language="comment", text=
+        "[m/s] [@frame FLU] Internal reference linear velocity")
+      float__3 internal_reference_linear_velocity;
+    };
+  };
+};

@@ -1,0 +1,44 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/ActuatorMotors.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    typedef float float__12[12];
+    module ActuatorMotors_Constants {
+      const uint32 MESSAGE_VERSION = 0;
+      @verbatim (language="comment", text=
+        "output_functions.yaml Motor.start")
+      const uint8 ACTUATOR_FUNCTION_MOTOR1 = 101;
+      @verbatim (language="comment", text=
+        "output_functions.yaml Motor.count")
+      const uint8 NUM_CONTROLS = 12;
+    };
+    @verbatim (language="comment", text=
+      "Motor control message" "\n"
+      "" "\n"
+      "Normalised thrust setpoint for up to 12 motors." "\n"
+      "Published by the vehicle's allocation and consumed by the ESC protocol drivers e.g. PWM, DSHOT, UAVCAN.")
+    struct ActuatorMotors {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Sampling timestamp of the data this control response is based on")
+      @unit (value="us")
+      uint64 timestamp_sample;
+
+      @verbatim (language="comment", text=
+        "Bitset indicating which motors are configured to be reversible")
+      @unit (value="-")
+      uint16 reversible_flags;
+
+      @verbatim (language="comment", text=
+        "[@range -1, 1] Normalized thrust. Where 1 means maximum positive thrust, -1 maximum negative (if not supported by the output, <0 maps to NaN). NaN maps to disarmed (stop the motors)")
+      float__12 control;
+    };
+  };
+};

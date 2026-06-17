@@ -1,0 +1,122 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/CellularStatus.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    module CellularStatus_Constants {
+      @verbatim (language="comment", text=
+        "State unknown or not reportable")
+      const uint16 STATUS_FLAG_UNKNOWN = 1;
+      @verbatim (language="comment", text=
+        "Modem is unusable")
+      const uint16 STATUS_FLAG_FAILED = 2;
+      @verbatim (language="comment", text=
+        "Modem is being initialized")
+      const uint16 STATUS_FLAG_INITIALIZING = 4;
+      @verbatim (language="comment", text=
+        "Modem is locked")
+      const uint16 STATUS_FLAG_LOCKED = 8;
+      @verbatim (language="comment", text=
+        "Modem is not enabled and is powered down")
+      const uint16 STATUS_FLAG_DISABLED = 16;
+      @verbatim (language="comment", text=
+        "Modem is currently transitioning to the STATUS_FLAG_DISABLED state")
+      const uint16 STATUS_FLAG_DISABLING = 32;
+      @verbatim (language="comment", text=
+        "Modem is currently transitioning to the STATUS_FLAG_ENABLED state")
+      const uint16 STATUS_FLAG_ENABLING = 64;
+      @verbatim (language="comment", text=
+        "Modem is enabled and powered on but not registered with a network provider and not available for data connections")
+      const uint16 STATUS_FLAG_ENABLED = 128;
+      @verbatim (language="comment", text=
+        "Modem is searching for a network provider to register")
+      const uint16 STATUS_FLAG_SEARCHING = 256;
+      @verbatim (language="comment", text=
+        "Modem is registered with a network provider, and data connections and messaging may be available for use")
+      const uint16 STATUS_FLAG_REGISTERED = 512;
+      @verbatim (language="comment", text=
+        "Modem is disconnecting and deactivating the last active packet data bearer. This state will not be entered if more than one packet data bearer is active and one of the active bearers is deactivated")
+      const uint16 STATUS_FLAG_DISCONNECTING = 1024;
+      @verbatim (language="comment", text=
+        "Modem is activating and connecting the first packet data bearer. Subsequent bearer activations when another bearer is already active do not cause this state to be entered")
+      const uint16 STATUS_FLAG_CONNECTING = 2048;
+      @verbatim (language="comment", text=
+        "One or more packet data bearers is active and connected")
+      const uint16 STATUS_FLAG_CONNECTED = 4096;
+      @verbatim (language="comment", text=
+        "No error")
+      const uint8 FAILURE_REASON_NONE = 0;
+      @verbatim (language="comment", text=
+        "Error state is unknown")
+      const uint8 FAILURE_REASON_UNKNOWN = 1;
+      @verbatim (language="comment", text=
+        "SIM is required for the modem but missing")
+      const uint8 FAILURE_REASON_SIM_MISSING = 2;
+      @verbatim (language="comment", text=
+        "SIM is available, but not usable for connection")
+      const uint8 FAILURE_REASON_SIM_ERROR = 3;
+      @verbatim (language="comment", text=
+        "None")
+      const uint8 CELLULAR_NETWORK_RADIO_TYPE_NONE = 0;
+      @verbatim (language="comment", text=
+        "GSM")
+      const uint8 CELLULAR_NETWORK_RADIO_TYPE_GSM = 1;
+      @verbatim (language="comment", text=
+        "CDMA")
+      const uint8 CELLULAR_NETWORK_RADIO_TYPE_CDMA = 2;
+      @verbatim (language="comment", text=
+        "WCDMA")
+      const uint8 CELLULAR_NETWORK_RADIO_TYPE_WCDMA = 3;
+      @verbatim (language="comment", text=
+        "LTE")
+      const uint8 CELLULAR_NETWORK_RADIO_TYPE_LTE = 4;
+    };
+    @verbatim (language="comment", text=
+      "Cellular status" "\n"
+      "" "\n"
+      "This is currently used only for logging cell status from MAVLink.")
+    struct CellularStatus {
+      @verbatim (language="comment", text=
+        "Time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Status bitmap")
+      @unit (value="@enum STATUS_FLAG")
+      uint16 status;
+
+      @verbatim (language="comment", text=
+        "Failure reason")
+      @unit (value="@enum FAILURE_REASON")
+      uint8 failure_reason;
+
+      @verbatim (language="comment", text=
+        "Cellular network radio type")
+      @unit (value="@enum CELLULAR_NETWORK_RADIO_TYPE")
+      uint8 type;
+
+      @verbatim (language="comment", text=
+        "Cellular network RSSI/RSRP, absolute value")
+      @unit (value="dBm")
+      uint8 quality;
+
+      @verbatim (language="comment", text=
+        "Mobile country code")
+      @unit (value="@invalid UINT16_MAX")
+      uint16 mcc;
+
+      @verbatim (language="comment", text=
+        "Mobile network code")
+      @unit (value="@invalid UINT16_MAX")
+      uint16 mnc;
+
+      @verbatim (language="comment", text=
+        "Location area code")
+      @unit (value="@invalid 0")
+      uint16 lac;
+    };
+  };
+};
