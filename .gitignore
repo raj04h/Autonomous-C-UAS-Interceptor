@@ -22,6 +22,9 @@ ros_env/
 *.swp
 *.swo
 
+#Assets
+assets/
+
 # Models
 
 

@@ -36,12 +36,36 @@ from perception_node.yolo_detector import (
 # Configuration
 # ==========================================
 
+def get_project_root():
+
+    current_path = Path(__file__).resolve()
+
+    while current_path.name != "Counter_UAS":
+
+        if current_path.parent == current_path:
+
+            raise RuntimeError(
+                "Counter_UAS project root not found."
+            )
+
+        current_path = current_path.parent
+
+    return current_path
+
+
+PROJECT_ROOT = get_project_root()
+
+
+# ==========================================
+# Configuration
+# ==========================================
+
 class Configuration:
 
-    VIDEO_PATH = Path(
-        "/mnt/5252B43652B420A1/Deep_Project/"
-        "Counter_UAS/datasets/detection/videos/"
-        "drone_video.mp4"
+    VIDEO_PATH = (
+        PROJECT_ROOT
+        / "assets"
+        / "drone_video.mp4"
     )
 
     WINDOW_NAME = (
