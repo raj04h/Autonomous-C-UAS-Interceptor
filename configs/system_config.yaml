@@ -1,0 +1,11 @@
+project:
+
+  name: Counter_UAS
+
+assets:
+
+  video_path: assets/drone_video.mp4
+
+models:
+
+  yolo_model_path: models/yolo/yolo26n.pt
