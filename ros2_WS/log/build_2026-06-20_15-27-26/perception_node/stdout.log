@@ -1,0 +1,42 @@
+running egg_info
+creating ../../build/perception_node/perception_node.egg-info
+writing ../../build/perception_node/perception_node.egg-info/PKG-INFO
+writing dependency_links to ../../build/perception_node/perception_node.egg-info/dependency_links.txt
+writing entry points to ../../build/perception_node/perception_node.egg-info/entry_points.txt
+writing requirements to ../../build/perception_node/perception_node.egg-info/requires.txt
+writing top-level names to ../../build/perception_node/perception_node.egg-info/top_level.txt
+writing manifest file '../../build/perception_node/perception_node.egg-info/SOURCES.txt'
+reading manifest file '../../build/perception_node/perception_node.egg-info/SOURCES.txt'
+writing manifest file '../../build/perception_node/perception_node.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/build
+creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/build/lib
+creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/build/lib/perception_node
+copying perception_node/camera_viewer.py -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/build/lib/perception_node
+copying perception_node/detection_publisher.py -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/build/lib/perception_node
+copying perception_node/yolo_detector.py -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/build/lib/perception_node
+copying perception_node/__init__.py -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/build/lib/perception_node
+running install
+running install_lib
+creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages/perception_node
+copying /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/build/lib/perception_node/camera_viewer.py -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages/perception_node
+copying /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/build/lib/perception_node/detection_publisher.py -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages/perception_node
+copying /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/build/lib/perception_node/yolo_detector.py -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages/perception_node
+copying /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/build/lib/perception_node/__init__.py -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages/perception_node
+byte-compiling /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages/perception_node/camera_viewer.py to camera_viewer.cpython-310.pyc
+byte-compiling /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages/perception_node/detection_publisher.py to detection_publisher.cpython-310.pyc
+byte-compiling /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages/perception_node/yolo_detector.py to yolo_detector.cpython-310.pyc
+byte-compiling /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages/perception_node/__init__.py to __init__.cpython-310.pyc
+running install_data
+creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/share/ament_index
+creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/share/ament_index/resource_index
+creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/share/ament_index/resource_index/packages
+copying resource/perception_node -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/share/ament_index/resource_index/packages
+copying package.xml -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/share/perception_node
+running install_egg_info
+Copying ../../build/perception_node/perception_node.egg-info to /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages/perception_node-0.0.0-py3.10.egg-info
+running install_scripts
+Installing camera_viewer script to /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/perception_node
+Installing detection_publisher script to /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/perception_node
+writing list of installed files to '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/install.log'

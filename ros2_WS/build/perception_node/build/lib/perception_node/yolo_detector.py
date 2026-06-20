@@ -1,0 +1,205 @@
+
+# ==========================================
+# YOLO Detector
+#
+# Responsibility:
+#   1. Load YOLO Model
+#   2. Run Inference
+#   3. Convert YOLO Results
+#   4. Return Standard Detection Format
+#
+# Output Format:
+#
+# [
+#     {
+#         "class_name": "drone",
+#         "confidence": 0.91,
+#         "bbox": [x1, y1, x2, y2]
+#     }
+# ]
+# ==========================================
+
+# ==========================================
+# Imports
+# ==========================================
+
+from pathlib import Path
+
+from ultralytics import YOLO
+
+
+# ==========================================
+# Project Root Discovery
+# ==========================================
+
+def get_project_root():
+
+    current_path = Path(__file__).resolve()
+
+    while current_path.name != "Counter_UAS":
+
+        if current_path.parent == current_path:
+
+            raise RuntimeError(
+                "Counter_UAS project root not found."
+            )
+
+        current_path = current_path.parent
+
+    return current_path
+
+
+PROJECT_ROOT = get_project_root()
+
+
+# ==========================================
+# Configuration
+# ==========================================
+
+class Configuration:
+
+    MODEL_PATH = (
+        PROJECT_ROOT
+        / "models"
+        / "yolo"
+        / "yolo26n.pt"
+    )
+
+    CONFIDENCE_THRESHOLD = 0.20
+
+
+# ==========================================
+# YOLO Detector
+# ==========================================
+
+class YOLODetector:
+
+    def __init__(self, config):
+
+        self.config = config
+
+        # Verify model exists
+
+        if not self.config.MODEL_PATH.exists():
+
+            raise FileNotFoundError(
+                f"Model not found: "
+                f"{self.config.MODEL_PATH}"
+            )
+
+        # Load YOLO model
+
+        self.model = YOLO(
+            str(self.config.MODEL_PATH)
+        )
+
+        print(
+            f"Model Loaded: "
+            f"{self.config.MODEL_PATH}"
+        )
+
+    # ======================================
+    # Run Inference
+    # ======================================
+
+    def detect(self, frame):
+
+        results = self.model(
+            frame,
+            conf=self.config.CONFIDENCE_THRESHOLD,
+            verbose=False
+        )
+
+        return results[0]
+
+    # ======================================
+    # Convert Results
+    # ======================================
+
+    def get_detections(self, results):
+
+        detections = []
+
+        for box in results.boxes:
+
+            x1, y1, x2, y2 = map(
+                int,
+                box.xyxy[0]
+            )
+
+            confidence = float(
+                box.conf[0]
+            )
+
+            if (
+                confidence
+                < self.config.CONFIDENCE_THRESHOLD
+            ):
+                continue
+
+            class_id = int(
+                box.cls[0]
+            )
+
+            class_name = (
+                results.names[class_id]
+            )
+
+            detections.append(
+                {
+                    "class_name": class_name,
+
+                    "confidence": confidence,
+
+                    "bbox": [
+                        x1,
+                        y1,
+                        x2,
+                        y2
+                    ]
+                }
+            )
+
+        return detections
+
+
+# ==========================================
+# Main
+# ==========================================
+
+def main():
+
+    try:
+
+        config = Configuration()
+
+        detector = YOLODetector(
+            config
+        )
+
+        print(
+            "YOLO Detector Initialized Successfully"
+        )
+
+    except FileNotFoundError as e:
+
+        print(
+            f"Model File Not Found: {e}"
+        )
+
+    except RuntimeError as e:
+
+        print(
+            f"Runtime Error: {e}"
+        )
+
+    except Exception as e:
+
+        print(
+            f"Unexpected Error: {e}"
+        )
+
+
+if __name__ == "__main__":
+
+    main()

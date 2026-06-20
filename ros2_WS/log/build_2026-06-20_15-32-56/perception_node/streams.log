@@ -1,0 +1,28 @@
+[0.795s] Invoking command in '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/perception_node': PYTHONPATH=/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/perception_node build --build-base /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/build install --record /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/install.log --single-version-externally-managed install_data
+[1.090s] running egg_info
+[1.096s] writing ../../build/perception_node/perception_node.egg-info/PKG-INFO
+[1.097s] writing dependency_links to ../../build/perception_node/perception_node.egg-info/dependency_links.txt
+[1.097s] writing entry points to ../../build/perception_node/perception_node.egg-info/entry_points.txt
+[1.097s] writing requirements to ../../build/perception_node/perception_node.egg-info/requires.txt
+[1.098s] writing top-level names to ../../build/perception_node/perception_node.egg-info/top_level.txt
+[1.100s] reading manifest file '../../build/perception_node/perception_node.egg-info/SOURCES.txt'
+[1.102s] writing manifest file '../../build/perception_node/perception_node.egg-info/SOURCES.txt'
+[1.103s] running build
+[1.103s] running build_py
+[1.103s] copying perception_node/camera_viewer.py -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/build/lib/perception_node
+[1.103s] copying perception_node/detection_publisher.py -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/build/lib/perception_node
+[1.104s] running install
+[1.104s] running install_lib
+[1.106s] copying /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/build/lib/perception_node/camera_viewer.py -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages/perception_node
+[1.106s] copying /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/build/lib/perception_node/detection_publisher.py -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages/perception_node
+[1.107s] byte-compiling /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages/perception_node/camera_viewer.py to camera_viewer.cpython-310.pyc
+[1.109s] byte-compiling /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages/perception_node/detection_publisher.py to detection_publisher.cpython-310.pyc
+[1.111s] running install_data
+[1.112s] running install_egg_info
+[1.115s] removing '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages/perception_node-0.0.0-py3.10.egg-info' (and everything under it)
+[1.115s] Copying ../../build/perception_node/perception_node.egg-info to /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages/perception_node-0.0.0-py3.10.egg-info
+[1.119s] running install_scripts
+[1.144s] Installing camera_viewer script to /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/perception_node
+[1.145s] Installing detection_publisher script to /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/perception_node
+[1.146s] writing list of installed files to '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/install.log'
+[1.178s] Invoked command in '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/perception_node' returned '0': PYTHONPATH=/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/perception_node build --build-base /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/build install --record /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/install.log --single-version-externally-managed install_data

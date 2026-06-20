@@ -1,0 +1,38 @@
+# ROS2
+build/
+install/
+log/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual Environments
+venv/
+cv_env/
+ros_env/
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Linux
+*.swp
+*.swo
+
+# Models
+*.pt
+
+# Datasets
+datasets/
+
+# ROS Generated
+*.egg-info/
+
+# Colcon
+.colcon/
+
+# Logs
+logs/

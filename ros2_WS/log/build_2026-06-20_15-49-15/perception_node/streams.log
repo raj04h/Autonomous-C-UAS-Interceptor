@@ -1,0 +1,25 @@
+[0.840s] Invoking command in '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/perception_node': PYTHONPATH=/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/perception_node build --build-base /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/build install --record /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/install.log --single-version-externally-managed install_data
+[1.158s] running egg_info
+[1.159s] writing ../../build/perception_node/perception_node.egg-info/PKG-INFO
+[1.159s] writing dependency_links to ../../build/perception_node/perception_node.egg-info/dependency_links.txt
+[1.160s] writing entry points to ../../build/perception_node/perception_node.egg-info/entry_points.txt
+[1.160s] writing requirements to ../../build/perception_node/perception_node.egg-info/requires.txt
+[1.160s] writing top-level names to ../../build/perception_node/perception_node.egg-info/top_level.txt
+[1.169s] reading manifest file '../../build/perception_node/perception_node.egg-info/SOURCES.txt'
+[1.171s] writing manifest file '../../build/perception_node/perception_node.egg-info/SOURCES.txt'
+[1.171s] running build
+[1.171s] running build_py
+[1.172s] copying perception_node/yolo_detector.py -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/build/lib/perception_node
+[1.173s] running install
+[1.173s] running install_lib
+[1.175s] copying /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/build/lib/perception_node/yolo_detector.py -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages/perception_node
+[1.176s] byte-compiling /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages/perception_node/yolo_detector.py to yolo_detector.cpython-310.pyc
+[1.178s] running install_data
+[1.178s] running install_egg_info
+[1.181s] removing '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages/perception_node-0.0.0-py3.10.egg-info' (and everything under it)
+[1.181s] Copying ../../build/perception_node/perception_node.egg-info to /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages/perception_node-0.0.0-py3.10.egg-info
+[1.184s] running install_scripts
+[1.211s] Installing camera_viewer script to /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/perception_node
+[1.212s] Installing detection_publisher script to /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/perception_node
+[1.212s] writing list of installed files to '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/install.log'
+[1.244s] Invoked command in '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/perception_node' returned '0': PYTHONPATH=/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install/perception_node/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/perception_node build --build-base /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/build install --record /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/perception_node/install.log --single-version-externally-managed install_data

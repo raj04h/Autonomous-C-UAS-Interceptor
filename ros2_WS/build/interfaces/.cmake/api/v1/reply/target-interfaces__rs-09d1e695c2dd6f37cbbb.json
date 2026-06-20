@@ -1,0 +1,73 @@
+{
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_custom_target"
+		],
+		"files" : 
+		[
+			"/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/interfaces__rs/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 35,
+				"parent" : 0
+			}
+		]
+	},
+	"id" : "interfaces__rs::@d2cef051df0744e39155",
+	"name" : "interfaces__rs",
+	"paths" : 
+	{
+		"build" : "interfaces__rs",
+		"source" : "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/interfaces__rs"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1,
+				2
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"isGenerated" : true,
+			"path" : "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/interfaces__rs/CMakeFiles/interfaces__rs",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/interfaces__rs/CMakeFiles/interfaces__rs.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_generator_rs/interfaces/rust/src/lib.rs.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "UTILITY"
+}
