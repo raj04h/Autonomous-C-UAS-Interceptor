@@ -18,9 +18,12 @@
 import cv2
 import time
 
-from pathlib import Path
-
 import rclpy
+
+from perception_node.config_loader import (
+    PROJECT_ROOT,
+    load_config
+)
 
 from perception_node.detection_publisher import (
     DetectionPublisher
@@ -31,6 +34,12 @@ from perception_node.yolo_detector import (
     YOLODetector
 )
 
+# ==========================================
+# Load Configuration
+# ==========================================
+
+CONFIG = load_config()
+
 
 # ==========================================
 # Configuration
@@ -38,16 +47,14 @@ from perception_node.yolo_detector import (
 
 class Configuration:
 
-    VIDEO_PATH = Path(
-        "/mnt/5252B43652B420A1/Deep_Project/"
-        "Counter_UAS/datasets/detection/videos/"
-        "drone_video.mp4"
+    VIDEO_PATH = (
+        PROJECT_ROOT
+        / CONFIG["assets"]["video_path"]
     )
 
     WINDOW_NAME = (
         "Counter-UAS Vision"
     )
-
 
 # ==========================================
 # Camera Viewer

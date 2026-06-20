@@ -10,6 +10,7 @@ setup.py
 ../../build/perception_node/perception_node.egg-info/zip-safe
 perception_node/__init__.py
 perception_node/camera_viewer.py
+perception_node/config_loader.py
 perception_node/detection_publisher.py
 perception_node/yolo_detector.py
 resource/perception_node

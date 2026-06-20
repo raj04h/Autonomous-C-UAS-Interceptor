@@ -18,9 +18,12 @@
 import cv2
 import time
 
-from pathlib import Path
-
 import rclpy
+
+from perception_node.config_loader import (
+    PROJECT_ROOT,
+    load_config
+)
 
 from perception_node.detection_publisher import (
     DetectionPublisher
@@ -31,29 +34,11 @@ from perception_node.yolo_detector import (
     YOLODetector
 )
 
-
 # ==========================================
-# Configuration
+# Load Configuration
 # ==========================================
 
-def get_project_root():
-
-    current_path = Path(__file__).resolve()
-
-    while current_path.name != "Counter_UAS":
-
-        if current_path.parent == current_path:
-
-            raise RuntimeError(
-                "Counter_UAS project root not found."
-            )
-
-        current_path = current_path.parent
-
-    return current_path
-
-
-PROJECT_ROOT = get_project_root()
+CONFIG = load_config()
 
 
 # ==========================================
@@ -64,14 +49,12 @@ class Configuration:
 
     VIDEO_PATH = (
         PROJECT_ROOT
-        / "assets"
-        / "drone_video.mp4"
+        / CONFIG["assets"]["video_path"]
     )
 
     WINDOW_NAME = (
         "Counter-UAS Vision"
     )
-
 
 # ==========================================
 # Camera Viewer

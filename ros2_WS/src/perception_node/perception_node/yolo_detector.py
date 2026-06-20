@@ -1,4 +1,3 @@
-
 # ==========================================
 # YOLO Detector
 #
@@ -23,50 +22,29 @@
 # Imports
 # ==========================================
 
-from pathlib import Path
-
 from ultralytics import YOLO
 
-
-# ==========================================
-# Project Root Discovery
-# ==========================================
-
-def get_project_root():
-
-    current_path = Path(__file__).resolve()
-
-    while current_path.name != "Counter_UAS":
-
-        if current_path.parent == current_path:
-
-            raise RuntimeError(
-                "Counter_UAS project root not found."
-            )
-
-        current_path = current_path.parent
-
-    return current_path
-
-
-PROJECT_ROOT = get_project_root()
+from perception_node.config_loader import (
+    PROJECT_ROOT,
+    load_config
+)
 
 
 # ==========================================
-# Configuration
+# Load Configuration
 # ==========================================
+
+CONFIG = load_config()
+
 
 class Configuration:
 
     MODEL_PATH = (
         PROJECT_ROOT
-        / "models"
-        / "yolo"
-        / "yolo26n.pt"
+        / CONFIG["models"]["yolo_model_path"]
     )
 
     CONFIDENCE_THRESHOLD = 0.20
-
 
 # ==========================================
 # YOLO Detector
