@@ -23,7 +23,7 @@ ros_env/
 *.swo
 
 # Models
-*.pt
+
 
 # Datasets
 datasets/
