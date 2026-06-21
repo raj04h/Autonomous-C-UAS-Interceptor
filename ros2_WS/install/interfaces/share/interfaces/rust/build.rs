@@ -1,10 +1,1 @@
-// use std::path::Path;
-
-fn main() {
-	// let lib_dir = Path::new("../../../lib")
-	// 	.canonicalize()
-	// 	.expect("Could not find '../../../lib'");
-	// // This allows building Rust packages that depend on message crates without
-	// // sourcing the install directory first.
-	// println!("cargo:rustc-link-search={}", lib_dir.display());
-}
+/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_generator_rs/interfaces/rust/build.rs

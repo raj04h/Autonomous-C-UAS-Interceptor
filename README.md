@@ -1010,6 +1010,9 @@ detection_publisher.py
 ### Interface Package
 
 ```text
+ros2 pkg create \
+--build-type ament_cmake \ interfaces
+
 interfaces/msg/Detection.msg
 ```
 
@@ -1339,6 +1342,21 @@ Multi-Object Tracking
 
 
 P5 Tracking
+P5.1 Create Tracking Package
+
+P5.2 Create Track Message
+
+P5.3 Build DeepSORT Wrapper
+
+P5.4 Build Tracker Node
+
+P5.5 Publish /tracks
+
+P5.6 Visualize Track IDs
+
+P5.7 Benchmark Tracking
+
+
 
 P6 Guidance
 P7 Control

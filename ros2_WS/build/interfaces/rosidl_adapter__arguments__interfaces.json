@@ -1,6 +1,7 @@
 {
   "package_name": "interfaces",
   "non_idl_tuples": [
-    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/interfaces:msg/Detection.msg"
+    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/interfaces:msg/Detection.msg",
+    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/interfaces:msg/Track.msg"
   ]
 }

@@ -1,9 +1,1 @@
-string class_name
-
-float32 confidence
-
-int32 x1
-int32 y1
-
-int32 x2
-int32 y2
+/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/interfaces/msg/Detection.msg

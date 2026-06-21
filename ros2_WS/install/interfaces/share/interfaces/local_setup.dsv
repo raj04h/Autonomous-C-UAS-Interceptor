@@ -1,4 +1,1 @@
-source;share/interfaces/environment/ament_prefix_path.sh
-source;share/interfaces/environment/library_path.sh
-source;share/interfaces/environment/path.sh
-source;share/interfaces/environment/pythonpath.sh
+/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/ament_cmake_environment_hooks/local_setup.dsv

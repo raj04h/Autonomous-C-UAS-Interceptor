@@ -296,6 +296,11 @@ class CameraViewer:
                     detection
                 )
 
+            rclpy.spin_once(
+                self.publisher_node,
+                timeout_sec=0.0
+            )
+
             # ------------------
             # Draw Results
             # ------------------

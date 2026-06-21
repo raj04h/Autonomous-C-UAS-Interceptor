@@ -67,6 +67,7 @@ include CMakeFiles/interfaces.dir/compiler_depend.make
 include CMakeFiles/interfaces.dir/progress.make
 
 CMakeFiles/interfaces: /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/interfaces/msg/Detection.msg
+CMakeFiles/interfaces: /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/interfaces/msg/Track.msg
 
 interfaces: CMakeFiles/interfaces
 interfaces: CMakeFiles/interfaces.dir/build.make

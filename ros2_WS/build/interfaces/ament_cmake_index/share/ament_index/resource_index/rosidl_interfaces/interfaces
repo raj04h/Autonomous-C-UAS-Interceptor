@@ -1,2 +1,4 @@
 msg/Detection.idl
 msg/Detection.msg
+msg/Track.idl
+msg/Track.msg

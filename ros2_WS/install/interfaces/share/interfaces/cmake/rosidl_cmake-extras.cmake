@@ -1,4 +1,1 @@
-# generated from rosidl_cmake/cmake/rosidl_cmake-extras.cmake.in
-
-set(interfaces_IDL_FILES "msg/Detection.idl")
-set(interfaces_INTERFACE_FILES "msg/Detection.msg")
+/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_cmake/rosidl_cmake-extras.cmake

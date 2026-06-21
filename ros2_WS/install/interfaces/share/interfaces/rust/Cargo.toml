@@ -1,17 +1,1 @@
-[package]
-name = "interfaces"
-version = "0.0.0"
-edition = "2021"
-
-[dependencies]
-rosidl_runtime_rs = "0.6"
-serde = { version = "1", optional = true, features = ["derive"] }
-serde-big-array = { version = "0.5.1", optional = true }
-
-# ROS Dependencies
-
-[features]
-serde = ['dep:serde', 'dep:serde-big-array', 'rosidl_runtime_rs/serde']
-
-[package.metadata.ros-env]
-include = true
+/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_generator_rs/interfaces/rust/Cargo.toml

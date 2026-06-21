@@ -1,14 +1,4 @@
-
-# Detection Node
-# data- video streaming and object tracking 
-
-# msg typ- interfaces/msg/detection
-
-# topic- /detection
-
-# action logic- publish
-
-# import ros, node, msg_typ, qos
+# detection_publisher.py
 
 import rclpy
 
@@ -16,29 +6,27 @@ from rclpy.node import Node
 
 from interfaces.msg import Detection
 
-from rclpy.qos import QoSProfile
-from rclpy.qos import ReliabilityPolicy
-from rclpy.qos import HistoryPolicy
+from rclpy.qos import (
+    QoSProfile,
+    ReliabilityPolicy,
+    HistoryPolicy
+)
 
-# Node class
+
 class DetectionPublisher(Node):
 
-    # init logic
     def __init__(self):
 
-        # init ros node
         super().__init__(
             "detection_publisher"
         )
-        
-        # config qos
+
         qos = QoSProfile(
             reliability=ReliabilityPolicy.RELIABLE,
             history=HistoryPolicy.KEEP_LAST,
             depth=10
         )
 
-        # publisher/suscriber- msgtyp, topic, action
         self.publisher = (
             self.create_publisher(
                 Detection,
@@ -47,8 +35,6 @@ class DetectionPublisher(Node):
             )
         )
 
-
-    # action logic
     def publish_detection(
         self,
         detection
@@ -84,17 +70,13 @@ class DetectionPublisher(Node):
             msg
         )
 
-# execution class
+
 def main():
 
-
-    # ros2 initialize
     rclpy.init()
 
-    # node object
     node = DetectionPublisher()
 
-    # cleanup ros
     try:
 
         rclpy.spin(node)

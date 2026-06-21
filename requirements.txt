@@ -1,26 +1,47 @@
+
+
+# Core Scientific Computing
 numpy==1.26.4
 scipy
 pandas
 matplotlib
+
+
+# Computer Vision
 opencv-python
 
-torch 
-torchvision 
+
+# Deep Learning
+
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+torchvision
 torchaudio
 
+
+# Object Detection
 ultralytics
+timm
+onnxruntime
+
+# Tracking
+deep-sort-realtime
 filterpy
 lap
 scikit-learn
+
+
+# Robotics / Navigation
 transforms3d
 pymavlink
 
+# Backend APIs
 fastapi
 uvicorn
 websockets
 sqlalchemy
 
+
+# Configuration & Utilities
 PyYAML
 psutil
-timm
-onnxruntime
