@@ -1,4 +1,4 @@
-# Autonomous Counter-UAS Autonomous Interceptor
+# Counter-UAS Autonomous Interceptor
 
 ## Overview
 
