@@ -55,6 +55,16 @@ pub struct Detection {
     #[allow(missing_docs)]
     pub y2: i32,
 
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub center_x: i32,
+
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub center_y: i32,
+
 }
 
 

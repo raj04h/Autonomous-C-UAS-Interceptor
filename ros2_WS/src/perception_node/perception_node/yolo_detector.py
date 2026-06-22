@@ -123,61 +123,29 @@ class YOLODetector:
                 results.names[class_id]
             )
 
+            center_x = int(
+                (x1 + x2) / 2
+            )
+
+            center_y = int(
+                (y1 + y2) / 2
+            )
+
             detections.append(
                 {
                     "class_name": class_name,
 
                     "confidence": confidence,
 
-                    "bbox": [
-                        x1,
-                        y1,
-                        x2,
-                        y2
-                    ]
+                    "x1": x1,
+                    "y1": y1,
+
+                    "x2": x2,
+                    "y2": y2,
+
+                    "center_x": center_x,
+                    "center_y": center_y
                 }
             )
 
         return detections
-
-
-# ==========================================
-# Main
-# ==========================================
-
-def main():
-
-    try:
-
-        config = Configuration()
-
-        detector = YOLODetector(
-            config
-        )
-
-        print(
-            "YOLO Detector Initialized Successfully"
-        )
-
-    except FileNotFoundError as e:
-
-        print(
-            f"Model File Not Found: {e}"
-        )
-
-    except RuntimeError as e:
-
-        print(
-            f"Runtime Error: {e}"
-        )
-
-    except Exception as e:
-
-        print(
-            f"Unexpected Error: {e}"
-        )
-
-
-if __name__ == "__main__":
-
-    main()

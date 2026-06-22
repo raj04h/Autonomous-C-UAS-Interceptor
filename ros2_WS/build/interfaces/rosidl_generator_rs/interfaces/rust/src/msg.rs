@@ -41,6 +41,16 @@ pub struct Detection {
     #[allow(missing_docs)]
     pub y2: i32,
 
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub center_x: i32,
+
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub center_y: i32,
+
 }
 
 
@@ -63,6 +73,8 @@ impl rosidl_runtime_rs::Message for Detection {
         y1: msg.y1,
         x2: msg.x2,
         y2: msg.y2,
+        center_x: msg.center_x,
+        center_y: msg.center_y,
       }),
       std::borrow::Cow::Borrowed(msg) => std::borrow::Cow::Owned(Self::RmwMsg {
         class_name: msg.class_name.as_str().into(),
@@ -71,6 +83,8 @@ impl rosidl_runtime_rs::Message for Detection {
       y1: msg.y1,
       x2: msg.x2,
       y2: msg.y2,
+      center_x: msg.center_x,
+      center_y: msg.center_y,
       })
     }
   }
@@ -83,6 +97,8 @@ impl rosidl_runtime_rs::Message for Detection {
       y1: msg.y1,
       x2: msg.x2,
       y2: msg.y2,
+      center_x: msg.center_x,
+      center_y: msg.center_y,
     }
   }
 }

@@ -1,14 +1,12 @@
-
 # ==========================================
 # Camera Viewer
 #
 # Responsibility:
 #   1. Read Video Frames
-#   2. Run YOLO Detection
-#   3. Publish Detections
-#   4. Draw Bounding Boxes
-#   5. Display FPS
-#   6. Display Inference Time
+#   2. Draw Bounding Boxes
+#   3. Draw Overlay
+#   4. Display Frames
+#   5. Calculate FPS
 # ==========================================
 
 # ==========================================
@@ -18,20 +16,9 @@
 import cv2
 import time
 
-import rclpy
-
 from perception_node.config_loader import (
     PROJECT_ROOT,
     load_config
-)
-
-from perception_node.detection_publisher import (
-    DetectionPublisher
-)
-
-from perception_node.yolo_detector import (
-    Configuration as YOLOConfig,
-    YOLODetector
 )
 
 # ==========================================
@@ -39,7 +26,6 @@ from perception_node.yolo_detector import (
 # ==========================================
 
 CONFIG = load_config()
-
 
 # ==========================================
 # Configuration
@@ -55,6 +41,7 @@ class Configuration:
     WINDOW_NAME = (
         "Counter-UAS Vision"
     )
+
 
 # ==========================================
 # Camera Viewer
@@ -93,30 +80,28 @@ class CameraViewer:
             )
 
         # ------------------
-        # YOLO Detector
-        # ------------------
-
-        self.detector = YOLODetector(
-            YOLOConfig()
-        )
-
-        # ------------------
-        # ROS
-        # ------------------
-
-        rclpy.init()
-
-        self.publisher_node = (
-            DetectionPublisher()
-        )
-
-        # ------------------
         # Performance
         # ------------------
 
-        self.previous_time = (
-            time.time()
-        )
+        self.previous_time = time.time()
+
+        self.frame_count = 0
+
+    # ======================================
+    # Read Frame
+    # ======================================
+
+    def get_frame(self):
+
+        ret, frame = self.cap.read()
+
+        if not ret:
+
+            return None
+
+        self.frame_count += 1
+
+        return frame
 
     # ======================================
     # FPS Calculation
@@ -147,41 +132,165 @@ class CameraViewer:
 
         for detection in detections:
 
-            x1, y1, x2, y2 = (
-                detection["bbox"]
-            )
+            x1 = detection["x1"]
+            y1 = detection["y1"]
 
-            class_name = (
-                detection["class_name"]
-            )
+            x2 = detection["x2"]
+            y2 = detection["y2"]
 
-            confidence = (
+            center_x = detection["center_x"]
+            center_y = detection["center_y"]
+
+            class_name = detection["class_name"]
+
+            confidence = float(
                 detection["confidence"]
             )
 
-            cv2.rectangle(
+            # ==================================
+            # Corner Brackets
+            # ==================================
+
+            corner_len = 20
+            thickness = 2
+            color = (0, 255, 0)
+
+            # Top Left
+            cv2.line(
                 frame,
                 (x1, y1),
+                (x1 + corner_len, y1),
+                color,
+                thickness
+            )
+
+            cv2.line(
+                frame,
+                (x1, y1),
+                (x1, y1 + corner_len),
+                color,
+                thickness
+            )
+
+            # Top Right
+            cv2.line(
+                frame,
+                (x2, y1),
+                (x2 - corner_len, y1),
+                color,
+                thickness
+            )
+
+            cv2.line(
+                frame,
+                (x2, y1),
+                (x2, y1 + corner_len),
+                color,
+                thickness
+            )
+
+            # Bottom Left
+            cv2.line(
+                frame,
+                (x1, y2),
+                (x1 + corner_len, y2),
+                color,
+                thickness
+            )
+
+            cv2.line(
+                frame,
+                (x1, y2),
+                (x1, y2 - corner_len),
+                color,
+                thickness
+            )
+
+            # Bottom Right
+            cv2.line(
+                frame,
                 (x2, y2),
-                (0, 255, 0),
-                2
+                (x2 - corner_len, y2),
+                color,
+                thickness
+            )
+
+            cv2.line(
+                frame,
+                (x2, y2),
+                (x2, y2 - corner_len),
+                color,
+                thickness
+            )
+
+            # ==================================
+            # Center Crosshair
+            # ==================================
+
+            crosshair_size = 15
+
+            cv2.line(
+                frame,
+                (center_x - crosshair_size, center_y),
+                (center_x + crosshair_size, center_y),
+                color,
+                1
+            )
+
+            cv2.line(
+                frame,
+                (center_x, center_y - crosshair_size),
+                (center_x, center_y + crosshair_size),
+                color,
+                1
+            )
+
+            cv2.circle(
+                frame,
+                (center_x, center_y),
+                4,
+                color,
+                -1
+            )
+
+            # ==================================
+            # Target Label
+            # ==================================
+
+            label = (
+                f"TARGET | "
+                f"{class_name.upper()} | "
+                f"{confidence:.2f}"
             )
 
             cv2.putText(
                 frame,
-                f"{class_name} "
-                f"{confidence:.2f}",
-                (x1, y1 - 10),
+                label,
+                (x1, y1 - 15),
                 cv2.FONT_HERSHEY_SIMPLEX,
                 0.6,
-                (0, 255, 0),
+                color,
+                2
+            )
+
+            # ==================================
+            # Tracking Status
+            # ==================================
+
+            cv2.putText(
+                frame,
+                "Target LOCK",
+                (x1, y2 + 25),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.55,
+                color,
                 2
             )
 
         return frame
 
     # ======================================
-    # Overlay
+    # Draw Overlay
     # ======================================
 
     def draw_overlay(
@@ -239,106 +348,60 @@ class CameraViewer:
             2
         )
 
+        cv2.putText(
+            frame,
+            f"Frame: "
+            f"{self.frame_count}",
+            (20, 200),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.8,
+            (0, 255, 0),
+            2
+        )
+
         return frame
 
     # ======================================
-    # Main Processing Loop
+    # Render Frame
     # ======================================
 
-    def process(self):
+    def render(
+        self,
+        frame,
+        detections,
+        inference_time
+    ):
 
-        while True:
+        frame = self.draw_detections(
+            frame,
+            detections
+        )
 
-            ret, frame = (
-                self.cap.read()
-            )
+        fps = self.calculate_fps()
 
-            if not ret:
+        frame = self.draw_overlay(
+            frame,
+            fps,
+            inference_time,
+            len(detections)
+        )
 
-                print(
-                    "End of Video"
-                )
+        cv2.imshow(
+            self.config.WINDOW_NAME,
+            frame
+        )
 
-                break
+        return fps
 
-            # ------------------
-            # YOLO Inference
-            # ------------------
+    # ======================================
+    # Exit Check
+    # ======================================
 
-            start_time = (
-                time.time()
-            )
+    def should_exit(self):
 
-            results = (
-                self.detector.detect(
-                    frame
-                )
-            )
-
-            detections = (
-                self.detector.get_detections(
-                    results
-                )
-            )
-
-            inference_time = (
-                time.time()
-                - start_time
-            ) * 1000
-
-            # ------------------
-            # Publish Detections
-            # ------------------
-
-            for detection in detections:
-
-                self.publisher_node.publish_detection(
-                    detection
-                )
-
-            rclpy.spin_once(
-                self.publisher_node,
-                timeout_sec=0.0
-            )
-
-            # ------------------
-            # Draw Results
-            # ------------------
-
-            frame = (
-                self.draw_detections(
-                    frame,
-                    detections
-                )
-            )
-
-            fps = (
-                self.calculate_fps()
-            )
-
-            frame = (
-                self.draw_overlay(
-                    frame,
-                    fps,
-                    inference_time,
-                    len(detections)
-                )
-            )
-
-            # ------------------
-            # Display
-            # ------------------
-
-            cv2.imshow(
-                self.config.WINDOW_NAME,
-                frame
-            )
-
-            key = cv2.waitKey(1)
-
-            if key == 27:
-
-                break
+        return (
+            cv2.waitKey(1) & 0xFF
+        ) == 27
 
     # ======================================
     # Cleanup
@@ -348,46 +411,4 @@ class CameraViewer:
 
         self.cap.release()
 
-        self.publisher_node.destroy_node()
-
-        if rclpy.ok():
-
-            rclpy.shutdown()
-
         cv2.destroyAllWindows()
-
-
-# ==========================================
-# Main
-# ==========================================
-
-def main():
-
-    viewer = None
-
-    try:
-
-        config = Configuration()
-
-        viewer = CameraViewer(
-            config
-        )
-
-        viewer.process()
-
-    except Exception as e:
-
-        print(
-            f"Error: {e}"
-        )
-
-    finally:
-
-        if viewer is not None:
-
-            viewer.cleanup()
-
-
-if __name__ == "__main__":
-
-    main()

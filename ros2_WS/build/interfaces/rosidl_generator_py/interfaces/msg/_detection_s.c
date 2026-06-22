@@ -113,6 +113,24 @@ bool interfaces__msg__detection__convert_from_py(PyObject * _pymsg, void * _ros_
     ros_message->y2 = (int32_t)PyLong_AsLong(field);
     Py_DECREF(field);
   }
+  {  // center_x
+    PyObject * field = PyObject_GetAttrString(_pymsg, "center_x");
+    if (!field) {
+      return false;
+    }
+    assert(PyLong_Check(field));
+    ros_message->center_x = (int32_t)PyLong_AsLong(field);
+    Py_DECREF(field);
+  }
+  {  // center_y
+    PyObject * field = PyObject_GetAttrString(_pymsg, "center_y");
+    if (!field) {
+      return false;
+    }
+    assert(PyLong_Check(field));
+    ros_message->center_y = (int32_t)PyLong_AsLong(field);
+    Py_DECREF(field);
+  }
 
   return true;
 }
@@ -201,6 +219,28 @@ PyObject * interfaces__msg__detection__convert_to_py(void * raw_ros_message)
     field = PyLong_FromLong(ros_message->y2);
     {
       int rc = PyObject_SetAttrString(_pymessage, "y2", field);
+      Py_DECREF(field);
+      if (rc) {
+        return NULL;
+      }
+    }
+  }
+  {  // center_x
+    PyObject * field = NULL;
+    field = PyLong_FromLong(ros_message->center_x);
+    {
+      int rc = PyObject_SetAttrString(_pymessage, "center_x", field);
+      Py_DECREF(field);
+      if (rc) {
+        return NULL;
+      }
+    }
+  }
+  {  // center_y
+    PyObject * field = NULL;
+    field = PyLong_FromLong(ros_message->center_y);
+    {
+      int rc = PyObject_SetAttrString(_pymessage, "center_y", field);
       Py_DECREF(field);
       if (rc) {
         return NULL;

@@ -24,8 +24,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'camera_viewer = perception_node.camera_viewer:main',
-            'detection_publisher = perception_node.detection_publisher:main',
+            "detector_pipeline = perception_node.detector_pipeline:main"
         ],
     },
 )

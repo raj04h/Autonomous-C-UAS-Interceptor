@@ -31,6 +31,8 @@ interfaces__msg__Detection__init(interfaces__msg__Detection * msg)
   // y1
   // x2
   // y2
+  // center_x
+  // center_y
   return true;
 }
 
@@ -47,6 +49,8 @@ interfaces__msg__Detection__fini(interfaces__msg__Detection * msg)
   // y1
   // x2
   // y2
+  // center_x
+  // center_y
 }
 
 bool
@@ -81,6 +85,14 @@ interfaces__msg__Detection__are_equal(const interfaces__msg__Detection * lhs, co
   if (lhs->y2 != rhs->y2) {
     return false;
   }
+  // center_x
+  if (lhs->center_x != rhs->center_x) {
+    return false;
+  }
+  // center_y
+  if (lhs->center_y != rhs->center_y) {
+    return false;
+  }
   return true;
 }
 
@@ -108,6 +120,10 @@ interfaces__msg__Detection__copy(
   output->x2 = input->x2;
   // y2
   output->y2 = input->y2;
+  // center_x
+  output->center_x = input->center_x;
+  // center_y
+  output->center_y = input->center_y;
   return true;
 }
 

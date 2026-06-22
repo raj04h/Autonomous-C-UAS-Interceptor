@@ -45,6 +45,8 @@ struct Detection_
       this->y1 = 0l;
       this->x2 = 0l;
       this->y2 = 0l;
+      this->center_x = 0l;
+      this->center_y = 0l;
     }
   }
 
@@ -60,6 +62,8 @@ struct Detection_
       this->y1 = 0l;
       this->x2 = 0l;
       this->y2 = 0l;
+      this->center_x = 0l;
+      this->center_y = 0l;
     }
   }
 
@@ -82,6 +86,12 @@ struct Detection_
   using _y2_type =
     int32_t;
   _y2_type y2;
+  using _center_x_type =
+    int32_t;
+  _center_x_type center_x;
+  using _center_y_type =
+    int32_t;
+  _center_y_type center_y;
 
   // setters for named parameter idiom
   Type & set__class_name(
@@ -118,6 +128,18 @@ struct Detection_
     const int32_t & _arg)
   {
     this->y2 = _arg;
+    return *this;
+  }
+  Type & set__center_x(
+    const int32_t & _arg)
+  {
+    this->center_x = _arg;
+    return *this;
+  }
+  Type & set__center_y(
+    const int32_t & _arg)
+  {
+    this->center_y = _arg;
     return *this;
   }
 
@@ -179,6 +201,12 @@ struct Detection_
       return false;
     }
     if (this->y2 != other.y2) {
+      return false;
+    }
+    if (this->center_x != other.center_x) {
+      return false;
+    }
+    if (this->center_y != other.center_y) {
       return false;
     }
     return true;

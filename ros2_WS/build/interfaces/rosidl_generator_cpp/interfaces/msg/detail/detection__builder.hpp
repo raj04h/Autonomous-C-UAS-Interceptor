@@ -21,16 +21,48 @@ namespace msg
 namespace builder
 {
 
+class Init_Detection_center_y
+{
+public:
+  explicit Init_Detection_center_y(::interfaces::msg::Detection & msg)
+  : msg_(msg)
+  {}
+  ::interfaces::msg::Detection center_y(::interfaces::msg::Detection::_center_y_type arg)
+  {
+    msg_.center_y = std::move(arg);
+    return std::move(msg_);
+  }
+
+private:
+  ::interfaces::msg::Detection msg_;
+};
+
+class Init_Detection_center_x
+{
+public:
+  explicit Init_Detection_center_x(::interfaces::msg::Detection & msg)
+  : msg_(msg)
+  {}
+  Init_Detection_center_y center_x(::interfaces::msg::Detection::_center_x_type arg)
+  {
+    msg_.center_x = std::move(arg);
+    return Init_Detection_center_y(msg_);
+  }
+
+private:
+  ::interfaces::msg::Detection msg_;
+};
+
 class Init_Detection_y2
 {
 public:
   explicit Init_Detection_y2(::interfaces::msg::Detection & msg)
   : msg_(msg)
   {}
-  ::interfaces::msg::Detection y2(::interfaces::msg::Detection::_y2_type arg)
+  Init_Detection_center_x y2(::interfaces::msg::Detection::_y2_type arg)
   {
     msg_.y2 = std::move(arg);
-    return std::move(msg_);
+    return Init_Detection_center_x(msg_);
   }
 
 private:

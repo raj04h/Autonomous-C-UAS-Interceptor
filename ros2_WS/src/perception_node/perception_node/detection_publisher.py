@@ -1,6 +1,15 @@
-# detection_publisher.py
+# ==========================================
+# Detection Publisher
+#
+# Responsibility:
+#   1. Convert Detection Object
+#   2. Create Detection.msg
+#   3. Publish /detections
+# ==========================================
 
-import rclpy
+# ==========================================
+# Imports
+# ==========================================
 
 from rclpy.node import Node
 
@@ -12,6 +21,19 @@ from rclpy.qos import (
     HistoryPolicy
 )
 
+# ==========================================
+# Configuration
+# ==========================================
+
+class Configuration:
+
+    TOPIC_NAME = (
+        "/detections"
+    )
+
+# ==========================================
+# Detection Publisher
+# ==========================================
 
 class DetectionPublisher(Node):
 
@@ -30,10 +52,14 @@ class DetectionPublisher(Node):
         self.publisher = (
             self.create_publisher(
                 Detection,
-                "/detections",
+                Configuration.TOPIC_NAME,
                 qos
             )
         )
+
+    # ======================================
+    # Publish Detection
+    # ======================================
 
     def publish_detection(
         self,
@@ -51,47 +77,21 @@ class DetectionPublisher(Node):
         )
 
         msg.x1 = int(
-            detection["bbox"][0]
+            detection["x1"]
         )
 
         msg.y1 = int(
-            detection["bbox"][1]
+            detection["y1"]
         )
 
         msg.x2 = int(
-            detection["bbox"][2]
+            detection["x2"]
         )
 
         msg.y2 = int(
-            detection["bbox"][3]
+            detection["y2"]
         )
 
         self.publisher.publish(
             msg
         )
-
-
-def main():
-
-    rclpy.init()
-
-    node = DetectionPublisher()
-
-    try:
-
-        rclpy.spin(node)
-
-    except KeyboardInterrupt:
-
-        pass
-
-    finally:
-
-        node.destroy_node()
-
-        rclpy.shutdown()
-
-
-if __name__ == "__main__":
-
-    main()

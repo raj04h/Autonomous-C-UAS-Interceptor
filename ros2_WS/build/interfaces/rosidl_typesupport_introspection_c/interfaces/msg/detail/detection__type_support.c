@@ -35,7 +35,7 @@ void interfaces__msg__Detection__rosidl_typesupport_introspection_c__Detection_f
   interfaces__msg__Detection__fini(message_memory);
 }
 
-static rosidl_typesupport_introspection_c__MessageMember interfaces__msg__Detection__rosidl_typesupport_introspection_c__Detection_message_member_array[6] = {
+static rosidl_typesupport_introspection_c__MessageMember interfaces__msg__Detection__rosidl_typesupport_introspection_c__Detection_message_member_array[8] = {
   {
     "class_name",  // name
     rosidl_typesupport_introspection_c__ROS_TYPE_STRING,  // type
@@ -137,13 +137,47 @@ static rosidl_typesupport_introspection_c__MessageMember interfaces__msg__Detect
     NULL,  // fetch(index, &value) function pointer
     NULL,  // assign(index, value) function pointer
     NULL  // resize(index) function pointer
+  },
+  {
+    "center_x",  // name
+    rosidl_typesupport_introspection_c__ROS_TYPE_INT32,  // type
+    0,  // upper bound of string
+    NULL,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(interfaces__msg__Detection, center_x),  // bytes offset in struct
+    NULL,  // default value
+    NULL,  // size() function pointer
+    NULL,  // get_const(index) function pointer
+    NULL,  // get(index) function pointer
+    NULL,  // fetch(index, &value) function pointer
+    NULL,  // assign(index, value) function pointer
+    NULL  // resize(index) function pointer
+  },
+  {
+    "center_y",  // name
+    rosidl_typesupport_introspection_c__ROS_TYPE_INT32,  // type
+    0,  // upper bound of string
+    NULL,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(interfaces__msg__Detection, center_y),  // bytes offset in struct
+    NULL,  // default value
+    NULL,  // size() function pointer
+    NULL,  // get_const(index) function pointer
+    NULL,  // get(index) function pointer
+    NULL,  // fetch(index, &value) function pointer
+    NULL,  // assign(index, value) function pointer
+    NULL  // resize(index) function pointer
   }
 };
 
 static const rosidl_typesupport_introspection_c__MessageMembers interfaces__msg__Detection__rosidl_typesupport_introspection_c__Detection_message_members = {
   "interfaces__msg",  // message namespace
   "Detection",  // message name
-  6,  // number of fields
+  8,  // number of fields
   sizeof(interfaces__msg__Detection),
   interfaces__msg__Detection__rosidl_typesupport_introspection_c__Detection_message_member_array,  // message members
   interfaces__msg__Detection__rosidl_typesupport_introspection_c__Detection_init_function,  // function to initialize message memory (memory has to be allocated)

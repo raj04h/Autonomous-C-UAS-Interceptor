@@ -30,6 +30,8 @@ typedef struct interfaces__msg__Detection
   int32_t y1;
   int32_t x2;
   int32_t y2;
+  int32_t center_x;
+  int32_t center_y;
 } interfaces__msg__Detection;
 
 // Struct for a sequence of interfaces__msg__Detection.

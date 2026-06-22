@@ -90,6 +90,16 @@ static bool _Detection__cdr_serialize(
     cdr << ros_message->y2;
   }
 
+  // Field name: center_x
+  {
+    cdr << ros_message->center_x;
+  }
+
+  // Field name: center_y
+  {
+    cdr << ros_message->center_y;
+  }
+
   return true;
 }
 
@@ -143,6 +153,16 @@ static bool _Detection__cdr_deserialize(
     cdr >> ros_message->y2;
   }
 
+  // Field name: center_x
+  {
+    cdr >> ros_message->center_x;
+  }
+
+  // Field name: center_y
+  {
+    cdr >> ros_message->center_y;
+  }
+
   return true;
 }  // NOLINT(readability/fn_size)
 
@@ -191,6 +211,18 @@ size_t get_serialized_size_interfaces__msg__Detection(
   // field.name y2
   {
     size_t item_size = sizeof(ros_message->y2);
+    current_alignment += item_size +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
+  }
+  // field.name center_x
+  {
+    size_t item_size = sizeof(ros_message->center_x);
+    current_alignment += item_size +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
+  }
+  // field.name center_y
+  {
+    size_t item_size = sizeof(ros_message->center_y);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
@@ -275,6 +307,22 @@ size_t max_serialized_size_interfaces__msg__Detection(
     current_alignment += array_size * sizeof(uint32_t) +
       eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint32_t));
   }
+  // member: center_x
+  {
+    size_t array_size = 1;
+
+    last_member_size = array_size * sizeof(uint32_t);
+    current_alignment += array_size * sizeof(uint32_t) +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint32_t));
+  }
+  // member: center_y
+  {
+    size_t array_size = 1;
+
+    last_member_size = array_size * sizeof(uint32_t);
+    current_alignment += array_size * sizeof(uint32_t) +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint32_t));
+  }
 
   size_t ret_val = current_alignment - initial_alignment;
   if (is_plain) {
@@ -284,7 +332,7 @@ size_t max_serialized_size_interfaces__msg__Detection(
     using DataType = interfaces__msg__Detection;
     is_plain =
       (
-      offsetof(DataType, y2) +
+      offsetof(DataType, center_y) +
       last_member_size
       ) == ret_val;
   }

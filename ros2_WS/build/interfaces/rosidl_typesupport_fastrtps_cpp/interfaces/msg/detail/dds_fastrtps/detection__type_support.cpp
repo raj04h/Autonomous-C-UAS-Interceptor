@@ -44,6 +44,10 @@ cdr_serialize(
   cdr << ros_message.x2;
   // Member: y2
   cdr << ros_message.y2;
+  // Member: center_x
+  cdr << ros_message.center_x;
+  // Member: center_y
+  cdr << ros_message.center_y;
   return true;
 }
 
@@ -70,6 +74,12 @@ cdr_deserialize(
 
   // Member: y2
   cdr >> ros_message.y2;
+
+  // Member: center_x
+  cdr >> ros_message.center_x;
+
+  // Member: center_y
+  cdr >> ros_message.center_y;
 
   return true;
 }  // NOLINT(readability/fn_size)
@@ -118,6 +128,18 @@ get_serialized_size(
   // Member: y2
   {
     size_t item_size = sizeof(ros_message.y2);
+    current_alignment += item_size +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
+  }
+  // Member: center_x
+  {
+    size_t item_size = sizeof(ros_message.center_x);
+    current_alignment += item_size +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
+  }
+  // Member: center_y
+  {
+    size_t item_size = sizeof(ros_message.center_y);
     current_alignment += item_size +
       eprosima::fastcdr::Cdr::alignment(current_alignment, item_size);
   }
@@ -203,6 +225,24 @@ max_serialized_size_Detection(
       eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint32_t));
   }
 
+  // Member: center_x
+  {
+    size_t array_size = 1;
+
+    last_member_size = array_size * sizeof(uint32_t);
+    current_alignment += array_size * sizeof(uint32_t) +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint32_t));
+  }
+
+  // Member: center_y
+  {
+    size_t array_size = 1;
+
+    last_member_size = array_size * sizeof(uint32_t);
+    current_alignment += array_size * sizeof(uint32_t) +
+      eprosima::fastcdr::Cdr::alignment(current_alignment, sizeof(uint32_t));
+  }
+
   size_t ret_val = current_alignment - initial_alignment;
   if (is_plain) {
     // All members are plain, and type is not empty.
@@ -211,7 +251,7 @@ max_serialized_size_Detection(
     using DataType = interfaces::msg::Detection;
     is_plain =
       (
-      offsetof(DataType, y2) +
+      offsetof(DataType, center_y) +
       last_member_size
       ) == ret_val;
   }

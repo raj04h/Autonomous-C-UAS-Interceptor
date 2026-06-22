@@ -37,7 +37,7 @@ void Detection_fini_function(void * message_memory)
   typed_message->~Detection();
 }
 
-static const ::rosidl_typesupport_introspection_cpp::MessageMember Detection_message_member_array[6] = {
+static const ::rosidl_typesupport_introspection_cpp::MessageMember Detection_message_member_array[8] = {
   {
     "class_name",  // name
     ::rosidl_typesupport_introspection_cpp::ROS_TYPE_STRING,  // type
@@ -139,13 +139,47 @@ static const ::rosidl_typesupport_introspection_cpp::MessageMember Detection_mes
     nullptr,  // fetch(index, &value) function pointer
     nullptr,  // assign(index, value) function pointer
     nullptr  // resize(index) function pointer
+  },
+  {
+    "center_x",  // name
+    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_INT32,  // type
+    0,  // upper bound of string
+    nullptr,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(interfaces::msg::Detection, center_x),  // bytes offset in struct
+    nullptr,  // default value
+    nullptr,  // size() function pointer
+    nullptr,  // get_const(index) function pointer
+    nullptr,  // get(index) function pointer
+    nullptr,  // fetch(index, &value) function pointer
+    nullptr,  // assign(index, value) function pointer
+    nullptr  // resize(index) function pointer
+  },
+  {
+    "center_y",  // name
+    ::rosidl_typesupport_introspection_cpp::ROS_TYPE_INT32,  // type
+    0,  // upper bound of string
+    nullptr,  // members of sub message
+    false,  // is array
+    0,  // array size
+    false,  // is upper bound
+    offsetof(interfaces::msg::Detection, center_y),  // bytes offset in struct
+    nullptr,  // default value
+    nullptr,  // size() function pointer
+    nullptr,  // get_const(index) function pointer
+    nullptr,  // get(index) function pointer
+    nullptr,  // fetch(index, &value) function pointer
+    nullptr,  // assign(index, value) function pointer
+    nullptr  // resize(index) function pointer
   }
 };
 
 static const ::rosidl_typesupport_introspection_cpp::MessageMembers Detection_message_members = {
   "interfaces::msg",  // message namespace
   "Detection",  // message name
-  6,  // number of fields
+  8,  // number of fields
   sizeof(interfaces::msg::Detection),
   Detection_message_member_array,  // message members
   Detection_init_function,  // function to initialize message memory (memory has to be allocated)
