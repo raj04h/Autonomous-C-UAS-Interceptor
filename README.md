@@ -947,7 +947,7 @@ Bridge issue will be revisited later as an infrastructure task.
 
 ## Objective
 
-Establish the first vision perception pipeline capable of detecting aerial targets and publishing detections into ROS2.
+Establish a modular perception pipeline capable of detecting aerial targets, visualizing detections, and publishing standardized detection messages into ROS2 for downstream tracking and state estimation.
 
 Goal:
 
@@ -955,13 +955,16 @@ Goal:
 Video Input
       │
       ▼
-Object Detection
+Target Detection
+      │
+      ▼
+Detection Visualization
       │
       ▼
 ROS2 Detection Publishing
       │
       ▼
-Perception Layer Output
+Perception Output
 ```
 
 ---
@@ -969,37 +972,42 @@ Perception Layer Output
 ## Architecture
 
 ```text
-Video File / Webcam
-        │
-        ▼
-Camera Viewer
-        │
-        ▼
-YOLO Detector
-        │
-        ▼
-Detection Publisher
-        │
-        ▼
-ROS2 Topic
-        │
-        ▼
-Detection Message
+Video File
+     │
+     ▼
+
+Detector Pipeline
+     │
+     ├── Camera Viewer
+     │
+     ├── YOLO Detector
+     │
+     └── Detection Publisher
+              │
+              ▼
+
+         /detections
+              │
+              ▼
+
+       Detection.msg
 ```
 
 ---
 
-## Components
-
-### ROS2 Package
+## ROS2 Package
 
 ```text
 perception_node
 ```
 
-### Core Nodes
+---
+
+## Core Components
 
 ```text
+detector_pipeline.py
+
 camera_viewer.py
 
 yolo_detector.py
@@ -1007,26 +1015,23 @@ yolo_detector.py
 detection_publisher.py
 ```
 
-### Interface Package
+---
+
+## Interface Package
 
 ```text
-ros2 pkg create \
---build-type ament_cmake \ interfaces
-
 interfaces/msg/Detection.msg
 ```
 
 ---
 
-## Execution Steps
+## P4.1 – Camera Viewer
 
-### P4.1 – OpenCV Visualization
+### Goal
 
-#### Goal
+Create a reusable video visualization component independent of detection and ROS communication.
 
-Create a video visualization pipeline for perception development.
-
-#### Implementation
+### Implementation
 
 Created:
 
@@ -1034,27 +1039,51 @@ Created:
 camera_viewer.py
 ```
 
-#### Features
+### Responsibilities
 
 ```text
 Video Input
 
-FPS Display
+Frame Retrieval
 
-Resolution Display
+FPS Calculation
+
+Detection Rendering
+
+Performance Overlay
 
 OpenCV Visualization
 ```
 
+### Visualization Features
+
+```text
+Target Brackets
+
+Center Crosshair
+
+Target Label
+
+Track-Lock Indicator
+
+FPS Display
+
+Inference Time Display
+
+Resolution Display
+
+Frame Counter
+```
+
 ---
 
-### P4.2 – YOLO Integration
+## P4.2 – YOLO Detector
 
-#### Goal
+### Goal
 
-Integrate YOLO detector into the perception pipeline.
+Create a reusable detection component responsible only for inference.
 
-#### Implementation
+### Implementation
 
 Created:
 
@@ -1062,61 +1091,72 @@ Created:
 yolo_detector.py
 ```
 
-#### Features
+### Responsibilities
 
 ```text
-Object Detection
+Model Loading
 
-Bounding Boxes
-
-Class Labels
-
-Confidence Score
+YOLO Inference
 
 Detection Filtering
+
+Detection Formatting
 ```
 
-#### Detection Output
+### Standard Detection Object
 
-```text
-Class
+```python
+{
+    "class_name": str,
 
-Confidence
+    "confidence": float,
 
-Bounding Box
+    "x1": int,
+    "y1": int,
+
+    "x2": int,
+    "y2": int,
+
+    "center_x": int,
+    "center_y": int
+}
 ```
 
 ---
 
-### P4.3 – Detection Publisher
+## P4.3 – Detection Publisher
 
-#### Goal
+### Goal
 
-Publish detections into ROS2.
+Create a dedicated ROS2 communication component.
 
-#### Implementation
+### Implementation
 
 Created:
 
 ```text
-perception_node/detection_publisher.py
+detection_publisher.py
 ```
 
-#### Published Topic
+### Responsibilities
 
 ```text
-/detections
+Detection Object Conversion
+
+Detection.msg Creation
+
+/detections Publishing
 ```
 
 ---
 
-### P4.4 – Bounding Box Messages
+## P4.4 – Detection Interface
 
-#### Goal
+### Goal
 
-Create custom ROS2 interface for detection exchange.
+Standardize perception outputs for downstream modules.
 
-#### Implementation
+### Implementation
 
 Created:
 
@@ -1124,7 +1164,7 @@ Created:
 interfaces/msg/Detection.msg
 ```
 
-#### Message Structure
+### Message Definition
 
 ```text
 string class_name
@@ -1138,64 +1178,85 @@ int32 x2
 int32 y2
 ```
 
-#### Build Interface
+### Build Interface
 
 ```bash
-colcon build \
---packages-select interfaces
+colcon build --packages-select interfaces
 ```
 
-#### Verify Interface
+### Verify Interface
 
 ```bash
-ros2 interface show \
-interfaces/msg/Detection
+ros2 interface show interfaces/msg/Detection
 ```
 
 ---
 
-### P4.5 – Detection Visualization
+## P4.5 – Detector Pipeline
 
-#### Goal
+### Goal
 
-Visualize detection outputs directly on video frames.
+Create a single executable entry point for the perception layer.
 
-#### Features
+### Implementation
+
+Created:
 
 ```text
-Bounding Boxes
-
-Class Labels
-
-Confidence Display
-
-Detection Count
+detector_pipeline.py
 ```
 
-#### Visualization Pipeline
+### Responsibilities
+
+```text
+Initialize ROS2
+
+Initialize Components
+
+Run Detection Loop
+
+Publish Detections
+
+Render Visualization
+
+Handle Cleanup
+```
+
+### Execution Flow
 
 ```text
 Frame
   │
   ▼
+
 YOLO Detection
   │
   ▼
-Bounding Boxes
+
+Detection Object
   │
   ▼
-OpenCV Display
+
+Detection Publisher
+  │
+  ▼
+
+/detections
+  │
+  ▼
+
+Visualization
 ```
 
 ---
 
-### P4.6 – Performance Benchmarking
+## P4.6 – Performance Benchmarking
 
-#### Goal
+### Goal
 
 Measure runtime performance of the perception pipeline.
 
-#### Metrics
+### Metrics
 
 ```text
 FPS
@@ -1207,14 +1268,14 @@ Detection Count
 Resolution
 ```
 
-#### Current Observation
+### Current Observation
 
 ```text
-Resolution      : 1280x720
+Resolution      : 1280 x 720
 
-FPS             : ~13 FPS
+FPS             : ~16 FPS
 
-Inference Time  : ~65 ms
+Inference Time  : ~53 ms
 
 Detection Count : Dynamic
 ```
@@ -1223,10 +1284,22 @@ Detection Count : Dynamic
 
 ## Verification
 
+### Build Package
+
+```bash
+cd ros2_WS
+
+colcon build --packages-select perception_node
+
+source install/setup.bash
+```
+
+---
+
 ### Run Detection Pipeline
 
 ```bash
-ros2 run perception_node camera_viewer
+ros2 run perception_node detector_pipeline
 ```
 
 ---
@@ -1270,83 +1343,105 @@ y2
 ### Verify Interface
 
 ```bash
-ros2 interface show \
-interfaces/msg/Detection
+ros2 interface show interfaces/msg/Detection
 ```
 
 ---
 
-## Detection Pipeline
+## Final Detection Architecture
 
 ```text
+detector_pipeline.py
+        │
+        ▼
+
 camera_viewer.py
         │
         ▼
+
 yolo_detector.py
         │
         ▼
+
 detection_publisher.py
         │
         ▼
+
 /detections
         │
         ▼
+
 Detection.msg
 ```
 
 ---
 
-## Limitations
+# P5 – Tracking Layer
+
+## Objective
+
+Transform object detections into persistent target tracks capable of maintaining target identity across frames.
+
+Goal:
 
 ```text
-Current YOLO model is a general-purpose detector.
+Detections
+     │
+     ▼
 
-Targets may occasionally be classified as:
+Target Association
+     │
+     ▼
 
-- Airplane
-- Boat
-- Truck
+Track Generation
+     │
+     ▼
 
-instead of Drone.
-
-Small distant targets are difficult to detect.
-
-No target persistence.
-
-No target ID assignment.
-
-No target velocity estimation.
+Persistent Target IDs
 ```
 
 ---
 
-## Future Improvements
+## Planned Architecture
 
 ```text
-VisDrone Dataset
+/detections
+      │
+      ▼
 
-Anti-UAV Dataset
+tracker_node.py
+      │
+      ▼
 
-Custom Drone Detector
+DeepSORT
+      │
+      ▼
 
-YOLO Fine-Tuning
+/tracks
+      │
+      ▼
 
-DeepSORT Integration
-
-Track ID Assignment
-
-Multi-Object Tracking
+Track.msg
 ```
----
 
+cd /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS
 
+colcon build --packages-select interfaces perception_node tracking_node
+
+colcon build --packages-select perception_node
+
+source install/setup.bash
+ros2 run perception_node detector_pipeline
 
 P5 Tracking
 P5.1 Create Tracking Package
+done
 
 P5.2 Create Track Message
+done 
 
 P5.3 Build DeepSORT Wrapper
+
 
 P5.4 Build Tracker Node
 
@@ -1365,6 +1460,27 @@ Then Dashboard, backend
 
 
 
+
+
+Format-
+# import
+    # lib
+
+# config class
+    # constant
+
+# logic class
+    # initilize the val
+
+    # business logic
+
+# execution layer
+
+    # input
+
+    # object creation
+
+    # output
 
 
 
