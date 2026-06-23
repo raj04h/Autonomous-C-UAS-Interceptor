@@ -96,7 +96,7 @@ without receiving GPS coordinates from the target.
 | P2 | ROS2 Application Layer | ✅ Completed |
 | P3 | Camera & Perception Foundation | ✅ Completed |
 | P4 | Detection Layer | ✅ Completed |
-| P5 | Tracking Layer | ⏳ In Progress |
+| P5 | Tracking Layer | ✅ Completed |
 | P6 | State Estimation Layer | ⏳ Planned |
 | P7 | Guidance Layer | ⏳ Planned |
 | P8 | Control Layer | ⏳ Planned |
