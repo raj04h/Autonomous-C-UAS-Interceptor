@@ -1,8 +1,35 @@
-import cv2
-import numpy as np
+ros2 pkg executables perception_node
 
-img = np.zeros((400,400,3), dtype=np.uint8)
+ros2 pkg executables tracking_node
 
-cv2.imshow("test", img)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+
+
+
+source /opt/ros/humble/setup.bash
+
+source install/setup.bash
+
+ros2 run perception_node detector_pipeline
+
+
+
+
+source /opt/ros/humble/setup.bash
+
+source install/setup.bash
+
+ros2 run tracking_node tracker_pipeline
+
+
+
+
+source install/setup.bash
+
+ros2 topic echo /detections --once
+
+
+
+
+source install/setup.bash
+
+ros2 topic echo /tracks --once

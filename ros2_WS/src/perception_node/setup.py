@@ -24,7 +24,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            "detector_pipeline = perception_node.detector_pipeline:main"
+            "detector_pipeline = perception_node.detecting_pipeline:main"
         ],
     },
 )

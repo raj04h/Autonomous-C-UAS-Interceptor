@@ -24,7 +24,7 @@
 
 from ultralytics import YOLO
 
-from perception_node.config_loader import (
+from perception_node.config_perception import (
     PROJECT_ROOT,
     load_config
 )

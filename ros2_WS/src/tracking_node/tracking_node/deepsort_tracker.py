@@ -1,81 +1,119 @@
 """
-DeepSORT Tracking Module
+DeepSORT Tracker Wrapper
 
-Input:
-    YOLO Detections
-
-Output:
-    DeepSORT Tracks
+Responsibilities:
+- Initialize DeepSORT
+- Convert detections to DeepSORT format
+- Run tracking update
+- Return track objects
 """
+
+from typing import List, Dict, Any
+
 from deep_sort_realtime.deepsort_tracker import DeepSort
-import numpy as np
+
+from tracking_node.tracking_config import (
+    TrackingConfig
+)
 
 
-# ==========================================================
-# CONFIGURATION
-# ==========================================================
+class DeepsortTracker:
 
-class TrackingConfig:
-
-    MAX_AGE = 30
-
-    N_INIT = 3
-
-    MAX_COSINE_DISTANCE = 0.4
-
-
-# ==========================================================
-# TRACKER LOGIC
-# ==========================================================
-
-class DeepSortTracker:
-
-    def __init__(self):
+    def __init__(self) -> None:
 
         self.tracker = DeepSort(
-            max_age=TrackingConfig.MAX_AGE,
-            n_init=TrackingConfig.N_INIT,
-            max_cosine_distance=TrackingConfig.MAX_COSINE_DISTANCE
+
+            max_age=
+            TrackingConfig.MAX_AGE,
+
+            n_init=
+            TrackingConfig.N_INIT,
+
+            max_iou_distance=
+            TrackingConfig.MAX_IOU_DISTANCE,
+
+            max_cosine_distance=
+            TrackingConfig.MAX_COSINE_DISTANCE,
+
+            embedder=
+            TrackingConfig.EMBEDDER,
+
+            half=
+            TrackingConfig.HALF_PRECISION,
+
+            bgr=
+            TrackingConfig.BGR
         )
 
+    # ======================================
+    # Update Tracks
+    # ======================================
 
+    def update(
+        self,
+        detections: List[Dict[str, Any]],
+        frame: Any
+    ):
 
+        # ------------------------------
+        # Validation
+        # ------------------------------
 
-    def update(self, detections):
+        if not detections:
+            return []
 
-        dummy_frame = np.zeros(
-            (720, 1280, 3),
-            dtype=np.uint8
-        )
+        if frame is None:
+            return []
+
+        # ------------------------------
+        # DeepSORT Format Conversion
+        #
+        # ROS:
+        # x1, y1, x2, y2
+        #
+        # DeepSORT:
+        # x, y, width, height
+        # ------------------------------
+
+        deepsort_detections = []
+
+        for detection in detections:
+
+            class_name = (
+                detection["class_name"]
+            )
+
+            confidence = (
+                detection["confidence"]
+            )
+
+            x1 = detection["x1"]
+            y1 = detection["y1"]
+
+            x2 = detection["x2"]
+            y2 = detection["y2"]
+
+            width = x2 - x1
+            height = y2 - y1
+
+            deepsort_detections.append(
+
+                (
+                    [x1, y1, width, height],
+                    confidence,
+                    class_name
+                )
+            )
+
+        # ------------------------------
+        # Tracking
+        # ------------------------------
 
         tracks = self.tracker.update_tracks(
-            detections,
-            frame=dummy_frame
+
+            deepsort_detections,
+
+            frame=frame
         )
 
         return tracks
-
-
-# ==========================================================
-# EXECUTION
-# ==========================================================
-
-def main():
-
-    detections = [
-        (
-            [100, 100, 50, 50],
-            0.95,
-            "drone"
-        )
-    ]
-
-    tracker = DeepSortTracker()
-
-    tracks = tracker.update(detections)
-
-    print(tracks)
-
-
-if __name__ == "__main__":
-    main()

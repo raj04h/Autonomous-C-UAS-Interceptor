@@ -179,6 +179,11 @@ pub struct Track {
     #[allow(missing_docs)]
     pub center_y: i32,
 
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub confirmed: bool,
+
 }
 
 

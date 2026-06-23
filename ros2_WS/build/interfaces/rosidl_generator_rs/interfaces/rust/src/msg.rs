@@ -157,6 +157,11 @@ pub struct Track {
     #[allow(missing_docs)]
     pub center_y: i32,
 
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub confirmed: bool,
+
 }
 
 
@@ -182,6 +187,7 @@ impl rosidl_runtime_rs::Message for Track {
         y2: msg.y2,
         center_x: msg.center_x,
         center_y: msg.center_y,
+        confirmed: msg.confirmed,
       }),
       std::borrow::Cow::Borrowed(msg) => std::borrow::Cow::Owned(Self::RmwMsg {
       track_id: msg.track_id,
@@ -193,6 +199,7 @@ impl rosidl_runtime_rs::Message for Track {
       y2: msg.y2,
       center_x: msg.center_x,
       center_y: msg.center_y,
+      confirmed: msg.confirmed,
       })
     }
   }
@@ -208,6 +215,7 @@ impl rosidl_runtime_rs::Message for Track {
       y2: msg.y2,
       center_x: msg.center_x,
       center_y: msg.center_y,
+      confirmed: msg.confirmed,
     }
   }
 }

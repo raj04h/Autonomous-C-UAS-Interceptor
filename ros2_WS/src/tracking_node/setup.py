@@ -24,6 +24,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            "tracker_pipeline = tracking_node.tracking_pipeline:main"
         ],
     },
 )

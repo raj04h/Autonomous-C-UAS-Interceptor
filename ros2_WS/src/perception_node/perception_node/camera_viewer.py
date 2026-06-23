@@ -16,7 +16,7 @@
 import cv2
 import time
 
-from perception_node.config_loader import (
+from perception_node.config_perception import (
     PROJECT_ROOT,
     load_config
 )
