@@ -4,11 +4,13 @@
   "template_dir": "/opt/ros/humble/share/rosidl_generator_rs/cmake/../resource",
   "idl_tuples": [
     "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces:msg/Detection.idl",
-    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces:msg/Track.idl"
+    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces:msg/Track.idl",
+    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces:msg/TargetState.idl"
   ],
   "ros_interface_files": [
     "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces/msg/Detection.idl",
-    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces/msg/Track.idl"
+    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces/msg/Track.idl",
+    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces/msg/TargetState.idl"
   ],
   "target_dependencies": [
     "/opt/ros/humble/share/rosidl_generator_rs/cmake/../../../lib/rosidl_generator_rs/rosidl_generator_rs",
@@ -25,8 +27,10 @@
     "/opt/ros/humble/share/rosidl_generator_rs/cmake/../resource/templates/srv_rmw.rs.em",
     "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces/msg/Detection.idl",
     "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces/msg/Track.idl",
+    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces/msg/TargetState.idl",
     "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces/msg/Detection.idl",
-    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces/msg/Track.idl"
+    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces/msg/Track.idl",
+    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces/msg/TargetState.idl"
   ],
   "package_version": "0.0.0"
 }

@@ -51,12 +51,10 @@ class TrackerNode(Node):
     def __init__(self):
 
         super().__init__(
-            "tracker_node"
+            "tracking_pipeline" 
         )
 
-        # ==================================
         # QoS Configuration
-        # ==================================
 
         qos = QoSProfile(
 
@@ -69,9 +67,7 @@ class TrackerNode(Node):
             depth=10 
         )
 
-        # ==================================
         # Managers
-        # ==================================
 
         self.subscriber_manager = (
             TrackerSubscriberManager()
@@ -87,9 +83,7 @@ class TrackerNode(Node):
             )
         )
 
-        # ==================================
         # Tracking Engine
-        # ==================================
 
         self.tracker = (
             DeepsortTracker()
@@ -100,9 +94,8 @@ class TrackerNode(Node):
         )
         self.last_benchmark_print = 0
 
-        # ==================================
+
         # Subscribers
-        # ==================================
 
         self.frame_subscription = (
             self.create_subscription(
@@ -130,9 +123,8 @@ class TrackerNode(Node):
             )
         )
 
-        # ==================================
+
         # Main Tracking Loop
-        # ==================================
 
         self.timer = self.create_timer(
             0.01,
@@ -143,10 +135,7 @@ class TrackerNode(Node):
             "Tracker Node Started"
         )
 
-    # ======================================
     # Tracking Pipeline
-    # ======================================
-
     def process_tracking(self):
 
         detection_msg = (

@@ -12,8 +12,8 @@ FORMAT_STR_COMMENT_LINE = '# {comment}'
 FORMAT_STR_SET_ENV_VAR = 'export {name}="{value}"'
 FORMAT_STR_USE_ENV_VAR = '${name}'
 FORMAT_STR_INVOKE_SCRIPT = 'COLCON_CURRENT_PREFIX="{prefix}" _colcon_prefix_sh_source_script "{script_path}"'  # noqa: E501
-FORMAT_STR_REMOVE_LEADING_SEPARATOR = 'if [ "$(echo -n ${name} | head -c 1)" = ":" ]; then export {name}=${{{name}#?}} ; fi'  # noqa: E501
-FORMAT_STR_REMOVE_TRAILING_SEPARATOR = 'if [ "$(echo -n ${name} | tail -c 1)" = ":" ]; then export {name}=${{{name}%?}} ; fi'  # noqa: E501
+FORMAT_STR_REMOVE_LEADING_SEPARATOR = 'export {name}=${{{name}#:}}'  # noqa: E501
+FORMAT_STR_REMOVE_TRAILING_SEPARATOR = 'export {name}=${{{name}%:}}'  # noqa: E501
 
 DSV_TYPE_APPEND_NON_DUPLICATE = 'append-non-duplicate'
 DSV_TYPE_PREPEND_NON_DUPLICATE = 'prepend-non-duplicate'
@@ -193,12 +193,13 @@ def process_dsv_file(
 ):
     commands = []
     if _include_comments():
-        commands.append(FORMAT_STR_COMMENT_LINE.format_map({'comment': dsv_path}))
+        commands.append(FORMAT_STR_COMMENT_LINE.format_map({
+            'comment': dsv_path}))
     with open(dsv_path, 'r') as h:
         content = h.read()
     lines = content.splitlines()
 
-    basenames = OrderedDict()
+    basename_map = OrderedDict()
     for i, line in enumerate(lines):
         # skip over empty or whitespace-only lines
         if not line.strip():
@@ -223,21 +224,21 @@ def process_dsv_file(
         else:
             # group remaining source lines by basename
             path_without_ext, ext = os.path.splitext(remainder)
-            if path_without_ext not in basenames:
-                basenames[path_without_ext] = set()
+            if path_without_ext not in basename_map:
+                basename_map[path_without_ext] = set()
             assert ext.startswith('.')
             ext = ext[1:]
             if ext in (primary_extension, additional_extension):
-                basenames[path_without_ext].add(ext)
+                basename_map[path_without_ext].add(ext)
 
     # add the dsv extension to each basename if the file exists
-    for basename, extensions in basenames.items():
+    for basename, extensions in basename_map.items():
         if not os.path.isabs(basename):
             basename = os.path.join(prefix, basename)
         if os.path.exists(basename + '.dsv'):
             extensions.add('dsv')
 
-    for basename, extensions in basenames.items():
+    for basename, extensions in basename_map.items():
         if not os.path.isabs(basename):
             basename = os.path.join(prefix, basename)
         if 'dsv' in extensions:
@@ -304,8 +305,8 @@ def handle_dsv_types_except_source(type_, remainder, prefix):
                 comment = f'skip extending {env_name} with not existing ' \
                     f'path: {value}'
                 if _include_comments():
-                    commands.append(
-                        FORMAT_STR_COMMENT_LINE.format_map({'comment': comment}))
+                    commands.append(FORMAT_STR_COMMENT_LINE.format_map({
+                        'comment': comment}))
             elif type_ == DSV_TYPE_APPEND_NON_DUPLICATE:
                 commands += _append_unique_value(env_name, value)
             else:
@@ -320,15 +321,15 @@ env_state = {}
 
 
 def _append_unique_value(name, value):
-    global env_state
     if name not in env_state:
         if os.environ.get(name):
             env_state[name] = set(os.environ[name].split(os.pathsep))
         else:
             env_state[name] = set()
-    # append even if the variable has not been set yet, in case a shell script sets the
-    # same variable without the knowledge of this Python script.
-    # later _remove_ending_separators() will cleanup any unintentional leading separator
+    # Append even if the variable has not been set yet, in case a shell script
+    # sets the same variable without the knowledge of this Python script.
+    # Later, _remove_ending_separators() will cleanup any unintentional
+    # leading separator.
     extend = FORMAT_STR_USE_ENV_VAR.format_map({'name': name}) + os.pathsep
     line = FORMAT_STR_SET_ENV_VAR.format_map(
         {'name': name, 'value': extend + value})
@@ -342,15 +343,15 @@ def _append_unique_value(name, value):
 
 
 def _prepend_unique_value(name, value):
-    global env_state
     if name not in env_state:
         if os.environ.get(name):
             env_state[name] = set(os.environ[name].split(os.pathsep))
         else:
             env_state[name] = set()
-    # prepend even if the variable has not been set yet, in case a shell script sets the
-    # same variable without the knowledge of this Python script.
-    # later _remove_ending_separators() will cleanup any unintentional trailing separator
+    # Prepend even if the variable has not been set yet, in case a shell script
+    # sets the same variable without the knowledge of this Python script.
+    # Later, _remove_ending_separators() will cleanup any unintentional
+    # trailing separator.
     extend = os.pathsep + FORMAT_STR_USE_ENV_VAR.format_map({'name': name})
     line = FORMAT_STR_SET_ENV_VAR.format_map(
         {'name': name, 'value': value + extend})
@@ -369,10 +370,10 @@ def _remove_ending_separators():
     if FORMAT_STR_REMOVE_TRAILING_SEPARATOR is None:
         return []
 
-    global env_state
     commands = []
     for name in env_state:
-        # skip variables that already had values before this script started prepending
+        # skip variables that already had values before this script started
+        # appending/prepending
         if name in os.environ:
             continue
         commands += [
@@ -382,7 +383,6 @@ def _remove_ending_separators():
 
 
 def _set(name, value):
-    global env_state
     env_state[name] = value
     line = FORMAT_STR_SET_ENV_VAR.format_map(
         {'name': name, 'value': value})
@@ -390,7 +390,6 @@ def _set(name, value):
 
 
 def _set_if_unset(name, value):
-    global env_state
     line = FORMAT_STR_SET_ENV_VAR.format_map(
         {'name': name, 'value': value})
     if env_state.get(name, os.environ.get(name)):

@@ -12,6 +12,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 
   "msg/Detection.msg"
   "msg/Track.msg"
+  "msg/TargetState.msg"
 
 )
 
