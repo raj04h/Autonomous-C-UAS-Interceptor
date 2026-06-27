@@ -81,6 +81,11 @@ CMakeFiles/interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/target_st
 CMakeFiles/interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/target_state__struct.hpp
 CMakeFiles/interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/target_state__traits.hpp
 CMakeFiles/interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/target_state__type_support.hpp
+CMakeFiles/interfaces__cpp: rosidl_generator_cpp/interfaces/msg/guidance_command.hpp
+CMakeFiles/interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/guidance_command__builder.hpp
+CMakeFiles/interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/guidance_command__struct.hpp
+CMakeFiles/interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/guidance_command__traits.hpp
+CMakeFiles/interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/guidance_command__type_support.hpp
 CMakeFiles/interfaces__cpp: rosidl_generator_cpp/interfaces/msg/rosidl_generator_cpp__visibility_control.hpp
 
 rosidl_generator_cpp/interfaces/msg/detection.hpp: /opt/ros/humble/lib/rosidl_generator_cpp/rosidl_generator_cpp
@@ -101,6 +106,7 @@ rosidl_generator_cpp/interfaces/msg/detection.hpp: /opt/ros/humble/share/rosidl_
 rosidl_generator_cpp/interfaces/msg/detection.hpp: rosidl_adapter/interfaces/msg/Detection.idl
 rosidl_generator_cpp/interfaces/msg/detection.hpp: rosidl_adapter/interfaces/msg/Track.idl
 rosidl_generator_cpp/interfaces/msg/detection.hpp: rosidl_adapter/interfaces/msg/TargetState.idl
+rosidl_generator_cpp/interfaces/msg/detection.hpp: rosidl_adapter/interfaces/msg/GuidanceCommand.idl
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code for ROS interfaces"
 	/usr/bin/python3 /opt/ros/humble/share/rosidl_generator_cpp/cmake/../../../lib/rosidl_generator_cpp/rosidl_generator_cpp --generator-arguments-file /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_generator_cpp__arguments.json
 
@@ -146,11 +152,30 @@ rosidl_generator_cpp/interfaces/msg/detail/target_state__traits.hpp: rosidl_gene
 rosidl_generator_cpp/interfaces/msg/detail/target_state__type_support.hpp: rosidl_generator_cpp/interfaces/msg/detection.hpp
 	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/interfaces/msg/detail/target_state__type_support.hpp
 
+rosidl_generator_cpp/interfaces/msg/guidance_command.hpp: rosidl_generator_cpp/interfaces/msg/detection.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/interfaces/msg/guidance_command.hpp
+
+rosidl_generator_cpp/interfaces/msg/detail/guidance_command__builder.hpp: rosidl_generator_cpp/interfaces/msg/detection.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/interfaces/msg/detail/guidance_command__builder.hpp
+
+rosidl_generator_cpp/interfaces/msg/detail/guidance_command__struct.hpp: rosidl_generator_cpp/interfaces/msg/detection.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/interfaces/msg/detail/guidance_command__struct.hpp
+
+rosidl_generator_cpp/interfaces/msg/detail/guidance_command__traits.hpp: rosidl_generator_cpp/interfaces/msg/detection.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/interfaces/msg/detail/guidance_command__traits.hpp
+
+rosidl_generator_cpp/interfaces/msg/detail/guidance_command__type_support.hpp: rosidl_generator_cpp/interfaces/msg/detection.hpp
+	@$(CMAKE_COMMAND) -E touch_nocreate rosidl_generator_cpp/interfaces/msg/detail/guidance_command__type_support.hpp
+
 interfaces__cpp: CMakeFiles/interfaces__cpp
 interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/detection__builder.hpp
 interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/detection__struct.hpp
 interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/detection__traits.hpp
 interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/detection__type_support.hpp
+interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/guidance_command__builder.hpp
+interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/guidance_command__struct.hpp
+interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/guidance_command__traits.hpp
+interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/guidance_command__type_support.hpp
 interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/target_state__builder.hpp
 interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/target_state__struct.hpp
 interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/target_state__traits.hpp
@@ -160,6 +185,7 @@ interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/track__struct.hpp
 interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/track__traits.hpp
 interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detail/track__type_support.hpp
 interfaces__cpp: rosidl_generator_cpp/interfaces/msg/detection.hpp
+interfaces__cpp: rosidl_generator_cpp/interfaces/msg/guidance_command.hpp
 interfaces__cpp: rosidl_generator_cpp/interfaces/msg/target_state.hpp
 interfaces__cpp: rosidl_generator_cpp/interfaces/msg/track.hpp
 interfaces__cpp: CMakeFiles/interfaces__cpp.dir/build.make

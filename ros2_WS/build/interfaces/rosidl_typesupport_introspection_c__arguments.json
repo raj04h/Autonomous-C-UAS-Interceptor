@@ -5,7 +5,8 @@
   "idl_tuples": [
     "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces:msg/Detection.idl",
     "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces:msg/Track.idl",
-    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces:msg/TargetState.idl"
+    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces:msg/TargetState.idl",
+    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces:msg/GuidanceCommand.idl"
   ],
   "target_dependencies": [
     "/opt/ros/humble/lib/rosidl_typesupport_introspection_c/rosidl_typesupport_introspection_c",
@@ -18,6 +19,7 @@
     "/opt/ros/humble/share/rosidl_typesupport_introspection_c/resource/srv__type_support.c.em",
     "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces/msg/Detection.idl",
     "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces/msg/Track.idl",
-    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces/msg/TargetState.idl"
+    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces/msg/TargetState.idl",
+    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces/msg/GuidanceCommand.idl"
   ]
 }

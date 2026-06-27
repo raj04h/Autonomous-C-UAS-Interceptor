@@ -253,8 +253,13 @@ CMakeFiles/interfaces__rosidl_typesupport_introspection_c__pyext.dir/rosidl_gene
   rosidl_generator_c/interfaces/msg/detail/track__functions.h \
   rosidl_generator_c/interfaces/msg/detail/target_state__type_support.h \
   rosidl_generator_c/interfaces/msg/detail/target_state__struct.h \
-  rosidl_generator_c/interfaces/msg/detail/target_state__functions.h
+  rosidl_generator_c/interfaces/msg/detail/target_state__functions.h \
+  rosidl_generator_c/interfaces/msg/detail/guidance_command__type_support.h \
+  rosidl_generator_c/interfaces/msg/detail/guidance_command__struct.h \
+  rosidl_generator_c/interfaces/msg/detail/guidance_command__functions.h
 
+
+rosidl_generator_c/interfaces/msg/detail/guidance_command__struct.h:
 
 rosidl_generator_c/interfaces/msg/detail/target_state__struct.h:
 
@@ -315,6 +320,8 @@ rosidl_generator_c/interfaces/msg/detail/track__struct.h:
 /usr/include/python3.10/genericaliasobject.h:
 
 /usr/include/python3.10/descrobject.h:
+
+rosidl_generator_c/interfaces/msg/detail/guidance_command__functions.h:
 
 /usr/include/python3.10/pythonrun.h:
 
@@ -573,6 +580,8 @@ rosidl_generator_py/interfaces/_interfaces_s.ep.rosidl_typesupport_introspection
 /usr/include/inttypes.h:
 
 /usr/include/x86_64-linux-gnu/bits/waitflags.h:
+
+rosidl_generator_c/interfaces/msg/detail/guidance_command__type_support.h:
 
 /usr/include/python3.10/weakrefobject.h:
 

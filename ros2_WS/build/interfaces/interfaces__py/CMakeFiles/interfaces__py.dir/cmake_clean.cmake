@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "../rosidl_generator_py/interfaces/msg/__init__.py"
   "../rosidl_generator_py/interfaces/msg/_detection.py"
   "../rosidl_generator_py/interfaces/msg/_detection_s.c"
+  "../rosidl_generator_py/interfaces/msg/_guidance_command.py"
+  "../rosidl_generator_py/interfaces/msg/_guidance_command_s.c"
   "../rosidl_generator_py/interfaces/msg/_target_state.py"
   "../rosidl_generator_py/interfaces/msg/_target_state_s.c"
   "../rosidl_generator_py/interfaces/msg/_track.py"

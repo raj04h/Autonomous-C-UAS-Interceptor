@@ -6,5 +6,6 @@ interfaces.egg-info/dependency_links.txt
 interfaces.egg-info/top_level.txt
 interfaces/msg/__init__.py
 interfaces/msg/_detection.py
+interfaces/msg/_guidance_command.py
 interfaces/msg/_target_state.py
 interfaces/msg/_track.py

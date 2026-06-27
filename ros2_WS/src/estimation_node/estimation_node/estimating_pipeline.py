@@ -82,13 +82,11 @@ class EstimatingPipeline(Node):
         # Estimation Modules
         # --------------------------------------------------
 
-        self.kalman_estimator = (
-            KalmanEstimator()
-        )
+        # One estimator per track_id
+        self.kalman_estimators = {}
 
-        self.acceleration_estimator = (
-            AccelerationEstimator()
-        )
+        # One acceleration estimator per track_id
+        self.acceleration_estimators = {}
 
         self.trajectory_estimator = (
             TrajectoryEstimator()
@@ -137,17 +135,35 @@ class EstimatingPipeline(Node):
         if track is None:
             return
 
+        track_id = track.track_id
+
+        if track_id not in self.kalman_estimators:
+            self.kalman_estimators[track_id] = KalmanEstimator()
+
+        if track_id not in self.acceleration_estimators:
+            self.acceleration_estimators[track_id] = (
+                AccelerationEstimator()
+            )
+
+        kalman_estimator = (
+            self.kalman_estimators[track_id]
+        )
+
+        acceleration_estimator = (
+            self.acceleration_estimators[track_id]
+        )
+
         # ----------------------------------------------
         # Prediction
         # ----------------------------------------------
 
-        self.kalman_estimator.predict()
+        kalman_estimator.predict()
 
         # ----------------------------------------------
         # Measurement Update
         # ----------------------------------------------
 
-        self.kalman_estimator.update(
+        kalman_estimator.update(
             track.center_x,
             track.center_y
         )
@@ -156,20 +172,16 @@ class EstimatingPipeline(Node):
         # Estimated State
         # ----------------------------------------------
 
-        state = (
-            self.kalman_estimator.get_state()
-        )
+        state = kalman_estimator.get_state()
 
         # ----------------------------------------------
         # Acceleration
         # ----------------------------------------------
 
-        acceleration = (
-            self.acceleration_estimator.estimate(
-                state["vx"],
-                state["vy"],
-                EstimationConfig.DT
-            )
+        acceleration = acceleration_estimator.estimate(
+            state["vx"], 
+            state["vy"], 
+            EstimationConfig.DT
         )
 
         # ----------------------------------------------

@@ -4,6 +4,10 @@ file(REMOVE_RECURSE
   "rosidl_generator_cpp/interfaces/msg/detail/detection__struct.hpp"
   "rosidl_generator_cpp/interfaces/msg/detail/detection__traits.hpp"
   "rosidl_generator_cpp/interfaces/msg/detail/detection__type_support.hpp"
+  "rosidl_generator_cpp/interfaces/msg/detail/guidance_command__builder.hpp"
+  "rosidl_generator_cpp/interfaces/msg/detail/guidance_command__struct.hpp"
+  "rosidl_generator_cpp/interfaces/msg/detail/guidance_command__traits.hpp"
+  "rosidl_generator_cpp/interfaces/msg/detail/guidance_command__type_support.hpp"
   "rosidl_generator_cpp/interfaces/msg/detail/target_state__builder.hpp"
   "rosidl_generator_cpp/interfaces/msg/detail/target_state__struct.hpp"
   "rosidl_generator_cpp/interfaces/msg/detail/target_state__traits.hpp"
@@ -13,6 +17,7 @@ file(REMOVE_RECURSE
   "rosidl_generator_cpp/interfaces/msg/detail/track__traits.hpp"
   "rosidl_generator_cpp/interfaces/msg/detail/track__type_support.hpp"
   "rosidl_generator_cpp/interfaces/msg/detection.hpp"
+  "rosidl_generator_cpp/interfaces/msg/guidance_command.hpp"
   "rosidl_generator_cpp/interfaces/msg/target_state.hpp"
   "rosidl_generator_cpp/interfaces/msg/track.hpp"
 )

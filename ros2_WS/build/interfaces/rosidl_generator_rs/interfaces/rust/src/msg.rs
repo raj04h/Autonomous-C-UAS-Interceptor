@@ -338,3 +338,88 @@ impl rosidl_runtime_rs::Message for TargetState {
 }
 
 
+// Corresponds to interfaces__msg__GuidanceCommand
+
+// This struct is not documented.
+#[allow(missing_docs)]
+
+#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
+#[derive(Clone, Debug, PartialEq, PartialOrd)]
+pub struct GuidanceCommand {
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub track_id: i32,
+
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub error_x: f32,
+
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub error_y: f32,
+
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub yaw_command: f32,
+
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub pitch_command: f32,
+
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub target_locked: bool,
+
+}
+
+
+
+impl Default for GuidanceCommand {
+  fn default() -> Self {
+    <Self as rosidl_runtime_rs::Message>::from_rmw_message(super::msg::rmw::GuidanceCommand::default())
+  }
+}
+
+impl rosidl_runtime_rs::Message for GuidanceCommand {
+  type RmwMsg = super::msg::rmw::GuidanceCommand;
+
+  fn into_rmw_message(msg_cow: std::borrow::Cow<'_, Self>) -> std::borrow::Cow<'_, Self::RmwMsg> {
+    match msg_cow {
+      std::borrow::Cow::Owned(msg) => std::borrow::Cow::Owned(Self::RmwMsg {
+        track_id: msg.track_id,
+        error_x: msg.error_x,
+        error_y: msg.error_y,
+        yaw_command: msg.yaw_command,
+        pitch_command: msg.pitch_command,
+        target_locked: msg.target_locked,
+      }),
+      std::borrow::Cow::Borrowed(msg) => std::borrow::Cow::Owned(Self::RmwMsg {
+      track_id: msg.track_id,
+      error_x: msg.error_x,
+      error_y: msg.error_y,
+      yaw_command: msg.yaw_command,
+      pitch_command: msg.pitch_command,
+      target_locked: msg.target_locked,
+      })
+    }
+  }
+
+  fn from_rmw_message(msg: Self::RmwMsg) -> Self {
+    Self {
+      track_id: msg.track_id,
+      error_x: msg.error_x,
+      error_y: msg.error_y,
+      yaw_command: msg.yaw_command,
+      pitch_command: msg.pitch_command,
+      target_locked: msg.target_locked,
+    }
+  }
+}
+
+
