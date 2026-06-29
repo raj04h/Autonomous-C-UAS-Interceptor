@@ -374,6 +374,11 @@ pub struct GuidanceCommand {
 
     // This member is not documented.
     #[allow(missing_docs)]
+    pub valid: bool,
+
+
+    // This member is not documented.
+    #[allow(missing_docs)]
     pub target_locked: bool,
 
 }
@@ -397,6 +402,7 @@ impl rosidl_runtime_rs::Message for GuidanceCommand {
         error_y: msg.error_y,
         yaw_command: msg.yaw_command,
         pitch_command: msg.pitch_command,
+        valid: msg.valid,
         target_locked: msg.target_locked,
       }),
       std::borrow::Cow::Borrowed(msg) => std::borrow::Cow::Owned(Self::RmwMsg {
@@ -405,6 +411,7 @@ impl rosidl_runtime_rs::Message for GuidanceCommand {
       error_y: msg.error_y,
       yaw_command: msg.yaw_command,
       pitch_command: msg.pitch_command,
+      valid: msg.valid,
       target_locked: msg.target_locked,
       })
     }
@@ -417,7 +424,93 @@ impl rosidl_runtime_rs::Message for GuidanceCommand {
       error_y: msg.error_y,
       yaw_command: msg.yaw_command,
       pitch_command: msg.pitch_command,
+      valid: msg.valid,
       target_locked: msg.target_locked,
+    }
+  }
+}
+
+
+// Corresponds to interfaces__msg__ControlCommand
+
+// This struct is not documented.
+#[allow(missing_docs)]
+
+#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
+#[derive(Clone, Debug, PartialEq, PartialOrd)]
+pub struct ControlCommand {
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub track_id: i32,
+
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub roll_setpoint: f32,
+
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub yaw_setpoint: f32,
+
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub pitch_setpoint: f32,
+
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub collective_thrust: f32,
+
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub offboard_enabled: bool,
+
+}
+
+
+
+impl Default for ControlCommand {
+  fn default() -> Self {
+    <Self as rosidl_runtime_rs::Message>::from_rmw_message(super::msg::rmw::ControlCommand::default())
+  }
+}
+
+impl rosidl_runtime_rs::Message for ControlCommand {
+  type RmwMsg = super::msg::rmw::ControlCommand;
+
+  fn into_rmw_message(msg_cow: std::borrow::Cow<'_, Self>) -> std::borrow::Cow<'_, Self::RmwMsg> {
+    match msg_cow {
+      std::borrow::Cow::Owned(msg) => std::borrow::Cow::Owned(Self::RmwMsg {
+        track_id: msg.track_id,
+        roll_setpoint: msg.roll_setpoint,
+        yaw_setpoint: msg.yaw_setpoint,
+        pitch_setpoint: msg.pitch_setpoint,
+        collective_thrust: msg.collective_thrust,
+        offboard_enabled: msg.offboard_enabled,
+      }),
+      std::borrow::Cow::Borrowed(msg) => std::borrow::Cow::Owned(Self::RmwMsg {
+      track_id: msg.track_id,
+      roll_setpoint: msg.roll_setpoint,
+      yaw_setpoint: msg.yaw_setpoint,
+      pitch_setpoint: msg.pitch_setpoint,
+      collective_thrust: msg.collective_thrust,
+      offboard_enabled: msg.offboard_enabled,
+      })
+    }
+  }
+
+  fn from_rmw_message(msg: Self::RmwMsg) -> Self {
+    Self {
+      track_id: msg.track_id,
+      roll_setpoint: msg.roll_setpoint,
+      yaw_setpoint: msg.yaw_setpoint,
+      pitch_setpoint: msg.pitch_setpoint,
+      collective_thrust: msg.collective_thrust,
+      offboard_enabled: msg.offboard_enabled,
     }
   }
 }

@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "../rosidl_generator_py/interfaces/_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c"
   "../rosidl_generator_py/interfaces/_interfaces_s.ep.rosidl_typesupport_introspection_c.c"
   "../rosidl_generator_py/interfaces/msg/__init__.py"
+  "../rosidl_generator_py/interfaces/msg/_control_command.py"
+  "../rosidl_generator_py/interfaces/msg/_control_command_s.c"
   "../rosidl_generator_py/interfaces/msg/_detection.py"
   "../rosidl_generator_py/interfaces/msg/_detection_s.c"
   "../rosidl_generator_py/interfaces/msg/_guidance_command.py"

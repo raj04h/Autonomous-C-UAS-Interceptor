@@ -70,6 +70,7 @@ CMakeFiles/interfaces: /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/sr
 CMakeFiles/interfaces: /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/interfaces/msg/Track.msg
 CMakeFiles/interfaces: /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/interfaces/msg/TargetState.msg
 CMakeFiles/interfaces: /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/interfaces/msg/GuidanceCommand.msg
+CMakeFiles/interfaces: /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/interfaces/msg/ControlCommand.msg
 
 interfaces: CMakeFiles/interfaces
 interfaces: CMakeFiles/interfaces.dir/build.make

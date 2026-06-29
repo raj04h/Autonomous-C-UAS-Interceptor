@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/control_command__type_support.cpp.o"
+  "CMakeFiles/interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/control_command__type_support.cpp.o.d"
   "CMakeFiles/interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/detection__type_support.cpp.o"
   "CMakeFiles/interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/detection__type_support.cpp.o.d"
   "CMakeFiles/interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/guidance_command__type_support.cpp.o"
@@ -9,6 +11,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/track__type_support.cpp.o.d"
   "libinterfaces__rosidl_typesupport_fastrtps_cpp.pdb"
   "libinterfaces__rosidl_typesupport_fastrtps_cpp.so"
+  "rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/control_command__rosidl_typesupport_fastrtps_cpp.hpp"
+  "rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/control_command__type_support.cpp"
   "rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/detection__type_support.cpp"
   "rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/guidance_command__type_support.cpp"
   "rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/target_state__type_support.cpp"

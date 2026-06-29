@@ -2701,6 +2701,32 @@ Future guidance algorithms may replace or extend the Guidance Controller, includ
 
 ---
 
+## P8- control layer
+
+control.py
+GuidanceCommand
+        │
+        ▼
+guidance.valid ?
+
+        │
+   ┌────┴────┐
+   │         │
+ False      True
+   │         │
+   ▼         ▼
+
+Safe Cmd    Guidance → Control Mapping
+                │
+                ▼
+         Saturation (Optional)
+                │
+                ▼
+        Return ControlCommand
+
+
+
+
 # Intercept Trajectory Optimization
 
 Intercept trajectory optimization is intentionally **not implemented** in P7.
@@ -2717,7 +2743,144 @@ True trajectory optimization requires estimating the target in **3D world coordi
 
 These capabilities will be introduced in future phases after the interceptor is capable of autonomous flight under PX4 Offboard control.
 
+The interceptor position and target world position become necessary only when you move from image-based pursuit to full 3D interception using localization, depth estimation, or state fusion.
+
+computation should occur in one predictable execution loop
+your benchmark should measure one complete control cycle
+
+Your architecture already uses a timer-driven pipeline, which is the better design.
+
+Controller = Euler
+PX4 Adapter = Quaternion Conversion
+Keep the entire AI stack in ENU/ROS convention.
+generate timestamps in px4_adapter.py
+
+adapter.py--
+Euler
+
+↓
+
+Quaternion
+
+↓
+
+NED
+
+↓
+
+PX4 Messages
+
+↓
+
+Timestamp
+
+
+ControlCommand
+        │
+        ▼
+convert_to_px4()
+        │
+        ├──────────────┬─────────────────────┐
+        ▼              ▼                     ▼
+_create_offboard() _create_attitude() _create_vehicle_command()
+        │              │                     │
+        └──────────────┴─────────────────────┘
+                       │
+                       ▼
+              PX4 Message Bundle
+
 ---
+                     Guidance Node
+                           │
+                           ▼
+                 /guidance_command
+                           │
+                           ▼
+             ControlSubscriberManager
+                           │
+                           ▼
+                FlightControllerCmd
+                           │
+                           ▼
+                 ControlCommand.msg
+                           │
+          ┌────────────────┴────────────────┐
+          ▼                                 ▼
+ControlPublisherManager              PX4Adapter
+ (/control_command)                      │
+                                         ▼
+                         OffboardControlMode
+                         VehicleAttitudeSetpoint
+                         VehicleCommand (Mode)
+                         VehicleCommand (Arm)
+                                         │
+                                         ▼
+                    Timestamp Assignment
+                                         │
+                                         ▼
+                      /fmu/in/offboard_control_mode
+                      /fmu/in/vehicle_attitude_setpoint
+                      /fmu/in/vehicle_command
+                                         │
+                                         ▼
+                                      PX4 SITL
+p8.7.1
+Euler
+↓
+
+Quaternion
+        W=cos_roll*cos_pitch*cos_yaw + sin_roll*sin_pitch*sin_yaw
+        X=sin_roll*cos_pitch*cos_yaw - cos_roll*sin_pitch*sin_yaw
+        Y=cos_roll*sin_pitch*cos_yaw + sin_roll*cos_pitch*sin_yaw
+        Z=cos_roll*cos_pitch*sin_yaw - sin_roll*sin_pitch*cos_yaw
+
+
+p8.7.2
+VehicleAttitudeSetpoint, msg.thrust_body = [0.0, 0.0, -control_cmd.collective_thrust]
+
+PX4 uses NED.
+
+p8.7.3
+OffboardControlMode
+
+p8.7.4
+VehicleCommand
+ControlCommand
+        │
+        ▼
+PX4 Adapter
+        │
+        ├───────────────┐
+        ▼               ▼
+OffboardControlMode   VehicleAttitudeSetpoint
+        │               │
+        ├───────────────┴──────────────┐
+        ▼                              ▼
+Offboard Mode Command            Arm Command\
+
+
+0 Manual
+
+1 Altitude
+
+2 Position
+
+3 Auto
+
+4 Acro
+
+5 Stabilized
+
+6 Offboard # so we use
+
+
+p8.7.5
+Add timestamps.
+
+p8.7.6
+Verify against PX4 SITL
+
+
 
 High-Level Guidance (P7) → decides where to go.
 Low-Level Control (P8) → decides how to move the drone.

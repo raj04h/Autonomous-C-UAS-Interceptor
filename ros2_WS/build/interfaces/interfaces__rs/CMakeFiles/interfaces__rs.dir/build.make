@@ -88,10 +88,12 @@ rosidl_generator_rs/interfaces/rust/src/lib.rs: rosidl_adapter/interfaces/msg/De
 rosidl_generator_rs/interfaces/rust/src/lib.rs: rosidl_adapter/interfaces/msg/Track.idl
 rosidl_generator_rs/interfaces/rust/src/lib.rs: rosidl_adapter/interfaces/msg/TargetState.idl
 rosidl_generator_rs/interfaces/rust/src/lib.rs: rosidl_adapter/interfaces/msg/GuidanceCommand.idl
+rosidl_generator_rs/interfaces/rust/src/lib.rs: rosidl_adapter/interfaces/msg/ControlCommand.idl
 rosidl_generator_rs/interfaces/rust/src/lib.rs: rosidl_adapter/interfaces/msg/Detection.idl
 rosidl_generator_rs/interfaces/rust/src/lib.rs: rosidl_adapter/interfaces/msg/Track.idl
 rosidl_generator_rs/interfaces/rust/src/lib.rs: rosidl_adapter/interfaces/msg/TargetState.idl
 rosidl_generator_rs/interfaces/rust/src/lib.rs: rosidl_adapter/interfaces/msg/GuidanceCommand.idl
+rosidl_generator_rs/interfaces/rust/src/lib.rs: rosidl_adapter/interfaces/msg/ControlCommand.idl
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Rust code for ROS interfaces"
 	cd /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/interfaces__rs && /usr/bin/python3 /opt/ros/humble/share/rosidl_generator_rs/cmake/../../../lib/rosidl_generator_rs/rosidl_generator_rs --generator-arguments-file /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_generator_rs__arguments.json --typesupport-impls "rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c;rosidl_typesupport_c"
 

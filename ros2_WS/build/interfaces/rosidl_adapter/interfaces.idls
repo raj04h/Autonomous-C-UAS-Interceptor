@@ -2,3 +2,4 @@
 /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces:msg/Track.idl
 /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces:msg/TargetState.idl
 /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces:msg/GuidanceCommand.idl
+/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_adapter/interfaces:msg/ControlCommand.idl

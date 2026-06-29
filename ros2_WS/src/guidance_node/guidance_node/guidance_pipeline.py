@@ -7,10 +7,7 @@ ROS2 Guidance Pipeline
 ROS2 Guidance Pipeline
 """
 
-# ======================================================
 # Imports
-# ======================================================
-
 import rclpy
 
 from rclpy.node import Node
@@ -21,7 +18,7 @@ from interfaces.msg import TargetState, GuidanceCommand
 
 from guidance_node.config_guidance import GuidanceConfig
 
-from guidance_node.controller_guidance import GuidanceController
+from guidance_node.cmd_guidance import GuidanceCmd
 
 from guidance_node.guidance_subscriber_manager import GuidanceSubscriberManager
 
@@ -29,31 +26,21 @@ from guidance_node.guidance_publisher_manager import GuidancePublisherManager
 
 from guidance_node.guidance_benchmark import GuidanceBenchmark
 
-# ======================================================
 # Guidance Pipeline
-# ======================================================
-
-
 class GuidancePipeline(Node):
 
     def __init__(self):
 
         super().__init__("guidance_pipeline")
 
-        # --------------------------------------------------
         # QoS
-        # --------------------------------------------------
-
         qos = QoSProfile(
             reliability=ReliabilityPolicy.RELIABLE,
             history=HistoryPolicy.KEEP_LAST,
             depth=10,
         )
 
-        # --------------------------------------------------
         # Managers
-        # --------------------------------------------------
-
         self.subscriber_manager = GuidanceSubscriberManager()
 
         guidance_publisher = self.create_publisher(
@@ -62,22 +49,13 @@ class GuidancePipeline(Node):
 
         self.publisher_manager = GuidancePublisherManager(guidance_publisher)
 
-        # --------------------------------------------------
         # Guidance Logic
-        # --------------------------------------------------
+        self.guidance_controller = GuidanceCmd()
 
-        self.guidance_controller = GuidanceController()
-
-        # --------------------------------------------------
         # Benchmark
-        # --------------------------------------------------
-
         self.benchmark = GuidanceBenchmark()
 
-        # --------------------------------------------------
         # Subscriber
-        # --------------------------------------------------
-
         self.create_subscription(
             TargetState,
             "/target_state",
@@ -85,55 +63,31 @@ class GuidancePipeline(Node):
             qos,
         )
 
-        # --------------------------------------------------
         # Main Timer
-        # --------------------------------------------------
-
         self.create_timer(GuidanceConfig.PIPELINE_PERIOD, self.run_guidance)
 
-    # ======================================================
-    # Main Guidance Pipeline
-    # ======================================================
-
+        # Main Guidance Pipeline
     def run_guidance(self):
 
-        # ----------------------------------------------
         # Get Latest Target State
-        # ----------------------------------------------
-
         target_state = self.subscriber_manager.get_target_state()
 
         if target_state is None:
             return
 
-        # ----------------------------------------------
         # Benchmark Start
-        # ----------------------------------------------
-
         self.benchmark.start_frame()
 
-        # ----------------------------------------------
         # Guidance Controller
-        # ----------------------------------------------
-
         guidance_result = self.guidance_controller.compute_guidance(target_state)
 
-        # ----------------------------------------------
         # Publish Guidance Command
-        # ----------------------------------------------
-
         self.publisher_manager.publish_guidance_command(guidance_result)
 
-        # ----------------------------------------------
         # Benchmark End
-        # ----------------------------------------------
-
         self.benchmark.end_frame()
 
-        # ----------------------------------------------
         # Benchmark Statistics
-        # ----------------------------------------------
-
         if self.benchmark.frame_count % 30 == 0:
 
             stats = self.benchmark.get_statistics()
@@ -157,11 +111,7 @@ class GuidancePipeline(Node):
             )
 
 
-# ======================================================
 # Main
-# ======================================================
-
-
 def main():
 
     rclpy.init()

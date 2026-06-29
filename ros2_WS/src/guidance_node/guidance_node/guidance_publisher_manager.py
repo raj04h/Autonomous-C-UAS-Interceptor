@@ -1,4 +1,3 @@
-
 from interfaces.msg import GuidanceCommand
 
 class GuidancePublisherManager:
@@ -14,11 +13,7 @@ class GuidancePublisherManager:
 
         message.yaw_command= guidance_result["yaw_command"]
         message.pitch_command= guidance_result["pitch_command"]
-        message.target_locked= guidance_result["target_locked"]
+        message.valid = guidance_result["valid"]
+        message.target_locked = guidance_result["target_locked"]
 
         self.guidance_publisher.publish(message)
-
-
-        
-
-    

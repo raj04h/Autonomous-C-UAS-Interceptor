@@ -4,6 +4,7 @@
     "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/interfaces:msg/Detection.msg",
     "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/interfaces:msg/Track.msg",
     "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/interfaces:msg/TargetState.msg",
-    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/interfaces:msg/GuidanceCommand.msg"
+    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/interfaces:msg/GuidanceCommand.msg",
+    "/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/interfaces:msg/ControlCommand.msg"
   ]
 }

@@ -1,3 +1,5 @@
+msg/ControlCommand.idl
+msg/ControlCommand.msg
 msg/Detection.idl
 msg/Detection.msg
 msg/GuidanceCommand.idl

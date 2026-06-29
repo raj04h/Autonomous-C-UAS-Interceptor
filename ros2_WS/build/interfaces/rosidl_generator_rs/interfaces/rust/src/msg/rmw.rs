@@ -400,6 +400,11 @@ pub struct GuidanceCommand {
 
     // This member is not documented.
     #[allow(missing_docs)]
+    pub valid: bool,
+
+
+    // This member is not documented.
+    #[allow(missing_docs)]
     pub target_locked: bool,
 
 }
@@ -444,6 +449,105 @@ impl rosidl_runtime_rs::RmwMessage for GuidanceCommand where Self: Sized {
   fn get_type_support() -> *const std::ffi::c_void {
     // SAFETY: No preconditions for this function.
     unsafe { rosidl_typesupport_c__get_message_type_support_handle__interfaces__msg__GuidanceCommand() }
+  }
+}
+
+
+#[link(name = "interfaces__rosidl_typesupport_c")]
+extern "C" {
+    fn rosidl_typesupport_c__get_message_type_support_handle__interfaces__msg__ControlCommand() -> *const std::ffi::c_void;
+}
+
+#[link(name = "interfaces__rosidl_generator_c")]
+extern "C" {
+    fn interfaces__msg__ControlCommand__init(msg: *mut ControlCommand) -> bool;
+    fn interfaces__msg__ControlCommand__Sequence__init(seq: *mut rosidl_runtime_rs::Sequence<ControlCommand>, size: usize) -> bool;
+    fn interfaces__msg__ControlCommand__Sequence__fini(seq: *mut rosidl_runtime_rs::Sequence<ControlCommand>);
+    fn interfaces__msg__ControlCommand__Sequence__copy(in_seq: &rosidl_runtime_rs::Sequence<ControlCommand>, out_seq: *mut rosidl_runtime_rs::Sequence<ControlCommand>) -> bool;
+}
+
+// Corresponds to interfaces__msg__ControlCommand
+#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
+
+
+// This struct is not documented.
+#[allow(missing_docs)]
+
+#[repr(C)]
+#[derive(Clone, Debug, PartialEq, PartialOrd)]
+pub struct ControlCommand {
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub track_id: i32,
+
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub roll_setpoint: f32,
+
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub yaw_setpoint: f32,
+
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub pitch_setpoint: f32,
+
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub collective_thrust: f32,
+
+
+    // This member is not documented.
+    #[allow(missing_docs)]
+    pub offboard_enabled: bool,
+
+}
+
+
+
+impl Default for ControlCommand {
+  fn default() -> Self {
+    unsafe {
+      let mut msg = std::mem::zeroed();
+      if !interfaces__msg__ControlCommand__init(&mut msg as *mut _) {
+        panic!("Call to interfaces__msg__ControlCommand__init() failed");
+      }
+      msg
+    }
+  }
+}
+
+impl rosidl_runtime_rs::SequenceAlloc for ControlCommand {
+  fn sequence_init(seq: &mut rosidl_runtime_rs::Sequence<Self>, size: usize) -> bool {
+    // SAFETY: This is safe since the pointer is guaranteed to be valid/initialized.
+    unsafe { interfaces__msg__ControlCommand__Sequence__init(seq as *mut _, size) }
+  }
+  fn sequence_fini(seq: &mut rosidl_runtime_rs::Sequence<Self>) {
+    // SAFETY: This is safe since the pointer is guaranteed to be valid/initialized.
+    unsafe { interfaces__msg__ControlCommand__Sequence__fini(seq as *mut _) }
+  }
+  fn sequence_copy(in_seq: &rosidl_runtime_rs::Sequence<Self>, out_seq: &mut rosidl_runtime_rs::Sequence<Self>) -> bool {
+    // SAFETY: This is safe since the pointer is guaranteed to be valid/initialized.
+    unsafe { interfaces__msg__ControlCommand__Sequence__copy(in_seq, out_seq as *mut _) }
+  }
+}
+
+impl rosidl_runtime_rs::Message for ControlCommand {
+  type RmwMsg = Self;
+  fn into_rmw_message(msg_cow: std::borrow::Cow<'_, Self>) -> std::borrow::Cow<'_, Self::RmwMsg> { msg_cow }
+  fn from_rmw_message(msg: Self::RmwMsg) -> Self { msg }
+}
+
+impl rosidl_runtime_rs::RmwMessage for ControlCommand where Self: Sized {
+  const TYPE_NAME: &'static str = "interfaces/msg/ControlCommand";
+  fn get_type_support() -> *const std::ffi::c_void {
+    // SAFETY: No preconditions for this function.
+    unsafe { rosidl_typesupport_c__get_message_type_support_handle__interfaces__msg__ControlCommand() }
   }
 }
 

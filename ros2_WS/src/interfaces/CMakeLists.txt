@@ -14,6 +14,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Track.msg"
   "msg/TargetState.msg"
   "msg/GuidanceCommand.msg"
+  "msg/ControlCommand.msg"
 )
 
 ament_export_dependencies(
