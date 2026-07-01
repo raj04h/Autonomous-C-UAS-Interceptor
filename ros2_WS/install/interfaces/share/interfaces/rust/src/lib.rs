@@ -1,1 +1,12 @@
-/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_generator_rs/interfaces/rust/src/lib.rs
+#![allow(non_camel_case_types)]
+#![allow(clippy::derive_partial_eq_without_eq)]
+#![allow(clippy::upper_case_acronyms)]
+
+#[path = "msg.rs"]
+mod msg_idiomatic;
+pub mod msg {
+    pub use super::msg_idiomatic::*;
+    pub mod rmw;
+}
+
+

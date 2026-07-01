@@ -79,6 +79,7 @@ class GuidanceCmd:
                 "error_y": 0.0,
                 "yaw_command": self.default_yaw_cmd,
                 "pitch_command": self.default_pitch_cmd,
+                "valid": False,
                 "target_locked": False,
             }
 

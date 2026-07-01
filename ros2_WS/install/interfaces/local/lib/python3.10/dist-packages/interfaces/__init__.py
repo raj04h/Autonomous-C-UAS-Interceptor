@@ -1,1 +1,0 @@
-/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_generator_py/interfaces/__init__.py

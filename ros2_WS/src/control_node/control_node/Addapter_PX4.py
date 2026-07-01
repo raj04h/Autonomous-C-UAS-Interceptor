@@ -33,7 +33,7 @@ class PX4Adapter:
     def __init__(self):
         pass
 
-    # Public API
+    #create_px4_messages
 
     def convert_to_px4(
         self,

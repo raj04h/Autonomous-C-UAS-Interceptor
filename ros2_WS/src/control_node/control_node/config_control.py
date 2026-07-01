@@ -14,7 +14,7 @@ class ControlConfig:
     MIN_ROLL = -0.30
 
     # Pitch Limits
-    MAX_PITCH = 0.30
+    MAX_PITCH = 0.30  
     MIN_PITCH = -0.30
 
     # Yaw Limits
@@ -22,7 +22,7 @@ class ControlConfig:
     MIN_YAW = -1.00
 
     # Thrust Limits
-    MAX_COLLECTIVE_THRUST = 0.80
+    MAX_COLLECTIVE_THRUST = 0.80  # control loop executes in less than 1 millisecond.
     MIN_COLLECTIVE_THRUST = 0.30
 
     # Safety
@@ -35,3 +35,12 @@ class ControlConfig:
 
     SOURCE_SYSTEM = 1
     SOURCE_COMPONENT = 1
+
+    # Controller gains
+    YAW_GAIN = 1.0
+    PITCH_GAIN = 1.0
+
+    # Maximum attitude change rate (rad/s)
+    MAX_YAW_RATE = 0.5
+    MAX_PITCH_RATE = 0.5
+

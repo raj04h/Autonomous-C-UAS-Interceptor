@@ -10,7 +10,6 @@ from rclpy.qos import (
 
 from interfaces.msg import (
     GuidanceCommand,
-    ControlCommand,
 )
 
 from px4_msgs.msg import (
@@ -25,6 +24,12 @@ from control_node.cmd_controller import FlightControllerCmd
 
 from control_node.Addapter_PX4 import PX4Adapter
 
+from control_node.offboard_state_machine import (
+    OffboardStateMachine,
+    OffboardState,
+)
+
+
 from control_node.control_subscriber_manager import (
     ControlSubscriberManager,
 )
@@ -37,6 +42,8 @@ from control_node.control_benchmark import (
     ControlBenchmark,
 )
 
+from px4_msgs.msg import VehicleStatus
+
 class ControlPipeline(Node):
 
     def __init__(self):
@@ -45,7 +52,15 @@ class ControlPipeline(Node):
 
         # QoS Configuration
 
-        qos = QoSProfile(
+        # PX4 Topics
+        px4_qos = QoSProfile(
+            reliability=ReliabilityPolicy.BEST_EFFORT,
+            history=HistoryPolicy.KEEP_LAST,
+            depth=10,
+        )
+
+        # ROS Application Topics
+        ros_qos = QoSProfile(
             reliability=ReliabilityPolicy.RELIABLE,
             history=HistoryPolicy.KEEP_LAST,
             depth=10,
@@ -56,18 +71,6 @@ class ControlPipeline(Node):
         # --------------------------------------------------
 
         self.subscriber_manager = ControlSubscriberManager()
-
-        # --------------------------------------------------
-        # Generic Control Publisher
-        # --------------------------------------------------
-
-        control_publisher = self.create_publisher(
-            ControlCommand,
-            "/control_command",
-            qos,
-        )
-
-        self.publisher_manager = ControlPublisherManager(control_publisher)
 
         # --------------------------------------------------
         # Flight Controller
@@ -88,12 +91,10 @@ class ControlPipeline(Node):
         self.benchmark = ControlBenchmark()
 
         # --------------------------------------------------
-        # PX4 State
+        # Offboard State Machine
         # --------------------------------------------------
 
-        self.offboard_requested = False
-
-        self.vehicle_armed = False
+        self.state_machine = OffboardStateMachine()
 
         # --------------------------------------------------
         # Guidance Subscriber
@@ -103,7 +104,14 @@ class ControlPipeline(Node):
             GuidanceCommand,
             "/guidance_command",
             self.subscriber_manager.guidance_callback,
-            qos,
+            ros_qos,
+        )
+
+        self.create_subscription(
+            VehicleStatus,
+            "/fmu/out/vehicle_status",
+            self.subscriber_manager.vehicle_status_callback,
+            px4_qos,
         )
 
         # --------------------------------------------------
@@ -113,19 +121,25 @@ class ControlPipeline(Node):
         self.offboard_mode_publisher = self.create_publisher(
             OffboardControlMode,
             "/fmu/in/offboard_control_mode",
-            qos,
+            px4_qos,
         )
 
         self.attitude_setpoint_publisher = self.create_publisher(
             VehicleAttitudeSetpoint,
             "/fmu/in/vehicle_attitude_setpoint",
-            qos,
+            px4_qos,
         )
 
         self.vehicle_command_publisher = self.create_publisher(
             VehicleCommand,
             "/fmu/in/vehicle_command",
-            qos,
+            px4_qos,
+        )
+
+        self.publisher_manager = ControlPublisherManager(
+            self.offboard_mode_publisher,
+            self.attitude_setpoint_publisher,
+            self.vehicle_command_publisher,
         )
 
         # --------------------------------------------------
@@ -152,6 +166,18 @@ class ControlPipeline(Node):
         if guidance is None:
             return
 
+        vehicle_status = self.subscriber_manager.get_vehicle_status()
+
+        if vehicle_status is None:
+            return
+
+        self.get_logger().info(
+            f"[GUIDANCE] "
+            f"track={guidance.track_id} | "
+            f"pitch={guidance.pitch_command:.3f} | "
+            f"yaw={guidance.yaw_command:.3f}"
+        )
+
         # --------------------------------------------------
         # Benchmark Start
         # --------------------------------------------------
@@ -164,12 +190,11 @@ class ControlPipeline(Node):
 
         control_command = self.controller.compute_control_command(guidance)
 
-        # --------------------------------------------------
-        # Publish Generic Control Command
-        # --------------------------------------------------
-
-        self.publisher_manager.publish_control_command(control_command)
-
+        self.get_logger().info(
+            f"[CONTROL] "
+            f"pitch={control_command.pitch_setpoint:.3f} | "
+            f"yaw={control_command.yaw_setpoint:.3f}"
+        )
         # --------------------------------------------------
         # Convert to PX4 Messages
         # --------------------------------------------------
@@ -180,6 +205,12 @@ class ControlPipeline(Node):
             offboard_command,
             arm_command,
         ) = self.px4_adapter.convert_to_px4(control_command)
+
+        self.get_logger().info(
+            f"[PX4] "
+            f"q={attitude_setpoint.q_d} | "
+            f"thrust={attitude_setpoint.thrust_body}"
+        )
 
         # --------------------------------------------------
         # Generate Timestamp
@@ -199,33 +230,53 @@ class ControlPipeline(Node):
         # Publish Continuous PX4 Messages
         # --------------------------------------------------
 
-        self.offboard_mode_publisher.publish(offboard_mode)
+        self.publisher_manager.publish_offboard_mode(
+            offboard_mode
+        )
 
-        self.attitude_setpoint_publisher.publish(attitude_setpoint)
-
-        # --------------------------------------------------
-        # Request Offboard Mode (Once)
-        # --------------------------------------------------
-
-        if not self.offboard_requested:
-
-            self.vehicle_command_publisher.publish(offboard_command)
-
-            self.offboard_requested = True
-
-            self.get_logger().info("Offboard mode requested.")
+        self.publisher_manager.publish_attitude_setpoint(
+            attitude_setpoint
+        )
 
         # --------------------------------------------------
-        # Arm Vehicle (Once)
+        # Update State Machine
         # --------------------------------------------------
 
-        if self.offboard_requested and not self.vehicle_armed:
+        self.state_machine.update(vehicle_status)
 
-            self.vehicle_command_publisher.publish(arm_command)
+        state = self.state_machine.get_state()
 
-            self.vehicle_armed = True
+        self.get_logger().info(f"[STATE] {state.name}")
 
-            self.get_logger().info("Vehicle arm requested.")
+        # --------------------------------------------------
+        # State Actions
+        # --------------------------------------------------
+
+        if state == OffboardState.WAIT_OFFBOARD:
+
+            self.state_machine.increment_heartbeat()
+
+        # Send OFFBOARD command only once
+        if self.state_machine.should_send_offboard():
+
+            self.get_logger().info("Publishing OFFBOARD command")
+
+            self.publisher_manager.publish_vehicle_command(
+                offboard_command
+            )
+
+            self.state_machine.mark_offboard_sent()
+
+        # Send ARM command only once
+        if self.state_machine.should_send_arm():
+
+            self.get_logger().info("Publishing ARM command")
+
+            self.publisher_manager.publish_vehicle_command(
+                arm_command
+            )
+
+            self.state_machine.mark_arm_sent()
 
         # --------------------------------------------------
         # Benchmark End

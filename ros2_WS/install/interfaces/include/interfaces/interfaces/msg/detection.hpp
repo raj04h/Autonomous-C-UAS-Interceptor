@@ -1,1 +1,12 @@
-/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/build/interfaces/rosidl_generator_cpp/interfaces/msg/detection.hpp
+// generated from rosidl_generator_cpp/resource/idl.hpp.em
+// generated code does not contain a copyright notice
+
+#ifndef INTERFACES__MSG__DETECTION_HPP_
+#define INTERFACES__MSG__DETECTION_HPP_
+
+#include "interfaces/msg/detail/detection__struct.hpp"
+#include "interfaces/msg/detail/detection__builder.hpp"
+#include "interfaces/msg/detail/detection__traits.hpp"
+#include "interfaces/msg/detail/detection__type_support.hpp"
+
+#endif  // INTERFACES__MSG__DETECTION_HPP_
