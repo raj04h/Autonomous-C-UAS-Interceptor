@@ -70,9 +70,14 @@ class GuidancePipeline(Node):
     def run_guidance(self):
 
         # Get Latest Target State
-        target_state = self.subscriber_manager.get_target_state()
+        target_state = (
+            self.subscriber_manager.get_target_state()
+        )
 
         if target_state is None:
+
+            self.publisher_manager.publish_empty_guidance_command()
+
             return
 
         # Benchmark Start
@@ -83,6 +88,7 @@ class GuidancePipeline(Node):
 
         # Publish Guidance Command
         self.publisher_manager.publish_guidance_command(guidance_result)
+        self.subscriber_manager.clear_target_state()
 
         # Benchmark End
         self.benchmark.end_frame()
