@@ -31,15 +31,51 @@ class PerceptionPublisherManager:
 
         self.bridge = CvBridge()
 
-    def publish_detection(
+
+    def publish_empty_detection(
         self,
-        detection
+        fps,
+        inference_time,
     ):
 
         msg = Detection()
 
+        msg.valid = False
+
+        msg.fps = float(
+            fps
+        )
+
+        msg.inference_time = float(
+            inference_time
+        )
+
+        self.detection_publisher.publish(
+            msg
+        )
+        
+
+    def publish_detection(
+        self,
+        detection,
+        fps,
+        inference_time,
+    ):
+
+        msg = Detection()
+
+        msg.valid = True
+
         msg.class_name = (
             detection["class_name"]
+        )
+
+        msg.fps = float(
+            fps
+        )
+
+        msg.inference_time = float(
+            inference_time
         )
 
         msg.confidence = float(

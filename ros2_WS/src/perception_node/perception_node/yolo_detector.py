@@ -1,4 +1,4 @@
-# ==========================================
+
 # YOLO Detector
 #
 # Responsibility:
@@ -16,11 +16,8 @@
 #         "bbox": [x1, y1, x2, y2]
 #     }
 # ]
-# ==========================================
 
-# ==========================================
 # Imports
-# ==========================================
 
 from ultralytics import YOLO
 
@@ -30,9 +27,7 @@ from perception_node.config_perception import (
 )
 
 
-# ==========================================
 # Load Configuration
-# ==========================================
 
 CONFIG = load_config()
 
@@ -46,9 +41,7 @@ class Configuration:
 
     CONFIDENCE_THRESHOLD = 0.20
 
-# ==========================================
 # YOLO Detector
-# ==========================================
 
 class YOLODetector:
 
@@ -76,9 +69,7 @@ class YOLODetector:
             f"{self.config.MODEL_PATH}"
         )
 
-    # ======================================
     # Run Inference
-    # ======================================
 
     def detect(self, frame):
 
@@ -90,9 +81,7 @@ class YOLODetector:
 
         return results[0]
 
-    # ======================================
     # Convert Results
-    # ======================================
 
     def get_detections(self, results):
 

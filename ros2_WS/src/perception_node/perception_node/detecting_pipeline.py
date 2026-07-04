@@ -1,14 +1,10 @@
-# ==========================================
-# Detector Pipeline
-#
+
 # Responsibilities:
 #   1. Read Video Frames
 #   2. Run YOLO Detection
 #   3. Publish Detections
 #   4. Publish Frames
 #   5. Visualize Results
-# ==========================================
-
 import time
 
 import rclpy
@@ -82,9 +78,7 @@ class DetectorNode(Node):
             )
         )
 
-        self.viewer = CameraViewer(
-            ViewerConfig()
-        )
+        self.camera = CameraViewer(ViewerConfig())
 
         self.detector = YOLODetector(
             YOLOConfig()
@@ -96,9 +90,7 @@ class DetectorNode(Node):
 
             while True:
 
-                frame = (
-                    self.viewer.get_frame()
-                )
+                frame = self.camera.get_frame()
 
                 if frame is None:
 
@@ -107,47 +99,35 @@ class DetectorNode(Node):
                     )
 
                     break
+                start_time = time.perf_counter()
 
-                self.publisher_manager.publish_frame(
-                    frame
-                )
+                results = self.detector.detect(frame)
+                detections = self.detector.get_detections(results)
 
-                start_time = (
-                    time.time()
-                )
+                inference_time = (time.perf_counter() - start_time) * 1000
 
-                results = (
-                    self.detector.detect(
-                        frame
+                fps = 1000.0 / inference_time if inference_time > 0.0 else 0.0
+
+                self.publisher_manager.publish_frame(frame)
+
+                # Publish Detection
+
+                if detections:
+
+                    for detection in detections:
+
+                        self.publisher_manager.publish_detection(
+                            detection,
+                            fps,
+                            inference_time,
+                        )
+
+                else:
+
+                    self.publisher_manager.publish_empty_detection(
+                        fps,
+                        inference_time,
                     )
-                )
-
-                detections = (
-                    self.detector.get_detections(
-                        results
-                    )
-                )
-
-                inference_time = (
-                    time.time()
-                    - start_time
-                ) * 1000
-
-                for detection in detections:
-
-                    self.publisher_manager.publish_detection(
-                        detection
-                    )
-
-                self.viewer.render(
-                    frame,
-                    detections,
-                    inference_time
-                )
-
-                if self.viewer.should_exit():
-
-                    break
 
         finally:
 
@@ -155,7 +135,7 @@ class DetectorNode(Node):
 
     def cleanup(self):
 
-        self.viewer.cleanup()
+        self.camera.cleanup()
 
         self.destroy_node()
 
