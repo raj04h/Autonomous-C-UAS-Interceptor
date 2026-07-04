@@ -1,0 +1,6 @@
+source;share/uas_launch/hook/pythonpath.ps1
+source;share/uas_launch/hook/pythonpath.dsv
+source;share/uas_launch/hook/pythonpath.sh
+source;share/uas_launch/hook/ament_prefix_path.ps1
+source;share/uas_launch/hook/ament_prefix_path.dsv
+source;share/uas_launch/hook/ament_prefix_path.sh

@@ -1,0 +1,35 @@
+[1.432s] Invoking command in '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch': PYTHONPATH=/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/uas_launch build --build-base /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/build install --record /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/install.log --install-scripts $base/lib/uas_launch --single-version-externally-managed install_data
+[2.178s] running egg_info
+[2.180s] creating build/uas_launch/uas_launch.egg-info
+[2.180s] writing build/uas_launch/uas_launch.egg-info/PKG-INFO
+[2.181s] writing dependency_links to build/uas_launch/uas_launch.egg-info/dependency_links.txt
+[2.182s] writing entry points to build/uas_launch/uas_launch.egg-info/entry_points.txt
+[2.183s] writing requirements to build/uas_launch/uas_launch.egg-info/requires.txt
+[2.184s] writing top-level names to build/uas_launch/uas_launch.egg-info/top_level.txt
+[2.184s] writing manifest file 'build/uas_launch/uas_launch.egg-info/SOURCES.txt'
+[2.189s] reading manifest file 'build/uas_launch/uas_launch.egg-info/SOURCES.txt'
+[2.192s] writing manifest file 'build/uas_launch/uas_launch.egg-info/SOURCES.txt'
+[2.193s] running build
+[2.193s] running build_py
+[2.194s] creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/build
+[2.195s] creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/build/lib
+[2.196s] creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/build/lib/uas_launch
+[2.197s] copying uas_launch/__init__.py -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/build/lib/uas_launch
+[2.197s] running install
+[2.198s] running install_lib
+[2.200s] creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/lib/python3.10/site-packages/uas_launch
+[2.201s] copying /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/build/lib/uas_launch/__init__.py -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/lib/python3.10/site-packages/uas_launch
+[2.203s] byte-compiling /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/lib/python3.10/site-packages/uas_launch/__init__.py to __init__.cpython-310.pyc
+[2.204s] running install_data
+[2.205s] creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/ament_index
+[2.205s] creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/ament_index/resource_index
+[2.206s] creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/ament_index/resource_index/packages
+[2.206s] copying resource/uas_launch -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/ament_index/resource_index/packages
+[2.207s] copying package.xml -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/uas_launch
+[2.207s] creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/uas_launch/launch
+[2.208s] copying launch/uas.launch.py -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/uas_launch/launch
+[2.209s] running install_egg_info
+[2.214s] Copying build/uas_launch/uas_launch.egg-info to /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/lib/python3.10/site-packages/uas_launch-0.0.0-py3.10.egg-info
+[2.222s] running install_scripts
+[2.285s] writing list of installed files to '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/install.log'
+[2.338s] Invoked command in '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch' returned '0': PYTHONPATH=/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/uas_launch build --build-base /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/build install --record /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/install.log --install-scripts $base/lib/uas_launch --single-version-externally-managed install_data

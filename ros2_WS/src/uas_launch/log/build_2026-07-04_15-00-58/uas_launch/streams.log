@@ -1,0 +1,20 @@
+[0.512s] Invoking command in '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch': PYTHONPATH=/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/uas_launch build --build-base /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/build install --record /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/install.log --install-scripts $base/lib/uas_launch --single-version-externally-managed install_data
+[0.693s] running egg_info
+[0.694s] writing build/uas_launch/uas_launch.egg-info/PKG-INFO
+[0.694s] writing dependency_links to build/uas_launch/uas_launch.egg-info/dependency_links.txt
+[0.694s] writing entry points to build/uas_launch/uas_launch.egg-info/entry_points.txt
+[0.694s] writing requirements to build/uas_launch/uas_launch.egg-info/requires.txt
+[0.694s] writing top-level names to build/uas_launch/uas_launch.egg-info/top_level.txt
+[0.696s] reading manifest file 'build/uas_launch/uas_launch.egg-info/SOURCES.txt'
+[0.697s] writing manifest file 'build/uas_launch/uas_launch.egg-info/SOURCES.txt'
+[0.697s] running build
+[0.697s] running build_py
+[0.697s] running install
+[0.697s] running install_lib
+[0.699s] running install_data
+[0.699s] running install_egg_info
+[0.700s] removing '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/lib/python3.10/site-packages/uas_launch-0.0.0-py3.10.egg-info' (and everything under it)
+[0.701s] Copying build/uas_launch/uas_launch.egg-info to /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/lib/python3.10/site-packages/uas_launch-0.0.0-py3.10.egg-info
+[0.704s] running install_scripts
+[0.721s] writing list of installed files to '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/install.log'
+[0.741s] Invoked command in '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch' returned '0': PYTHONPATH=/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/uas_launch build --build-base /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/build install --record /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/install.log --install-scripts $base/lib/uas_launch --single-version-externally-managed install_data

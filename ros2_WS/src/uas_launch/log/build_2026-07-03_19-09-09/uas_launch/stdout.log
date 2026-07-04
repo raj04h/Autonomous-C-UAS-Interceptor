@@ -1,0 +1,33 @@
+running egg_info
+creating build/uas_launch/uas_launch.egg-info
+writing build/uas_launch/uas_launch.egg-info/PKG-INFO
+writing dependency_links to build/uas_launch/uas_launch.egg-info/dependency_links.txt
+writing entry points to build/uas_launch/uas_launch.egg-info/entry_points.txt
+writing requirements to build/uas_launch/uas_launch.egg-info/requires.txt
+writing top-level names to build/uas_launch/uas_launch.egg-info/top_level.txt
+writing manifest file 'build/uas_launch/uas_launch.egg-info/SOURCES.txt'
+reading manifest file 'build/uas_launch/uas_launch.egg-info/SOURCES.txt'
+writing manifest file 'build/uas_launch/uas_launch.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/build
+creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/build/lib
+creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/build/lib/uas_launch
+copying uas_launch/__init__.py -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/build/lib/uas_launch
+running install
+running install_lib
+creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/lib/python3.10/site-packages/uas_launch
+copying /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/build/lib/uas_launch/__init__.py -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/lib/python3.10/site-packages/uas_launch
+byte-compiling /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/lib/python3.10/site-packages/uas_launch/__init__.py to __init__.cpython-310.pyc
+running install_data
+creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/ament_index
+creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/ament_index/resource_index
+creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/ament_index/resource_index/packages
+copying resource/uas_launch -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/ament_index/resource_index/packages
+copying package.xml -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/uas_launch
+creating /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/uas_launch/launch
+copying launch/uas.launch.py -> /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/uas_launch/launch
+running install_egg_info
+Copying build/uas_launch/uas_launch.egg-info to /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/lib/python3.10/site-packages/uas_launch-0.0.0-py3.10.egg-info
+running install_scripts
+writing list of installed files to '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/install.log'

@@ -1,0 +1,91 @@
+[0.190s] [34mcolcon[0m [1;30mDEBUG[0m [32mCommand line arguments: ['/usr/bin/colcon', 'build'][0m
+[0.190s] [34mcolcon[0m [1;30mDEBUG[0m [32mParsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=8, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7a1eab831930>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7a1eab831360>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7a1eab831360>>)[0m
+[0.514s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(colcon_meta) check parameters
+[0.514s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(recursive) check parameters
+[0.514s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(ignore) check parameters
+[0.514s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(path) check parameters
+[0.515s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(colcon_meta) discover
+[0.515s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(recursive) discover
+[0.515s] [34mcolcon.colcon_core.package_discovery[0m [1;30mINFO[0m Crawling recursively for packages in '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch'
+[0.515s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.515s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'ignore'
+[0.515s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'ignore_ament_install'
+[0.515s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['colcon_pkg']
+[0.515s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'colcon_pkg'
+[0.515s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['colcon_meta']
+[0.515s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'colcon_meta'
+[0.515s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['ros']
+[0.515s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'ros'
+[0.578s] [34mcolcon.colcon_core.package_identification[0m [1;30mDEBUG[0m [32mPackage '.' with type 'ros.ament_python' and name 'uas_launch'[0m
+[0.578s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(recursive) using defaults
+[0.578s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(ignore) discover
+[0.578s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(ignore) using defaults
+[0.578s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(path) discover
+[0.578s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(path) using defaults
+[0.613s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(prefix_path) check parameters
+[0.614s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(prefix_path) discover
+[0.621s] [34mcolcon.colcon_installed_package_information.package_discovery[0m [1;30mDEBUG[0m [32mFound 10 installed packages in /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/install[0m
+[0.624s] [34mcolcon.colcon_installed_package_information.package_discovery[0m [1;30mDEBUG[0m [32mFound 313 installed packages in /opt/ros/humble[0m
+[0.626s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(prefix_path) using defaults
+[0.720s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'uas_launch' build argument 'cmake_args' from command line to 'None'
+[0.720s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'uas_launch' build argument 'cmake_target' from command line to 'None'
+[0.720s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'uas_launch' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.720s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'uas_launch' build argument 'cmake_clean_cache' from command line to 'False'
+[0.720s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'uas_launch' build argument 'cmake_clean_first' from command line to 'False'
+[0.720s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'uas_launch' build argument 'cmake_force_configure' from command line to 'False'
+[0.721s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'uas_launch' build argument 'ament_cmake_args' from command line to 'None'
+[0.721s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'uas_launch' build argument 'catkin_cmake_args' from command line to 'None'
+[0.721s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'uas_launch' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.721s] [34mcolcon.colcon_core.verb[0m [1;30mDEBUG[0m [32mBuilding package 'uas_launch' with the following arguments: {'ament_cmake_args': None, 'build_base': '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch', 'merge_install': False, 'path': '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch', 'symlink_install': False, 'test_result_base': None}[0m
+[0.721s] [34mcolcon.colcon_core.executor[0m [1;30mINFO[0m Executing jobs using 'parallel' executor
+[0.722s] [34mcolcon.colcon_parallel_executor.executor.parallel[0m [1;30mDEBUG[0m [32mrun_until_complete[0m
+[0.723s] [34mcolcon.colcon_ros.task.ament_python.build[0m [1;30mINFO[0m Building ROS package in '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch' with build type 'ament_python'
+[0.723s] [34mcolcon.colcon_core.shell[0m [1;30mLevel 1[0m create_environment_hook('uas_launch', 'ament_prefix_path')
+[0.728s] [34mcolcon.colcon_core.plugin_system[0m [1;30mINFO[0m Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.729s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/uas_launch/hook/ament_prefix_path.ps1'
+[0.730s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment descriptor '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/uas_launch/hook/ament_prefix_path.dsv'
+[0.731s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/uas_launch/hook/ament_prefix_path.sh'
+[0.733s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.733s] [34mcolcon.colcon_core.shell[0m [1;30mDEBUG[0m [32mSkip shell extension 'dsv' for command environment[0m
+[1.180s] [34mcolcon.colcon_core.task.python.build[0m [1;30mINFO[0m Building Python package in '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch'
+[1.181s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.181s] [34mcolcon.colcon_core.shell[0m [1;30mDEBUG[0m [32mSkip shell extension 'dsv' for command environment[0m
+[2.144s] [34mcolcon.colcon_core.task.python.build[0m [1;30mDEBUG[0m [32mAvailable setuptools commands: easy_install, bdist_egg, bdist_dumb, symlink_data, build_scripts, build_ext, upload_docs, install_egg_info, install_scripts, dist_info, test, check, bdist_rpm, develop, build_py, build, install_lib, rotate, install_data, install, register, sdist, alias, setopt, build_clib, upload, install_headers, egg_info, bdist_wheel, saveopts, clean, bdist[0m
+[2.155s] [34mcolcon.colcon_core.event_handler.log_command[0m [1;30mDEBUG[0m [32mInvoking command in '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch': PYTHONPATH=/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/uas_launch build --build-base /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/build install --record /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/install.log --install-scripts $base/lib/uas_launch --single-version-externally-managed install_data[0m
+[3.061s] [34mcolcon.colcon_core.event_handler.log_command[0m [1;30mDEBUG[0m [32mInvoked command in '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch' returned '0': PYTHONPATH=/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/uas_launch build --build-base /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/build install --record /mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/build/uas_launch/install.log --install-scripts $base/lib/uas_launch --single-version-externally-managed install_data[0m
+[3.070s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch' for CMake module files
+[3.072s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch' for CMake config files
+[3.075s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/lib'
+[3.076s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/bin'
+[3.077s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/lib/pkgconfig/uas_launch.pc'
+[3.077s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/lib/python3.10/site-packages'
+[3.078s] [34mcolcon.colcon_core.shell[0m [1;30mLevel 1[0m create_environment_hook('uas_launch', 'pythonpath')
+[3.078s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/uas_launch/hook/pythonpath.ps1'
+[3.080s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment descriptor '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/uas_launch/hook/pythonpath.dsv'
+[3.081s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/uas_launch/hook/pythonpath.sh'
+[3.083s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/bin'
+[3.083s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m create_environment_scripts_only(uas_launch)
+[3.084s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/uas_launch/package.ps1'
+[3.088s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package descriptor '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/uas_launch/package.dsv'
+[3.090s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/uas_launch/package.sh'
+[3.093s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/uas_launch/package.bash'
+[3.095s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/uas_launch/package.zsh'
+[3.098s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m create_file_with_runtime_dependencies(/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/uas_launch/share/colcon-core/packages/uas_launch)
+[3.099s] [34mcolcon.colcon_parallel_executor.executor.parallel[0m [1;30mDEBUG[0m [32mclosing loop[0m
+[3.100s] [34mcolcon.colcon_parallel_executor.executor.parallel[0m [1;30mDEBUG[0m [32mloop closed[0m
+[3.100s] [34mcolcon.colcon_parallel_executor.executor.parallel[0m [1;30mDEBUG[0m [32mrun_until_complete finished with '0'[0m
+[3.100s] [34mcolcon.colcon_core.event_reactor[0m [1;30mDEBUG[0m [32mjoining thread[0m
+[3.118s] [34mcolcon.colcon_core.plugin_system[0m [1;30mINFO[0m Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[3.119s] [34mcolcon.colcon_core.plugin_system[0m [1;30mINFO[0m Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[3.119s] [34mcolcon.colcon_notification.desktop_notification[0m [1;30mINFO[0m Sending desktop notification using 'notify2'
+[3.145s] [34mcolcon.colcon_core.event_reactor[0m [1;30mDEBUG[0m [32mjoined thread[0m
+[3.146s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix script '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/local_setup.ps1'
+[3.150s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix util module '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/_local_setup_util_ps1.py'
+[3.154s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix chain script '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/setup.ps1'
+[3.165s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix script '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/local_setup.sh'
+[3.168s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix util module '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/_local_setup_util_sh.py'
+[3.170s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix chain script '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/setup.sh'
+[3.178s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix script '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/local_setup.bash'
+[3.180s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix chain script '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/setup.bash'
+[3.187s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix script '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/local_setup.zsh'
+[3.190s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix chain script '/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/ros2_WS/src/uas_launch/install/setup.zsh'
