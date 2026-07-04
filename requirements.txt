@@ -41,6 +41,7 @@ uvicorn
 websockets
 sqlalchemy
 
+psycopg2-binary
 
 # Configuration & Utilities
 PyYAML

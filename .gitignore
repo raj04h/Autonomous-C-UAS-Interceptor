@@ -1,40 +1,64 @@
-# ROS2
-build/
-install/
-log/
+
+# ROS2 Workspace
+
+ros2_WS/build/
+ros2_WS/install/
+ros2_WS/log/
+
+# ROS Generated
+
+*.egg-info/
+ros2_WS/src/px4_msgs/
 
 # Python
+
 __pycache__/
-*.pyc
-*.pyo
+*.py[cod]
+*.so
 
 # Virtual Environments
+
 venv/
 cv_env/
 ros_env/
 .env
 
 # IDE
+
 .vscode/
 .idea/
 
 # Linux
+
 *.swp
 *.swo
+*~
 
+# Datasets
+
+datasets/
 
 # Models
 
-
-# Datasets
-datasets/
-
-# ROS Generated
-*.egg-info/
-
-# Colcon
-.colcon/
+models/**/*.pt
+models/**/*.onnx
+models/**/*.engine
 
 # Logs
+
 logs/
-ros2_WS/src/px4_msgs
+
+# Colcon
+
+.colcon/
+
+# OS
+
+.DS_Store
+Thumbs.db
+
+
+# Model weights
+*.pt
+*.onnx
+*.engine

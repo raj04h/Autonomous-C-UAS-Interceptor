@@ -8,4 +8,4 @@ assets:
 
 models:
 
-  yolo_model_path: models/yolo/yolo26n.pt
+  yolo_model_path: models/trained_model/yolo26m.pt

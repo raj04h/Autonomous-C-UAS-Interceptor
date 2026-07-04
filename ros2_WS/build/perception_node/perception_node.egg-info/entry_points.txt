@@ -1,3 +1,0 @@
-[console_scripts]
-detector_pipeline = perception_node.detecting_pipeline:main
-
