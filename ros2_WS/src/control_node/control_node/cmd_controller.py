@@ -86,6 +86,7 @@ class FlightControllerCmd:
         cmd.collective_thrust = self.default_collective_thrust
 
         cmd.offboard_enabled = False
+        cmd.valid = False
 
         return cmd
 
@@ -163,8 +164,6 @@ class FlightControllerCmd:
         self.desired_pitch += delta_pitch
         self.desired_yaw += delta_yaw
 
-
-
         # Saturation
         if self.enable_saturation:
 
@@ -217,5 +216,5 @@ class FlightControllerCmd:
         )
 
         cmd.offboard_enabled = self.offboard_enabled
-
+        cmd.valid = True
         return cmd

@@ -1,6 +1,3 @@
-"""
-Control Subscriber Manager
-"""
 
 from interfaces.msg import GuidanceCommand
 
@@ -11,11 +8,17 @@ class ControlSubscriberManager:
 
         self.latest_guidance = None
         self.vehicle_status = None
-
+        
     def guidance_callback(
         self,
         msg: GuidanceCommand,
     ):
+
+        if not msg.valid:
+
+            self.latest_guidance = None
+
+            return
 
         self.latest_guidance = msg
 
@@ -33,3 +36,9 @@ class ControlSubscriberManager:
     def get_vehicle_status(self):
 
         return self.vehicle_status
+    
+    def clear_guidance(
+        self,
+    ):
+
+        self.latest_guidance = None

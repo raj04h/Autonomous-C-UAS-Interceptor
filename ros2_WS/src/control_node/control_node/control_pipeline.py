@@ -10,6 +10,7 @@ from rclpy.qos import (
 
 from interfaces.msg import (
     GuidanceCommand,
+    ControlCommand,
 )
 
 from px4_msgs.msg import (
@@ -136,7 +137,14 @@ class ControlPipeline(Node):
             px4_qos,
         )
 
+        self.control_command_publisher = self.create_publisher(
+            ControlCommand,
+            "/control_command",
+            ros_qos,
+        )
+
         self.publisher_manager = ControlPublisherManager(
+            self.control_command_publisher,
             self.offboard_mode_publisher,
             self.attitude_setpoint_publisher,
             self.vehicle_command_publisher,
@@ -164,6 +172,9 @@ class ControlPipeline(Node):
         guidance = self.subscriber_manager.get_guidance()
 
         if guidance is None:
+
+            self.publisher_manager.publish_empty_control_command()
+
             return
 
         vehicle_status = self.subscriber_manager.get_vehicle_status()
@@ -191,10 +202,12 @@ class ControlPipeline(Node):
         control_command = self.controller.compute_control_command(guidance)
 
         self.get_logger().info(
-            f"[CONTROL] "
+            f"[SETPOINT] "
+            f"Roll={control_command.roll_setpoint:.3f} | "
             f"pitch={control_command.pitch_setpoint:.3f} | "
             f"yaw={control_command.yaw_setpoint:.3f}"
         )
+        self.publisher_manager.publish_control_command(control_command)
         # --------------------------------------------------
         # Convert to PX4 Messages
         # --------------------------------------------------
