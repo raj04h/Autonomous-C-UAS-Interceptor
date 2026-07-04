@@ -14,6 +14,9 @@ class DetectionConverter:
     @staticmethod
     def convert(detection) -> List[Dict[str, Any]]:
 
+        if not detection.valid:
+            return []
+        
         if (
             detection.confidence <
             TrackingConfig.MIN_CONFIDENCE

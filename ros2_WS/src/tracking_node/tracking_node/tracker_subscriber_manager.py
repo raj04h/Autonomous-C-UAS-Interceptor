@@ -41,8 +41,13 @@ class TrackerSubscriberManager:
         msg
     ):
 
-        self.latest_detection = msg
+        if not msg.valid:
 
+            self.latest_detection = None
+
+            return
+
+        self.latest_detection = msg
 
     def get_frame(self):
 

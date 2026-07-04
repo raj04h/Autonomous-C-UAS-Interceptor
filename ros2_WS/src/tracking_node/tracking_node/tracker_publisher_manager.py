@@ -27,6 +27,7 @@ class TrackerPublisherManager:
     ):
 
         msg = Track()
+        msg.valid = True
 
         msg.track_id = int(
             track_data["track_id"]
@@ -67,6 +68,17 @@ class TrackerPublisherManager:
         msg.confirmed = bool(
             track_data["confirmed"]
         )
+
+        self.track_publisher.publish(
+            msg
+        )
+
+
+    def publish_empty_track(self):
+
+        msg = Track()
+
+        msg.valid = False
 
         self.track_publisher.publish(
             msg

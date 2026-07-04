@@ -94,7 +94,6 @@ class TrackerNode(Node):
         )
         self.last_benchmark_print = 0
 
-
         # Subscribers
 
         self.frame_subscription = (
@@ -122,7 +121,6 @@ class TrackerNode(Node):
                 qos
             )
         )
-
 
         # Main Tracking Loop
 
@@ -159,33 +157,41 @@ class TrackerNode(Node):
         )
 
         if not detections:
+            self.publisher_manager.publish_empty_track()
 
             self.subscriber_manager.clear_detection()
 
             return
 
-        tracking_start = time.time()
+        tracking_start = time.perf_counter()
 
         tracks = self.tracker.update(
             detections,
             frame
         )
 
-        tracking_time = (
-            time.time()
-            - tracking_start
-        )
+        if not tracks:
+
+            self.publisher_manager.publish_empty_track()
+
+            self.subscriber_manager.clear_detection()
+
+            return
+
+        tracking_time = time.perf_counter() - tracking_start
 
         self.benchmark.update(
             len(detections),
             tracks,
             tracking_time
         )
+        published_track = False
 
         for track in tracks:
 
             if not track.is_confirmed():
                 continue
+            published_track = True
 
             x1, y1, x2, y2 = (
                 track.to_ltrb()
@@ -240,6 +246,14 @@ class TrackerNode(Node):
                 f"Track ID: "
                 f"{track.track_id}"
             )
+
+        if not published_track:
+
+            self.publisher_manager.publish_empty_track()
+
+            self.subscriber_manager.clear_detection()
+
+            return
 
         stats = (
             self.benchmark.get_statistics()
