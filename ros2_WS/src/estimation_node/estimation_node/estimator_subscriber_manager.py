@@ -7,11 +7,24 @@ class EstimatorSubscriberManager:
 
         self.latest_track = None
 
-    def track_callback(self, msg):
+    def track_callback(
+        self,
+        msg,
+    ):
 
-        if not msg.confirmed:
+        # No valid track
+        if not msg.valid:
+
+            self.latest_track = None
+
             return
 
+        # Ignore tentative tracks
+        if not msg.confirmed:
+
+            return
+
+        # Store latest confirmed track
         self.latest_track = msg
 
     def get_track(self):

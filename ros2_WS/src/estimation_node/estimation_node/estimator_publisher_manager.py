@@ -52,3 +52,15 @@ class EstimatorPublisherManager:
         self.target_state_publisher.publish(
             msg
         )
+
+    def publish_empty_target_state(
+        self,
+    ):
+
+        msg = TargetState()
+
+        msg.valid = False
+
+        self.target_state_publisher.publish(
+            msg
+        )
