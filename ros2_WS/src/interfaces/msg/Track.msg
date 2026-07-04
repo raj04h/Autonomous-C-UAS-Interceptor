@@ -1,3 +1,5 @@
+bool valid
+
 int32 track_id
 
 string class_name

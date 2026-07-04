@@ -1,4 +1,9 @@
+
+bool valid
+
 string class_name
+float32 fps
+float32 inference_time
 
 float32 confidence
 

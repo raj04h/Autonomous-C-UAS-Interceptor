@@ -6,4 +6,6 @@ float32 pitch_setpoint
 
 float32 collective_thrust
 
+bool valid
+
 bool offboard_enabled
