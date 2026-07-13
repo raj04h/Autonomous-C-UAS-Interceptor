@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from backend.orm_database.db_session import get_db
 
-from backend.schemas.schema_telemetry import TelemetryResponse
+from backend.orm_schemas.schema_telemetry import TelemetryResponse
 
 from backend.services.telemetry_service import TelemetryService
 

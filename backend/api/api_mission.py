@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from backend.orm_database.db_session import get_db
 
-from backend.schemas.schema_mission import MissionResponse
+from backend.orm_schemas.schema_mission import MissionResponse
 
 from backend.services.mission_service import MissionService
 

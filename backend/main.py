@@ -12,12 +12,16 @@ from backend.api.api_mission import router as mission_router
 from backend.api.api_target_state import router as target_state_router
 
 
-from backend.websocket.ws_telemetry import router as websocket_router
+from backend.websocket.ws_telemetry import router as telemetry_ws_router
+from backend.websocket.ws_detection import router as detection_ws_router
+from backend.websocket.ws_track import router as track_ws_router
+from backend.websocket.ws_target_state import router as target_state_ws_router
+from backend.websocket.ws_guidance import router as guidance_ws_router
+from backend.websocket.ws_control import router as control_ws_router
+
 
 from backend.config.backend_config import BackendConfig
-
 from backend.ros2_bridge.bridge_pipeline import BridgePipeline
-
 from backend.websocket.ws_broadcaster import WSBroadcaster
 
 app = FastAPI(
@@ -29,12 +33,19 @@ app = FastAPI(
 
 bridge_node: BridgePipeline | None = None
 
+# REST APIs
 app.include_router(health_router)
 app.include_router(telemetry_router)
 app.include_router(mission_router)
 app.include_router(target_state_router)
 
-app.include_router(websocket_router)
+# WebSockets
+app.include_router(telemetry_ws_router)
+app.include_router(target_state_ws_router)
+app.include_router(detection_ws_router)
+app.include_router(track_ws_router)
+app.include_router(guidance_ws_router)
+app.include_router(control_ws_router)
 
 
 @app.on_event("startup")

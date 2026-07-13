@@ -4,7 +4,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from backend.orm_models.orm_telemetry import TelemetryORM
-from backend.schemas.schema_telemetry import (
+from backend.orm_schemas.schema_telemetry import (
     TelemetryCreate,
     TelemetryResponse,
 )

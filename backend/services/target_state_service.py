@@ -4,7 +4,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from backend.orm_models.orm_target_state import TargetStateORM
-from backend.schemas.schema_target_state import (
+from backend.orm_schemas.schema_target_state import (
     TargetStateCreate,
     TargetStateResponse,
 )

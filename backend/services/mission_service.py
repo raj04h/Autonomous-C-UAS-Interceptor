@@ -4,7 +4,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from backend.orm_models.orm_mission import MissionORM
-from backend.schemas.schema_mission import MissionResponse
+from backend.orm_schemas.schema_mission import MissionResponse
 
 
 class MissionService:
