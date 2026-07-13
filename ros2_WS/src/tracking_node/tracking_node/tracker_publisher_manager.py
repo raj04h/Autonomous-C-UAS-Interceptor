@@ -1,6 +1,4 @@
 """
-Publisher Manager
-
 Responsibilities:
 - Publish ROS topics
 - Convert Track Data -> Track.msg

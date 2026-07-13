@@ -17,5 +17,7 @@ class TrackingConfig:
     MIN_CONFIDENCE = 0.20
 
     TARGET_CLASSES =[
-        "airplane"
+        "FixedWing",
+        "Quadrotor",
+        "Hexacopter"
     ]

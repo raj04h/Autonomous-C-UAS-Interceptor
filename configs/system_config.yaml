@@ -8,4 +8,5 @@ assets:
 
 models:
 
-  yolo_model_path: models/trained_model/yolo26m.pt
+  yolo_model_path: models/trained_model/FixedWing_V1.pt
+

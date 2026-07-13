@@ -1,6 +1,4 @@
 """
-Subscriber Manager
-
 Responsibilities:
 - Receive ROS messages
 - Store latest data

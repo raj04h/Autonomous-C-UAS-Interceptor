@@ -1,12 +1,3 @@
-"""
-ROS2 Guidance Pipeline
-"""
-
-
-"""
-ROS2 Guidance Pipeline
-"""
-
 # Imports
 import rclpy
 
