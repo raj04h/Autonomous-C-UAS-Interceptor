@@ -12,12 +12,12 @@ from backend.api.api_mission import router as mission_router
 from backend.api.api_target_state import router as target_state_router
 
 
-from backend.websocket.ws_telemetry import router as telemetry_ws_router
-from backend.websocket.ws_detection import router as detection_ws_router
-from backend.websocket.ws_track import router as track_ws_router
-from backend.websocket.ws_target_state import router as target_state_ws_router
-from backend.websocket.ws_guidance import router as guidance_ws_router
-from backend.websocket.ws_control import router as control_ws_router
+from backend.websocket.ws_router.ws_telemetry import router as telemetry_ws_router
+from backend.websocket.ws_router.ws_detection import router as detection_ws_router
+from backend.websocket.ws_router.ws_track import router as track_ws_router
+from backend.websocket.ws_router.ws_target_state import router as target_state_ws_router
+from backend.websocket.ws_router.ws_guidance import router as guidance_ws_router
+from backend.websocket.ws_router.ws_control import router as control_ws_router
 
 
 from backend.config.backend_config import BackendConfig

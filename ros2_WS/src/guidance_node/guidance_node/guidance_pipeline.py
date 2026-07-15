@@ -66,9 +66,6 @@ class GuidancePipeline(Node):
         )
 
         if target_state is None:
-
-            self.publisher_manager.publish_empty_guidance_command()
-
             return
 
         # Benchmark Start

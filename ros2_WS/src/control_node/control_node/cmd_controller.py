@@ -13,7 +13,6 @@ from interfaces.msg import GuidanceCommand, ControlCommand
 
 from control_node.config_control import ControlConfig
 
-from control_node.controller_graph import ControllerGraph
 
 class FlightControllerCmd:
 
@@ -61,9 +60,6 @@ class FlightControllerCmd:
         self.offboard_enabled = ControlConfig.OFFBOARD_ENABLED
         self.enable_saturation = ControlConfig.ENABLE_SATURATION
 
-        # graph logic
-        self.graph = ControllerGraph()
-
     # Clamp Utility
     @staticmethod
     def _clamp(value, minimum, maximum):
@@ -104,22 +100,6 @@ class FlightControllerCmd:
             self.desired_yaw = self.default_yaw
 
             self.previous_time = time.monotonic()
-
-            # Update graph with safe controller state
-            self.graph.update(
-                time.monotonic(),
-                0.0,                        # error_x
-                0.0,                        # error_y
-                0.0,                        # guidance_pitch
-                0.0,                        # guidance_yaw
-                self.desired_pitch,
-                self.desired_yaw,
-                0.0,                        # delta_pitch
-                0.0,                        # delta_yaw
-                False,                      # target_locked
-            )
-
-            self.graph.draw()
 
             return self._generate_safe_command(guidance)
 
@@ -184,22 +164,6 @@ class FlightControllerCmd:
                 self.min_yaw,
                 self.max_yaw,
             )
-
-        self.graph.update(
-                now,
-                guidance.error_x,
-                guidance.error_y,
-                guidance.pitch_command,
-                guidance.yaw_command,
-                self.desired_pitch,
-                self.desired_yaw,
-                delta_pitch,
-                delta_yaw,
-                guidance.target_locked,
-            )
-
-        self.graph.draw()
-
         # Create Output Command
         cmd = ControlCommand()
 

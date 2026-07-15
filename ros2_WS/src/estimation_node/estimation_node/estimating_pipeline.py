@@ -133,11 +133,6 @@ class EstimatingPipeline(Node):
         )
 
         if track is None:
-
-            self.publisher_manager.publish_empty_target_state()
-
-            self.subscriber_manager.clear_track()
-
             return
 
         track_id = track.track_id
