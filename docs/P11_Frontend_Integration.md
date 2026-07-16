@@ -1,4 +1,4 @@
-# P11 – Monitoring Dashboard
+# P11 – Frontend Dashboard
 
 ## Objective
 

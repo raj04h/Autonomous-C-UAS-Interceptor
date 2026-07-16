@@ -4,15 +4,14 @@
 
 ### Vision-Based Autonomous Drone Interception System
 
-**Computer Vision • ROS2 • PX4 • Gazebo • Autonomous Flight Control**
+**ROS2 • PX4 • Gazebo • Computer Vision • Autonomous Flight Control**
 
----
-
-![Status](https://img.shields.io/badge/Status-Active-success)
+![Status](https://img.shields.io/badge/Version-v1.0.0-success)
 ![ROS2](https://img.shields.io/badge/ROS2-Humble-blue)
 ![PX4](https://img.shields.io/badge/PX4-SITL-orange)
 ![Gazebo](https://img.shields.io/badge/Gazebo-Garden-purple)
-![Python](https://img.shields.io/badge/Python-3.10+-yellow)
+![Python](https://img.shields.io/badge/Python-3.10-yellow)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 </div>
 
@@ -20,313 +19,314 @@
 
 # Overview
 
-Counter-UAS Autonomous Interceptor is a modular vision-based autonomous aerial interception system capable of detecting, tracking, estimating, and pursuing hostile UAVs using only onboard sensing.
+Counter-UAS Autonomous Interceptor is a modular vision-based autonomous interception system capable of detecting, tracking, estimating, and pursuing an aerial target using only onboard visual perception.
 
-Unlike conventional systems that rely on GPS coordinates from the target, this project performs autonomous interception using computer vision, target motion estimation, and PX4 Offboard control.
+The project demonstrates an end-to-end autonomous robotics pipeline built on **ROS2**, **PX4**, **Gazebo**, **Computer Vision**, **FastAPI**, and **Plotly Dash**.
 
-The project follows a simulation-first development methodology, where each subsystem is independently designed, verified, and integrated before progressing to the next layer.
+Unlike GPS-based pursuit systems, the interceptor relies entirely on camera observations, target state estimation, and autonomous guidance commands.
 
 ---
 
-# Project Objectives
+# Features
 
-Develop a complete perception-to-control autonomy stack capable of:
-
-- Detecting aerial targets
-- Multi-object tracking
-- State estimation
-- Future trajectory prediction
-- Guidance generation
+- Vision-based target detection using YOLO
+- Multi-object tracking using DeepSORT
+- Kalman Filter state estimation
+- Future target prediction
+- Autonomous guidance generation
 - PX4 Offboard flight control
-- Autonomous target pursuit
+- FastAPI backend with PostgreSQL
+- Real-time Plotly Dash monitoring dashboard
+- Modular ROS2 architecture
+- GitHub Actions CI
+- Docker-ready deployment infrastructure
 
 ---
+
+# Problem Statement
+
+The rapid increase in low-cost unmanned aerial vehicles (UAVs) has introduced significant security challenges across defense installations, airports, critical infrastructure, and restricted airspaces. Conventional counter-drone solutions often depend on radar, GPS, or RF jamming, which can be ineffective against autonomous or GPS-denied drones.
+
+An autonomous interceptor must instead rely on its own onboard perception to identify, track, predict, and pursue an unknown aerial target without receiving any information from the target itself.
+
+Developing such a system requires integrating computer vision, robotics, autonomous guidance, flight control, and real-time communication into a single reliable software architecture capable of operating in dynamic environments.
+
+# Solution
+
+This project presents a modular vision-based Counter-UAS autonomous interception system that performs the complete perception-to-control pipeline using onboard sensing.
+
+The system combines modern computer vision, robotics, and autonomous control techniques to detect an aerial target, maintain persistent tracking, estimate its motion, predict its future position, and generate guidance commands for autonomous pursuit through PX4 Offboard control.
+
+In addition to the autonomous robotics pipeline, the project includes a complete backend infrastructure for telemetry storage, real-time monitoring, and system visualization using FastAPI, PostgreSQL, WebSockets, and a Plotly Dash dashboard.
+
+The modular ROS2 architecture enables each subsystem to be developed, tested, and deployed independently while supporting future expansion toward edge deployment, GPS-denied navigation, and multi-target autonomous interception.
 
 # System Pipeline
 
 ```text
-                     Camera Sensor
-                           │
-                           ▼
-                    Detection Layer
-                           │
-                           ▼
-                     Tracking Layer
-                           │
-                           ▼
-               State Estimation Layer
-                           │
-                           ▼
-                    Guidance Layer
-                           │
-                           ▼
-                     Control Layer
-                           │
-                           ▼
-                  PX4 Offboard Interface
-                           │
-                           ▼
-                  Interceptor UAV Motion
+Camera
+   │
+   ▼
+YOLO Detection
+   │
+   ▼
+DeepSORT Tracking
+   │
+   ▼
+State Estimation
+   │
+   ▼
+Guidance
+   │
+   ▼
+Flight Control
+   │
+   ▼
+PX4 Offboard
+   │
+   ▼
+Interceptor UAV
 ```
 
 ---
 
-# Software Architecture
+# System Architecture
 
 ```text
-                 PERCEPTION
+                    PX4 + Gazebo
 
-Camera
-    │
-    ▼
-Detection
-    │
-    ▼
-Tracking
-    │
-    ▼
-State Estimation
+                          │
 
+                     Camera Sensor
 
-                 EXECUTION
+                          │
 
-Guidance
-    │
-    ▼
-Control
-    │
-    ▼
-PX4 Offboard
-    │
-    ▼
-Flight Controller
-    │
-    ▼
-Motors
+                    ROS2 Perception
+
+                          │
+
+YOLO → DeepSORT → Kalman Filter → Guidance → Control
+
+                          │
+
+                     PX4 Offboard
+
+────────────────────────────────────────────
+
+                    ROS2 Bridge
+
+────────────────────────────────────────────
+
+      FastAPI → PostgreSQL → WebSocket
+
+────────────────────────────────────────────
+
+                 Plotly Dash
 ```
 
 ---
 
 # Technology Stack
 
-## Robotics
-
-- ROS2 Humble
-- PX4 SITL
-- Gazebo Garden
-- Micro XRCE-DDS
-- MAVLink
+| Layer | Technologies |
+|--------|--------------|
+| Robotics | ROS2 Humble, PX4 SITL, Gazebo Garden |
+| Computer Vision | OpenCV, YOLO, DeepSORT |
+| State Estimation | Kalman Filter |
+| Backend | FastAPI, SQLAlchemy, PostgreSQL |
+| Frontend | Plotly Dash |
+| DevOps | Docker, Docker Compose, GitHub Actions |
+| Language | Python |
 
 ---
 
-## Computer Vision
+# Project Structure
 
-- OpenCV
-- YOLO
-- DeepSORT
-- Kalman Filter
+```text
+Counter_UAS/
+
+├── ros2_WS/
+├── backend/
+├── frontend/
+├── docker/
+├── requirements/
+├── docs/
+├── models/
+├── assets/
+└── README.md
+```
+
+---
+
+# Development Phases
+
+| Phase | Module | Status |
+|--------|--------|:------:|
+| P1 | ROS2 + PX4 Integration | ✅ |
+| P2 | Camera Integration | ✅ |
+| P3 | Object Detection | ✅ |
+| P4 | Multi-Object Tracking | ✅ |
+| P5 | State Estimation | ✅ |
+| P6 | Guidance | ✅ |
+| P7 | Flight Control | ✅ |
+| P8 | Backend Services | ✅ |
+| P9 | Dashboard | ✅ |
+| P10 | Integration Testing | ✅ |
+| P11 | DevOps & CI | ✅ |
+| P12 | Documentation | ✅ |
+
+---
+
+# Current Capabilities (V1)
+
+- Detect aerial targets in video streams
+- Maintain persistent target identity
+- Estimate target position and velocity
+- Predict short-term target motion
+- Generate autonomous guidance commands
+- Interface with PX4 Offboard Control
+- Stream telemetry to a real-time dashboard
+- Store mission telemetry in PostgreSQL
+
+---
+
+# Dashboard
+
+### Monitoring Dashboard
+
+> Real-time telemetry, guidance, control commands, target lock status, and mission monitoring.
+
+<p align="center">
+<img src="assets/dashboard.png" width="900">
+</p>
+
+---
+
+### Visualization
+
+> Integrated visualization showing detection, tracking, estimation, guidance, and control overlays.
+
+<p align="center">
+<img src="assets/visualization.png" width="900">
+</p>
+
+---
+
+# Running the Project
+
+## Robotics
+
+```bash
+source /opt/ros/humble/setup.bash
+source ros2_WS/install/setup.bash
+
+ros2 launch uas_launch uas.launch.py
+```
 
 ---
 
 ## Backend
 
-- FastAPI
-- PostgreSQL
-- SQLAlchemy
-- WebSocket
+```bash
+python3 -m backend.main
+```
 
 ---
 
 ## Dashboard
 
-- Streamlit
-
----
-
-## Development
-
-- Python
-- Docker
-- Git
-- Linux
-
----
-
-# Repository Structure
-
-```text
-Counter_UAS/
-
-├── assets/
-├── backend/
-├── configs/
-├── datasets/
-├── docs/
-├── frontend/
-├── models/
-├── ros2_WS/
-│   └── src/
-├── simulation/
-├── README.md
-└── requirements.txt
+```bash
+python3 -m frontend.app
 ```
 
 ---
 
-# ROS2 Package Architecture
+# DevOps
 
-Each ROS2 package follows the same modular design.
+Implemented in V1
 
-```text
-package_name/
+- Docker Infrastructure
+- Docker Compose
+- Environment Configuration
+- GitHub Actions Continuous Integration
 
-├── config_service.py
-├── service_logic.py
-├── subscriber_manager.py
-├── publisher_manager.py
-├── benchmark.py
-└── node_pipeline.py
-```
+Planned
 
----
-
-# Internal Software Design
-
-Every node follows the same layered architecture.
-
-```text
-Import Layer
-    │
-    ▼
-Configuration Layer
-    │
-    ▼
-Business Logic Layer
-    │
-    ▼
-Execution Layer
-```
+- Full ROS2 Containerization
+- Continuous Delivery (CD)
+- Edge Deployment (Jetson)
+- GitHub Container Registry
 
 ---
 
-## Import Layer
+# Future Roadmap
 
-- Python libraries
-- ROS2 libraries
-- Interface messages
+### V1
 
----
+Vision-Based Autonomous Interceptor ✅
 
-## Configuration Layer
+### V2
 
-Stores
+3D Target Localization
 
-- Constants
-- Parameters
-- Limits
-- Configuration values
+Stereo Vision
 
----
+Depth Estimation
 
-## Business Logic Layer
+### V3
 
-Contains
+GPS-Denied Navigation
 
-- Initialization
-- Core algorithms
-- Decision logic
+SLAM
 
----
+Visual-Inertial Odometry
 
-## Execution Layer
+### V4
 
-Responsible for
+Multi-Target Counter-UAS Platform
 
-- Input
-- Object creation
-- Output publishing
+Swarm Interception
+
+Mission Planning
 
 ---
 
-# Development Roadmap
+# Documentation
 
-| Phase | Module | Status |
-|---------|-------------------------------|:------:|
-| P1 | Simulation Foundation | ✅ |
-| P2 | ROS2 Application Layer | ✅ |
-| P3 | Camera Integration | ✅ |
-| P4 | Detection | ✅ |
-| P5 | Tracking | ✅ |
-| P6 | State Estimation | ✅ |
-| P7 | Guidance | ✅ |
-| P8 | Flight Control Interface | ✅ |
-| P9 | Backend Bridge | ⏳ |
-| P10 | Dashboard | ⏳ |
+Detailed implementation documents are available in the [docs](docs/) directory, covering every development phase from system architecture to deployment.
 
 ---
 
-# Current Capability
+# License
 
-Current autonomous pipeline
+This project is licensed under the **Counter-UAS Research & Demonstration License v1.0**.
 
-```text
-Video
-    │
-    ▼
-YOLO Detection
-    │
-    ▼
-DeepSORT Tracking
-    │
-    ▼
-Kalman State Estimation
-    │
-    ▼
-Guidance Generation
-    │
-    ▼
-Flight Control
-    │
-    ▼
-PX4 Offboard
-```
+The source code is available for:
 
-The interceptor is capable of:
+- Personal learning
+- Academic research
+- Educational use
+- Non-commercial demonstrations
 
-- Vision-only target detection
-- Persistent object tracking
-- Target state estimation
-- Future position prediction
-- Guidance command generation
-- PX4 Offboard command generation
+Commercial use, production deployment, redistribution for commercial purposes, or monetization of this project requires prior written permission from the copyright holder.
+
+See the [LICENSE](LICENSE) file for the complete license terms.
 
 ---
 
-# Product Evolution
+# Author
 
-| Version | Description |
-|-----------|--------------------------------------------|
-| **V1** | Vision-Based Autonomous Interceptor |
-| **V2** | Mission Planning & 3D Target Localization |
-| **V3** | GPS-Denied Visual Navigation Platform |
-| **V4** | General Vision-Based Autonomy Platform |
+**Himanshu Raj**
 
----
+**Connect**
 
+- LinkedIn: https://www.linkedin.com/in/himanshuraj/
+- Email: himanshuraj.hr9934@gmail.com
 
+<div align="center">
 
-| Phase | Task                                               | Priority |
-| ----- | -------------------------------------------------- | -------- |
-| D1    | Dockerize `ros2_WS`                                | ⭐⭐⭐⭐⭐    |
-| D2    | Dockerize `backend`                                | ⭐⭐⭐⭐⭐    |
-| D3    | Dockerize `frontend`                               | ⭐⭐⭐⭐⭐    |
-| D4    | Add PostgreSQL service to Docker Compose           | ⭐⭐⭐⭐⭐    |
-| D5    | Create `docker-compose.yml`                        | ⭐⭐⭐⭐⭐    |
-| D6    | Introduce `.env` / `.env.example`                  | ⭐⭐⭐⭐⭐    |
-| D7    | Add GitHub Actions (lint, tests, Docker build)     | ⭐⭐⭐⭐⭐    |
-| D8    | Add `black`, `ruff`, `isort`, `mypy`, `pre-commit` | ⭐⭐⭐⭐☆    |
-| D9    | Replace `print()` with structured logging          | ⭐⭐⭐⭐☆    |
-| D10   | Add health/readiness endpoints                     | ⭐⭐⭐⭐☆    |
-| D11   | Organize automated tests under `tests/`            | ⭐⭐⭐⭐☆    |
-| D12   | Publish Docker images to GHCR on tagged releases   | ⭐⭐⭐⭐☆    |
-| D13   | Write deployment and DevOps documentation          | ⭐⭐⭐⭐☆    |
+**Counter-UAS Autonomous Interceptor**
+
+*An end-to-end vision-based autonomous interception system built with ROS2, PX4, Computer Vision, and modern backend infrastructure.*
+
+</div>
