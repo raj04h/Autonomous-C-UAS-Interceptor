@@ -11,7 +11,7 @@
 ![PX4](https://img.shields.io/badge/PX4-SITL-orange)
 ![Gazebo](https://img.shields.io/badge/Gazebo-Garden-purple)
 ![Python](https://img.shields.io/badge/Python-3.10-yellow)
-![License](https://img.shields.io/badge/License-Counter--UAS%20Research%20v1.0-blue)
+![License](https://img.shields.io/badge/License-Counter--UAS%20Research%20v1.0.0-blue)
 
 </div>
 
