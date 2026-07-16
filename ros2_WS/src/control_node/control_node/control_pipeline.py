@@ -67,40 +67,28 @@ class ControlPipeline(Node):
             depth=10,
         )
 
-        # --------------------------------------------------
-        # Subscriber Manager
-        # --------------------------------------------------
-
+            # Subscriber Manager
+    
         self.subscriber_manager = ControlSubscriberManager()
 
-        # --------------------------------------------------
-        # Flight Controller
-        # --------------------------------------------------
-
+            # Flight Controller
+    
         self.controller = FlightControllerCmd()
 
-        # --------------------------------------------------
-        # PX4 Adapter
-        # --------------------------------------------------
-
+            # PX4 Adapter
+    
         self.px4_adapter = PX4Adapter()
 
-        # --------------------------------------------------
-        # Benchmark
-        # --------------------------------------------------
-
+            # Benchmark
+    
         self.benchmark = ControlBenchmark()
 
-        # --------------------------------------------------
-        # Offboard State Machine
-        # --------------------------------------------------
-
+            # Offboard State Machine
+    
         self.state_machine = OffboardStateMachine()
 
-        # --------------------------------------------------
-        # Guidance Subscriber
-        # --------------------------------------------------
-
+            # Guidance Subscriber
+    
         self.create_subscription(
             GuidanceCommand,
             "/guidance_command",
@@ -115,10 +103,8 @@ class ControlPipeline(Node):
             px4_qos,
         )
 
-        # --------------------------------------------------
-        # PX4 Publishers
-        # --------------------------------------------------
-
+            # PX4 Publishers
+    
         self.offboard_mode_publisher = self.create_publisher(
             OffboardControlMode,
             "/fmu/in/offboard_control_mode",
@@ -150,25 +136,19 @@ class ControlPipeline(Node):
             self.vehicle_command_publisher,
         )
 
-        # --------------------------------------------------
-        # Control Timer
-        # --------------------------------------------------
-
+            # Control Timer
+    
         self.create_timer(
             1.0 / ControlConfig.CONTROL_RATE,
             self.run_control,
         )
 
-    # --------------------------------------------------
     # Main Control Pipeline
-    # --------------------------------------------------
 
     def run_control(self):
 
-        # --------------------------------------------------
-        # Get Latest Guidance Command
-        # --------------------------------------------------
-
+            # Get Latest Guidance Command
+    
         guidance = self.subscriber_manager.get_guidance()
 
         if guidance is None:
@@ -189,16 +169,12 @@ class ControlPipeline(Node):
             f"yaw={guidance.yaw_command:.3f}"
         )
 
-        # --------------------------------------------------
-        # Benchmark Start
-        # --------------------------------------------------
-
+            # Benchmark Start
+    
         self.benchmark.start_frame()
 
-        # --------------------------------------------------
-        # Flight Controller
-        # --------------------------------------------------
-
+            # Flight Controller
+    
         control_command = self.controller.compute_control_command(guidance)
 
         self.get_logger().info(
@@ -208,10 +184,8 @@ class ControlPipeline(Node):
             f"yaw={control_command.yaw_setpoint:.3f}"
         )
         self.publisher_manager.publish_control_command(control_command)
-        # --------------------------------------------------
-        # Convert to PX4 Messages
-        # --------------------------------------------------
-
+            # Convert to PX4 Messages
+    
         (
             offboard_mode,
             attitude_setpoint,
@@ -225,10 +199,8 @@ class ControlPipeline(Node):
             f"thrust={attitude_setpoint.thrust_body}"
         )
 
-        # --------------------------------------------------
-        # Generate Timestamp
-        # --------------------------------------------------
-
+            # Generate Timestamp
+    
         timestamp = int(self.get_clock().now().nanoseconds / 1000)
 
         offboard_mode.timestamp = timestamp
@@ -239,10 +211,8 @@ class ControlPipeline(Node):
 
         arm_command.timestamp = timestamp
 
-        # --------------------------------------------------
-        # Publish Continuous PX4 Messages
-        # --------------------------------------------------
-
+            # Publish Continuous PX4 Messages
+    
         self.publisher_manager.publish_offboard_mode(
             offboard_mode
         )
@@ -251,20 +221,16 @@ class ControlPipeline(Node):
             attitude_setpoint
         )
 
-        # --------------------------------------------------
-        # Update State Machine
-        # --------------------------------------------------
-
+            # Update State Machine
+    
         self.state_machine.update(vehicle_status)
 
         state = self.state_machine.get_state()
 
         self.get_logger().info(f"[STATE] {state.name}")
 
-        # --------------------------------------------------
-        # State Actions
-        # --------------------------------------------------
-
+            # State Actions
+    
         if state == OffboardState.WAIT_OFFBOARD:
 
             self.state_machine.increment_heartbeat()
@@ -291,16 +257,12 @@ class ControlPipeline(Node):
 
             self.state_machine.mark_arm_sent()
 
-        # --------------------------------------------------
-        # Benchmark End
-        # --------------------------------------------------
-
+            # Benchmark End
+    
         self.benchmark.end_frame()
 
-        # --------------------------------------------------
-        # Benchmark Statistics
-        # --------------------------------------------------
-
+            # Benchmark Statistics
+    
         if self.benchmark.frame_count % 30 == 0:
 
             stats = self.benchmark.get_statistics()
@@ -313,11 +275,7 @@ class ControlPipeline(Node):
                 f"MAX={stats['max_ms']:.2f} ms"
             )
 
-
-# --------------------------------------------------
 # Main
-# --------------------------------------------------
-
 def main():
 
     rclpy.init()

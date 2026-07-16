@@ -59,9 +59,7 @@ class OffboardStateMachine:
     def offboard_ready(self):
         return self.heartbeat_count >= self.required_heartbeats
 
-    # ------------------------------
     # Offboard Command
-    # ------------------------------
 
     def should_send_offboard(self):
 
@@ -71,9 +69,7 @@ class OffboardStateMachine:
 
         self.offboard_sent = True
 
-    # ------------------------------
     # Arm Command
-    # ------------------------------
 
     def should_send_arm(self):
 
@@ -86,9 +82,7 @@ class OffboardStateMachine:
 
         self.arm_sent = True
 
-    # ------------------------------
     # Update State Machine
-    # ------------------------------
 
     def update(self, vehicle_status):
 

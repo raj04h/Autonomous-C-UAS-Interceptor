@@ -56,9 +56,7 @@ class EstimatingPipeline(Node):
             depth=10
         )
 
-        # --------------------------------------------------
         # Managers
-        # --------------------------------------------------
 
         self.subscriber_manager = (
             EstimatorSubscriberManager()
@@ -78,9 +76,7 @@ class EstimatingPipeline(Node):
             )
         )
 
-        # --------------------------------------------------
         # Estimation Modules
-        # --------------------------------------------------
 
         # One estimator per track_id
         self.kalman_estimators = {}
@@ -92,17 +88,13 @@ class EstimatingPipeline(Node):
             TrajectoryEstimator()
         )
 
-        # --------------------------------------------------
         # Benchmark
-        # --------------------------------------------------
 
         self.benchmark = (
             EstimatingBenchmark()
         )
 
-        # --------------------------------------------------
         # Subscriber
-        # --------------------------------------------------
 
         self.create_subscription(
             Track,
@@ -111,18 +103,14 @@ class EstimatingPipeline(Node):
             qos
         )
 
-        # --------------------------------------------------
         # Main Timer
-        # --------------------------------------------------
 
         self.create_timer(
             EstimationConfig.DT,
             self.run_estimation
         )
 
-    # ======================================================
     # Main Estimation Pipeline
-    # ======================================================
 
     def run_estimation(self):
 
@@ -153,30 +141,22 @@ class EstimatingPipeline(Node):
             self.acceleration_estimators[track_id]
         )
 
-        # ----------------------------------------------
         # Prediction
-        # ----------------------------------------------
 
         kalman_estimator.predict()
 
-        # ----------------------------------------------
         # Measurement Update
-        # ----------------------------------------------
 
         kalman_estimator.update(
             track.center_x,
             track.center_y
         )
 
-        # ----------------------------------------------
         # Estimated State
-        # ----------------------------------------------
 
         state = kalman_estimator.get_state()
 
-        # ----------------------------------------------
         # Acceleration
-        # ----------------------------------------------
 
         acceleration = acceleration_estimator.estimate(
             state["vx"], 
@@ -184,9 +164,7 @@ class EstimatingPipeline(Node):
             EstimationConfig.DT
         )
 
-        # ----------------------------------------------
         # Future Prediction
-        # ----------------------------------------------
 
         prediction = (
             self.trajectory_estimator.predict(
@@ -199,9 +177,7 @@ class EstimatingPipeline(Node):
             )
         )
 
-        # ----------------------------------------------
         # Target State
-        # ----------------------------------------------
 
         target_state = {
 
@@ -220,9 +196,7 @@ class EstimatingPipeline(Node):
             "predicted_y": prediction["predicted_y"]
         }
 
-        # ----------------------------------------------
         # Publish
-        # ----------------------------------------------
 
         self.publisher_manager.publish_target_state(
             target_state
@@ -232,9 +206,7 @@ class EstimatingPipeline(Node):
 
         self.benchmark.end_frame()
 
-        # ----------------------------------------------
         # Benchmark
-        # ----------------------------------------------
 
         if self.benchmark.frame_count % 30 == 0:
 

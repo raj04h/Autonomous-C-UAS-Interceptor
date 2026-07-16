@@ -1,13 +1,3 @@
-"""
-DeepSORT Tracker Wrapper
-
-Responsibilities:
-- Initialize DeepSORT
-- Convert detections to DeepSORT format
-- Run tracking update
-- Return track objects
-"""
-
 from typing import List, Dict, Any
 
 from deep_sort_realtime.deepsort_tracker import DeepSort
@@ -45,9 +35,7 @@ class DeepsortTracker:
             TrackingConfig.BGR
         )
 
-    # ======================================
     # Update Tracks
-    # ======================================
 
     def update(
         self,
@@ -55,9 +43,7 @@ class DeepsortTracker:
         frame: Any
     ):
 
-        # ------------------------------
         # Validation
-        # ------------------------------
 
         if not detections:
             return []
@@ -65,7 +51,6 @@ class DeepsortTracker:
         if frame is None:
             return []
 
-        # ------------------------------
         # DeepSORT Format Conversion
         #
         # ROS:
@@ -73,7 +58,6 @@ class DeepsortTracker:
         #
         # DeepSORT:
         # x, y, width, height
-        # ------------------------------
 
         deepsort_detections = []
 
@@ -105,9 +89,7 @@ class DeepsortTracker:
                 )
             )
 
-        # ------------------------------
         # Tracking
-        # ------------------------------
 
         tracks = self.tracker.update_tracks(
 
