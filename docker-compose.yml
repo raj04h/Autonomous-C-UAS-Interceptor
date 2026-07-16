@@ -1,0 +1,87 @@
+
+version: "0.1.0"
+services:
+    postgres:
+
+      image: postgres:17
+
+      container_name: counter-uas-postgres
+
+      restart: unless-stopped
+
+      env_file:
+        - .env
+
+      environment:
+        POSTGRES_DB: ${POSTGRES_DB}
+        POSTGRES_USER: ${POSTGRES_USER}
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+      ports:
+        - "5432:5432"
+
+      volumes:
+        - postgres_data:/var/lib/postgresql/data
+
+      healthcheck:
+        test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+        interval: 10s
+        timeout: 5s
+        retries: 5
+
+
+
+    backend:
+
+      build:
+        context: .
+        dockerfile: docker/Dockerfile.backend
+
+      container_name: counter-uas-backend
+
+      restart: unless-stopped
+
+      depends_on:
+        postgres:
+          condition: service_healthy
+
+      env_file:
+        - .env
+
+      ports:
+        - "${BACKEND_PORT}:8000"
+
+      volumes:
+        - ./backend:/Counter_UAS/backend
+
+      stdin_open: true
+      tty: true
+
+
+    frontend:
+
+      build:
+        context: .
+        dockerfile: docker/Dockerfile.frontend
+
+      container_name: counter-uas-frontend
+
+      restart: unless-stopped
+
+      depends_on:
+        - backend
+
+      env_file:
+        - .env
+
+      ports:
+        - "${FRONTEND_PORT}:8050"
+
+      volumes:
+        - ./frontend:/Counter_UAS/frontend
+
+      stdin_open: true
+      tty: true
+
+    volumes:
+      postgres_data:

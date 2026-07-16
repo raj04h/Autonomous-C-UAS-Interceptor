@@ -1,0 +1,36 @@
+# Git
+.git
+.gitignore
+
+# Python
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pytest_cache
+
+
+# ROS2 Generated files
+ros2_WS/build/
+ros2_WS/install/
+ros2_WS/log/
+
+# logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# Docs
+docs/
+
+
+# Model Training
+models/yolo_training/runs/
+
+
+# Testing samples
+Testing_v1.png
+testing.py
+backend/test_backend.py
+frontend/test_frontend.py

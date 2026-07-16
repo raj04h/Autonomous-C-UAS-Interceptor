@@ -313,3 +313,20 @@ The interceptor is capable of:
 
 ---
 
+
+
+| Phase | Task                                               | Priority |
+| ----- | -------------------------------------------------- | -------- |
+| D1    | Dockerize `ros2_WS`                                | ⭐⭐⭐⭐⭐    |
+| D2    | Dockerize `backend`                                | ⭐⭐⭐⭐⭐    |
+| D3    | Dockerize `frontend`                               | ⭐⭐⭐⭐⭐    |
+| D4    | Add PostgreSQL service to Docker Compose           | ⭐⭐⭐⭐⭐    |
+| D5    | Create `docker-compose.yml`                        | ⭐⭐⭐⭐⭐    |
+| D6    | Introduce `.env` / `.env.example`                  | ⭐⭐⭐⭐⭐    |
+| D7    | Add GitHub Actions (lint, tests, Docker build)     | ⭐⭐⭐⭐⭐    |
+| D8    | Add `black`, `ruff`, `isort`, `mypy`, `pre-commit` | ⭐⭐⭐⭐☆    |
+| D9    | Replace `print()` with structured logging          | ⭐⭐⭐⭐☆    |
+| D10   | Add health/readiness endpoints                     | ⭐⭐⭐⭐☆    |
+| D11   | Organize automated tests under `tests/`            | ⭐⭐⭐⭐☆    |
+| D12   | Publish Docker images to GHCR on tagged releases   | ⭐⭐⭐⭐☆    |
+| D13   | Write deployment and DevOps documentation          | ⭐⭐⭐⭐☆    |

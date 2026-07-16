@@ -1,0 +1,36 @@
+
+FROM python:3.10-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /Counter_UAS
+
+# Install System Packages
+
+RUN apt-get update && \
+    apt-get install -y build-essential && \
+    rm -rf /var/lib/apt/lists/*
+
+# Python Dependencies
+
+COPY requirements/frontend.txt requirements/
+
+RUN pip install \
+    --upgrade pip && \
+    pip install \
+    --default-timeout=300 \
+    --no-cache-dir \
+    -r requirements/frontend.txt
+
+# Copy Frontend Source
+
+COPY frontend/ frontend/
+
+# Expose Dash Port
+
+EXPOSE 8050
+
+# Start Dashboard
+
+CMD ["python3", "-m", "frontend.app"]

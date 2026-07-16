@@ -45,3 +45,13 @@ source ros2_WS/install/setup.bash
 
 4. python3 -m frontend.app
 """
+
+"""
+DEVOPS
+
+docker build -f docker/Dockerfile.ros2 -t counter-uas-ros:latest .
+
+docker build -f docker/Dockerfile.backend -t counter-uas-backend:latest .
+
+docker build -f docker/Dockerfile.frontend -t counter-uas-frontend:latest .
+"""

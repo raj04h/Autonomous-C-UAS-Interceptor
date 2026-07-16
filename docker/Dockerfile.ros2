@@ -1,0 +1,63 @@
+
+# Base Image
+
+FROM osrf/ros:humble-desktop
+
+# Environment
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install Ubuntu Packages
+
+RUN apt-get update && \
+    apt-get install -y \
+    python3-pip \
+    python3-colcon-common-extensions \
+    python3-rosdep \
+    git \
+    build-essential && \
+    rm -rf /var/lib/apt/lists/*
+
+# Project Workspace
+
+WORKDIR /Counter_UAS
+
+# Copy Python Requirements
+# (Copied first for Docker layer caching)
+
+COPY requirements/ requirements/
+
+# Install Python Dependencies
+
+RUN python3 -m pip install --upgrade pip && \
+    python3 -m pip install \
+    --break-system-packages \
+    --default-timeout=300 \
+    --no-cache-dir \
+    -r requirements/ros2.txt
+
+# Copy ROS2 Workspace
+
+COPY ros2_WS/ ros2_WS/
+
+# Build ROS2 Workspace
+
+SHELL ["/bin/bash", "-c"]
+
+RUN source /opt/ros/humble/setup.bash && \
+    cd ros2_WS && \
+    colcon build --symlink-install
+
+# Copy Entrypoint Script
+
+COPY docker/ros_entrypoint.sh /ros_entrypoint.sh
+
+RUN chmod +x /ros_entrypoint.sh
+
+# Container Entrypoint
+
+ENTRYPOINT ["/ros_entrypoint.sh"]
+
+# Default Command
+
+CMD ["bash"]

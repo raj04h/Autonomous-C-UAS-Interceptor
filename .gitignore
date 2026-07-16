@@ -27,6 +27,7 @@ ros_env/
 
 .vscode/
 .idea/
+.history/
 
 # Linux
 
@@ -43,6 +44,8 @@ datasets/
 models/**/*.pt
 models/**/*.onnx
 models/**/*.engine
+
+models/yolo_training/runs/
 
 # Logs
 
