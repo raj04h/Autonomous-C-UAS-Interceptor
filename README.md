@@ -11,7 +11,7 @@
 ![PX4](https://img.shields.io/badge/PX4-SITL-orange)
 ![Gazebo](https://img.shields.io/badge/Gazebo-Garden-purple)
 ![Python](https://img.shields.io/badge/Python-3.10-yellow)
-![License](https://img.shields.io/badge/License-MIT-green)
+![License](https://img.shields.io/badge/License-Counter--UAS%20Research%20v1.0-blue)
 
 </div>
 
@@ -297,7 +297,7 @@ Detailed implementation documents are available in the [docs](docs/) directory, 
 
 ---
 
-# License
+# License 
 
 This project is licensed under the **Counter-UAS Research & Demonstration License v1.0**.
 
@@ -311,7 +311,6 @@ The source code is available for:
 Commercial use, production deployment, redistribution for commercial purposes, or monetization of this project requires prior written permission from the copyright holder.
 
 See the [LICENSE](LICENSE) file for the complete license terms.
-
 ---
 
 # Author
