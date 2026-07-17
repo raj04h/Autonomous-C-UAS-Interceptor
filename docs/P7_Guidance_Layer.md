@@ -1,241 +1,150 @@
 # P7 – Guidance Layer
 
-## Objective
+## Overview
 
-Transform estimated target states into high-level pursuit commands capable of steering the interceptor toward the predicted target position.
+This phase converts the estimated target motion into high-level guidance commands for autonomous target pursuit.
 
-Goal:
+Using the predicted target position, the guidance layer computes image-space tracking error, applies a proportional guidance law, determines whether the target is locked, and publishes steering commands for the flight control layer.
+
+---
+
+# Objectives
+
+- Generate steering commands from the estimated target state.
+- Compute image-space tracking error.
+- Apply proportional guidance.
+- Detect target lock conditions.
+- Publish standardized guidance commands.
+
+---
+
+# Pipeline Position
+
+```text
+P6 – State Estimation
+        │
+        ▼
+P7 – Guidance Layer
+        │
+        ▼
+P8 – Flight Control
+```
+
+---
+
+# Architecture
+
+```text
+          /target_state
+                │
+                ▼
+      guidance_pipeline.py
+                │
+      ┌─────────┼─────────┐
+      ▼         ▼         ▼
+ Subscriber  Guidance  Publisher
+  Manager   Controller  Manager
+                │
+                ▼
+      /guidance_command
+                │
+                ▼
+      GuidanceCommand.msg
+```
+
+---
+
+# Core Components
+
+| Component | Responsibility |
+|-----------|----------------|
+| guidance_pipeline.py | Guidance pipeline entry point |
+| guidance_subscriber_manager.py | Subscribe to target state |
+| guidance_controller.py | Generate pursuit commands |
+| guidance_publisher_manager.py | Publish guidance commands |
+| guidance_benchmark.py | Runtime performance measurement |
+| GuidanceCommand.msg | Standardized guidance message |
+
+---
+
+# Data Flow
 
 ```text
 Target State
       │
       ▼
-
-Image Error Computation
+Image Error
       │
       ▼
-
 Proportional Guidance
       │
       ▼
-
 Command Saturation
       │
       ▼
-
 Target Lock Detection
       │
       ▼
-
-Guidance Command Publishing
+/guidance_command
 ```
 
 ---
 
-## Architecture
+# ROS2 Interfaces
 
-```text
-/target_state
-      │
-      ▼
+## Subscribed Topics
 
-guidance_pipeline.py
-      │
-      ├── Guidance Subscriber Manager
-      │
-      ├── Guidance Controller
-      │
-      ├── Guidance Benchmark
-      │
-      └── Guidance Publisher Manager
-                  │
-                  ▼
-
-         /guidance_command
-                  │
-                  ▼
-
-        GuidanceCommand.msg
-```
+| Topic | Message |
+|--------|---------|
+| `/target_state` | TargetState.msg |
 
 ---
 
-## ROS2 Package
+## Published Topics
 
-```text
-guidance_node
-```
-
----
-
-## Interface Package
-
-```text
-interfaces/msg/GuidanceCommand.msg
-```
+| Topic | Message |
+|--------|---------|
+| `/guidance_command` | GuidanceCommand.msg |
 
 ---
 
-# P7.1 – Create Guidance Package
+## Custom Message
 
-## Goal
+### GuidanceCommand.msg
 
-Create a dedicated ROS2 package responsible for converting estimated target states into guidance commands.
-
-## Implementation
-
-Created:
-
-```text
-guidance_node
-```
-
-## Responsibilities
-
-```text
-Target State Subscription
-
-Image Error Computation
-
-Proportional Guidance
-
-Target Lock Detection
-
-Guidance Command Publishing
-```
+| Field | Description |
+|--------|-------------|
+| track_id | Target identifier |
+| error_x, error_y | Image-space error |
+| yaw_command | Desired yaw command |
+| pitch_command | Desired pitch command |
+| target_locked | Target lock status |
 
 ---
 
-# P7.2 – Guidance Command Interface
+# Implementation Summary
 
-## Goal
+The guidance layer receives the estimated target state and computes the target's displacement from the image center.
 
-Standardize guidance commands for downstream control modules.
+A proportional controller converts the image error into yaw and pitch commands, which are constrained within predefined limits before being published. The guidance layer also evaluates whether the target lies within configurable lock thresholds, indicating successful alignment with the interceptor's camera.
 
-## Implementation
-
-Created:
-
-```text
-interfaces/msg/GuidanceCommand.msg
-```
-
-## Message Definition
-
-```text
-int32 track_id
-
-float32 error_x
-float32 error_y
-
-float32 yaw_command
-float32 pitch_command
-
-bool target_locked
-```
-
-## Build Interface
-
-```bash
-colcon build --packages-select interfaces
-```
-
-## Verify Interface
-
-```bash
-ros2 interface show interfaces/msg/GuidanceCommand
-```
+The generated guidance commands provide the desired steering direction without directly controlling the vehicle dynamics, maintaining a clear separation between guidance and flight control.
 
 ---
 
-# P7.3 – Guidance Controller
-
-## Goal
-
-Generate pursuit commands using the predicted target position.
-
-## Implementation
-
-Created:
-
-```text
-guidance_controller.py
-```
-
-## Responsibilities
-
-```text
-Validate Target State
-
-Compute Image Error
-
-Apply Proportional Guidance
-
-Clamp Guidance Commands
-
-Detect Target Lock
-
-Generate Guidance Commands
-```
-
----
-
-## Guidance Flow
-
-```text
-TargetState
-
-        │
-
-        ▼
-
-Validate Target
-
-        │
-
- ┌──────┴───────┐
-
- │              │
-
-Invalid        Valid
-
- │              │
-
- ▼              ▼
-
-Return      Compute Image Error
-Defaults            │
-                    ▼
-
-        Proportional Controller
-              Output = KP × Error
-                    │
-                    ▼
-
-        Command Saturation
-                    │
-                    ▼
-
-      Target Lock Detection
-                    │
-                    ▼
-
-      Return GuidanceCommand
-```
-
----
+# Guidance Model
 
 ## Image Error
 
 ```text
-error_x = pred_x - FRAME_CENTER_X
+error_x = pred_x − FRAME_CENTER_X
 
-error_y = pred_y - FRAME_CENTER_Y
+error_y = pred_y − FRAME_CENTER_Y
 ```
 
 ---
 
-## Proportional Controller
+## Proportional Guidance
 
 ```text
 yaw_command = KP_YAW × error_x
@@ -243,15 +152,17 @@ yaw_command = KP_YAW × error_x
 pitch_command = KP_PITCH × error_y
 ```
 
-Where
+where
 
 ```text
 Output = KP × Error
 ```
 
-- Small KP → Slow response
-- Large KP → Aggressive response
-- Too large KP → Oscillation / Instability
+---
+
+## Command Saturation
+
+Guidance outputs are constrained within predefined yaw and pitch limits before publication to prevent excessive steering commands.
 
 ---
 
@@ -263,7 +174,7 @@ abs(error_x) ≤ LOCK_THRESHOLD_X
 abs(error_y) ≤ LOCK_THRESHOLD_Y
 ```
 
-If both conditions are satisfied
+If both conditions are satisfied:
 
 ```text
 target_locked = True
@@ -271,85 +182,57 @@ target_locked = True
 
 ---
 
-# P7.4 – Guidance Pipeline
+# Guidance Philosophy
 
-## Goal
+The guidance layer determines **where the interceptor should point** by generating desired steering commands based on the predicted target position.
 
-Create a centralized guidance pipeline responsible for all guidance operations.
+The subsequent control layer is responsible for converting these commands into stable PX4 offboard control inputs that physically maneuver the vehicle.
 
-## Implementation
+---
 
-Created:
+# Performance
 
-```text
-guidance_pipeline.py
-```
+The guidance pipeline benchmarks:
 
-## Responsibilities
+- Processing FPS
+- Average processing time
+- Minimum processing time
+- Maximum processing time
+- Processed frame count
 
-```text
-Initialize ROS2
+---
 
-Manage Subscribers
+# Execution
 
-Manage Publishers
+## Build Package
 
-Compute Guidance
+```bash
+cd ros2_WS
 
-Publish Guidance Commands
+colcon build --packages-select guidance_node
 
-Run Benchmarking
-```
-
-## Execution Flow
-
-```text
-/target_state
-      │
-      ▼
-
-Guidance Subscriber Manager
-      │
-      ▼
-
-Guidance Controller
-      │
-      ▼
-
-Guidance Publisher Manager
-      │
-      ▼
-
-/guidance_command
+source install/setup.bash
 ```
 
 ---
 
-# P7.5 – Guidance Publisher
+## Run Guidance Pipeline
 
-## Goal
-
-Publish standardized guidance commands into ROS2.
-
-## Implementation
-
-Created:
-
-```text
-guidance_publisher_manager.py
+```bash
+ros2 run guidance_node guidance_pipeline
 ```
 
-## Responsibilities
+---
 
-```text
-Guidance Result Conversion
+# Verification
 
-GuidanceCommand.msg Creation
+## Verify Guidance Topic
 
-/guidance_command Publishing
+```bash
+ros2 topic list | grep guidance_command
 ```
 
-## Published Topic
+Expected
 
 ```text
 /guidance_command
@@ -357,102 +240,32 @@ GuidanceCommand.msg Creation
 
 ---
 
-# P7.6 – Guidance Benchmarking
+## Verify Published Commands
 
-## Goal
-
-Measure guidance performance and processing latency.
-
-## Implementation
-
-Created:
-
-```text
-guidance_benchmark.py
-```
-
-## Measured Metrics
-
-```text
-FPS
-
-Average Processing Time
-
-Minimum Processing Time
-
-Maximum Processing Time
-
-Processed Frames
+```bash
+ros2 topic echo /guidance_command
 ```
 
 ---
 
-# P7.7 – Guidance Philosophy
+## Verify Interface
 
-## High-Level Guidance (P7)
-
-Determines **where the interceptor should point**.
-
-Outputs
-
-```text
-yaw_command
-
-pitch_command
+```bash
+ros2 interface show interfaces/msg/GuidanceCommand
 ```
 
 ---
 
-## Low-Level Control (P8)
+# Results
 
-Determines **how the interceptor physically moves**.
-
-Responsibilities
-
-```text
-Generate PX4 Offboard Commands
-
-Vehicle Attitude Control
-
-Vehicle Motion Control
-
-Flight Stabilization
-```
-
-Pipeline
-
-```text
-GuidanceCommand
-
-      │
-
-      ▼
-
-Control Layer
-
-      │
-
-      ▼
-
-PX4 Offboard
-
-      │
-
-      ▼
-
-Interceptor Motion
-```
+- Implemented proportional image-based guidance.
+- Generated yaw and pitch steering commands.
+- Computed image-space tracking error.
+- Detected target lock conditions.
+- Published standardized guidance commands for downstream flight control.
 
 ---
 
-# Future Work
+# Next Phase
 
-The current implementation performs **image-based proportional pursuit**.
-
-Future guidance algorithms may replace or extend the Guidance Controller, including:
-
-- Lead Pursuit
-- Pure Pursuit
-- Proportional Navigation (PN)
-- Vision-Based Interception
-- Adaptive Guidance
+The next phase implements the flight control layer, translating high-level guidance commands into PX4 Offboard attitude commands while ensuring stable and responsive vehicle motion.

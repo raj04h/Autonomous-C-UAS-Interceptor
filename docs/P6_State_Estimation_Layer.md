@@ -1,154 +1,257 @@
 # P6 – State Estimation Layer
 
-## Objective
+## Overview
 
-Transform persistent target tracks into smooth and reliable target state estimates capable of providing target position, velocity, acceleration, and future trajectory prediction for downstream guidance and control modules.
+This phase transforms tracked targets into continuous motion estimates suitable for autonomous decision-making.
 
-Goal:
+The state estimation pipeline filters noisy tracking measurements, estimates target velocity and acceleration, predicts future target motion, and publishes a standardized target state for downstream guidance and flight control.
+
+---
+
+# Objectives
+
+- Filter noisy tracking measurements.
+- Estimate target position and velocity.
+- Compute target acceleration.
+- Predict future target trajectory.
+- Publish standardized target state messages.
+
+---
+
+# Pipeline Position
 
 ```text
-Track Stream
-      │
-      ▼
-
-Kalman Filtering
-      │
-      ▼
-
-State Estimation
-      │
-      ▼
-
-Trajectory Prediction
-      │
-      ▼
-
-Target State Publishing
+P5 – Tracking Layer
+        │
+        ▼
+P6 – State Estimation
+        │
+        ▼
+P7 – Guidance Layer
 ```
 
 ---
 
-## Architecture
+# Architecture
 
 ```text
-/tracks
-      │
-      ▼
-
-estimating_pipeline.py
-      │
-      ├── Estimator Subscriber Manager
-      │
-      ├── Kalman Estimator
-      │
-      ├── Acceleration Estimator
-      │
-      ├── Trajectory Estimator
-      │
-      ├── Estimation Benchmark
-      │
-      └── Estimator Publisher Manager
-                  │
-                  ▼
-
-            /target_state
-                  │
-                  ▼
-
-           TargetState.msg
+            /tracks
+                │
+                ▼
+      estimating_pipeline.py
+                │
+      ┌─────────┼──────────┬──────────┐
+      ▼         ▼          ▼          ▼
+Subscriber   Kalman    Acceleration  Trajectory
+ Manager     Filter     Estimator    Predictor
+                │
+                ▼
+          Publisher Manager
+                │
+                ▼
+          /target_state
+                │
+                ▼
+         TargetState.msg
 ```
 
 ---
 
-## ROS2 Package
+# Core Components
 
-```text
-estimation_node
-```
-
----
-
-
-
-## Interface Package
-
-```text
-interfaces/msg/TargetState.msg
-```
+| Component | Responsibility |
+|-----------|----------------|
+| estimating_pipeline.py | State estimation pipeline entry point |
+| estimator_subscriber_manager.py | Subscribe to tracking messages |
+| kalman_estimator.py | Position and velocity estimation |
+| acceleration_estimator.py | Motion acceleration estimation |
+| trajectory_estimator.py | Future trajectory prediction |
+| estimator_publisher_manager.py | Publish target state |
+| estimating_benchmark.py | Runtime performance measurement |
+| TargetState.msg | Standardized target state message |
 
 ---
 
-# P6.1 – Create State Estimation Package
-
-## Goal
-
-Create a dedicated ROS2 package responsible for estimating the target state from persistent tracks.
-
-## Implementation
-
-Created:
+# Data Flow
 
 ```text
-estimation_node
-```
-
-## Responsibilities
-
-```text
-Track Subscription
-
-State Estimation
-
+Track Messages
+       │
+       ▼
+Kalman Filter
+       │
+       ▼
 Velocity Estimation
-
+       │
+       ▼
 Acceleration Estimation
-
+       │
+       ▼
 Trajectory Prediction
-
-Target State Publishing
+       │
+       ▼
+Target State Publisher
+       │
+       ▼
+/target_state
 ```
 
 ---
 
-# P6.2 – Target State Interface
+# ROS2 Interfaces
 
-## Goal
+## Subscribed Topics
 
-Standardize estimated target states for downstream guidance and control modules.
+| Topic | Message |
+|--------|---------|
+| `/tracks` | Track.msg |
 
-## Implementation
+---
 
-Created:
+## Published Topics
+
+| Topic | Message |
+|--------|---------|
+| `/target_state` | TargetState.msg |
+
+---
+
+## Custom Message
+
+### TargetState.msg
+
+| Field | Description |
+|--------|-------------|
+| track_id | Target identifier |
+| x, y | Estimated position |
+| vx, vy | Estimated velocity |
+| ax, ay | Estimated acceleration |
+| pred_x, pred_y | Predicted future position |
+| valid | State validity flag |
+
+---
+
+# Implementation Summary
+
+The state estimation layer receives confirmed target tracks and converts them into a continuous motion model.
+
+A Kalman filter smooths noisy measurements while estimating the target's position and velocity. Consecutive velocity estimates are used to calculate acceleration, and a constant-acceleration motion model predicts the target's future position.
+
+The resulting motion state is published as a standardized ROS2 message, providing downstream guidance and control modules with stable, predictive information rather than raw tracking measurements.
+
+---
+
+# Motion Model
+
+## Kalman State Vector
 
 ```text
-interfaces/msg/TargetState.msg
+[x, y, vx, vy]
 ```
 
-## Message Definition
+---
+
+## Measurement Vector
 
 ```text
-int32 track_id
-
-float32 x
-float32 y
-
-float32 vx
-float32 vy
-
-float32 ax
-float32 ay
-
-float32 pred_x
-float32 pred_y
-
-bool valid
+[center_x, center_y]
 ```
 
-## Build Interface
+---
+
+## Acceleration Estimation
+
+```text
+ax = (vxₙ − vxₙ₋₁) / Δt
+
+ay = (vyₙ − vyₙ₋₁) / Δt
+```
+
+---
+
+## Trajectory Prediction
+
+```text
+x' = x + vx·t + ½ax·t²
+
+y' = y + vy·t + ½ay·t²
+```
+
+---
+
+# Performance
+
+The estimation pipeline benchmarks:
+
+- Processing FPS
+- Average processing time
+- Minimum processing time
+- Maximum processing time
+- Processed frame count
+
+---
+
+# Execution
+
+## Build Package
 
 ```bash
-colcon build --packages-select interfaces
+cd ros2_WS
+
+colcon build --packages-select estimation_node
+
+source install/setup.bash
 ```
+
+---
+
+## Run Detection Pipeline
+
+```bash
+ros2 run perception_node detector_pipeline
+```
+
+---
+
+## Run Tracking Pipeline
+
+```bash
+ros2 run tracking_node tracker_pipeline
+```
+
+---
+
+## Run Estimation Pipeline
+
+```bash
+ros2 run estimation_node estimator_pipeline
+```
+
+---
+
+# Verification
+
+## Verify Target State Topic
+
+```bash
+ros2 topic list | grep target_state
+```
+
+Expected
+
+```text
+/target_state
+```
+
+---
+
+## Verify Published Target State
+
+```bash
+ros2 topic echo /target_state
+```
+
+---
 
 ## Verify Interface
 
@@ -158,248 +261,16 @@ ros2 interface show interfaces/msg/TargetState
 
 ---
 
-# P6.3 – Kalman State Estimation
+# Results
 
-## Goal
-
-Estimate a smooth target state by filtering noisy tracking measurements.
-
-## Implementation
-
-Created:
-
-```text
-kalman_estimator.py
-```
-
-## State Vector
-
-```text
-[x
-
- y
-
- vx
-
- vy]
-```
-
-## Measurement Vector
-
-```text
-[center_x
-
- center_y]
-```
-
-## Responsibilities
-
-```text
-Prediction Step
-
-Measurement Update
-
-Position Estimation
-
-Velocity Estimation
-```
+- Implemented Kalman filter-based state estimation.
+- Estimated target position, velocity, and acceleration.
+- Predicted future target trajectory.
+- Published standardized target state messages.
+- Provided smooth, predictive target information for autonomous guidance.
 
 ---
 
-# P6.4 – Acceleration Estimation
+# Next Phase
 
-## Goal
-
-Estimate target acceleration using consecutive velocity estimates.
-
-## Implementation
-
-Created:
-
-```text
-acceleration_estimator.py
-```
-
-## Formula
-
-```text
-ax = (vx_now - vx_previous) / dt
-
-ay = (vy_now - vy_previous) / dt
-```
-
-## Responsibilities
-
-```text
-Velocity Differentiation
-
-Acceleration Estimation
-
-Provide Motion Dynamics
-```
-
----
-
-# P6.5 – Trajectory Prediction
-
-## Goal
-
-Predict the future target position using the estimated motion state.
-
-## Implementation
-
-Created:
-
-```text
-trajectory_estimator.py
-```
-
-## Motion Model
-
-```text
-x_new = x + vx·t + 0.5·ax·t²
-
-y_new = y + vy·t + 0.5·ay·t²
-```
-
-## Responsibilities
-
-```text
-Future Position Prediction
-
-Motion Forecasting
-
-Target Trajectory Estimation
-```
-
----
-
-# P6.6 – State Estimation Pipeline
-
-## Goal
-
-Create a centralized estimation pipeline responsible for managing all state estimation operations.
-
-## Implementation
-
-Created:
-
-```text
-estimating_pipeline.py
-```
-
-## Responsibilities
-
-```text
-Initialize ROS2
-
-Manage Subscribers
-
-Manage Publishers
-
-Run Kalman Filter
-
-Estimate Velocity
-
-Estimate Acceleration
-
-Predict Future Position
-
-Publish Target State
-
-Run Benchmarking
-```
-
-## Execution Flow
-
-```text
-/tracks
-      │
-      ▼
-
-Estimator Subscriber Manager
-      │
-      ▼
-
-Kalman Estimator
-      │
-      ▼
-
-Acceleration Estimator
-      │
-      ▼
-
-Trajectory Estimator
-      │
-      ▼
-
-Estimator Publisher Manager
-      │
-      ▼
-
-/target_state
-```
-
----
-
-# P6.7 – Target State Publisher
-
-## Goal
-
-Publish standardized target state information into ROS2.
-
-## Implementation
-
-Created:
-
-```text
-estimator_publisher_manager.py
-```
-
-## Responsibilities
-
-```text
-Target State Conversion
-
-TargetState.msg Creation
-
-/target_state Publishing
-```
-
-## Published Topic
-
-```text
-/target_state
-```
-
----
-
-# P6.8 – State Estimation Benchmarking
-
-## Goal
-
-Measure estimation performance and processing latency.
-
-## Implementation
-
-Created:
-
-```text
-estimating_benchmark.py
-```
-
-## Measured Metrics
-
-```text
-FPS
-
-Average Processing Time
-
-Minimum Processing Time
-
-Maximum Processing Time
-
-Processed Frames
-```
-
----
+The next phase generates guidance commands from the estimated target state by converting target motion into desired yaw and pitch commands for autonomous target interception.

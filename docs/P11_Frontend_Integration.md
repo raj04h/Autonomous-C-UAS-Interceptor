@@ -1,538 +1,217 @@
-# P11 – Frontend Dashboard
+# P11 – Ground Control Station Dashboard
 
-## Objective
+## Overview
 
-Develop a real-time Ground Control Station (GCS) dashboard that visualizes the autonomous Counter-UAS mission through live WebSocket streams.
+This phase introduces a real-time Ground Control Station (GCS) dashboard for monitoring the autonomous Counter-UAS mission.
 
-The frontend acts as the operator interface for monitoring the complete interception pipeline, providing real-time visualization of guidance commands, controller outputs, image tracking performance, target lock status, and overall mission state.
-
----
-
-# Frontend Execution
-
-```bash
-python3 -m frontend.app
-```
-
-Open Dashboard
-
-```text
-http://localhost:8050
-```
+The dashboard consumes live WebSocket streams from the backend and provides operators with real-time visualization of target tracking, guidance, flight control, and mission status through an interactive web interface.
 
 ---
 
-# Frontend Architecture
+# Objectives
+
+- Build a real-time monitoring dashboard.
+- Receive live robotics data through WebSockets.
+- Visualize the autonomy pipeline.
+- Display controller and guidance performance.
+- Provide an operator-friendly mission interface.
+
+---
+
+# Pipeline Position
 
 ```text
-                     FastAPI Backend
-                             │
-                   WebSocket Streaming
-                             │
-                             ▼
-                  DashboardWebSocket
-                             │
-                Latest Message Cache
-                             │
-        ┌────────────┬────────────┬────────────┐
-        ▼            ▼            ▼            ▼
- Image Callback  Controller   Target      Status
-                  Callback    Callback    Callback
-        │            │            │            │
-        └────────────┴────────────┴────────────┘
-                             │
-                             ▼
-                     Dash UI Components
-                             │
-                             ▼
-                 Counter-UAS Dashboard
+ROS2 Autonomy Stack
+        │
+        ▼
+P10 – Backend Infrastructure
+        │
+        ▼
+P11 – Ground Control Station
 ```
 
 ---
 
-# P11.1 — Dashboard Foundation
-
-## Goal
-
-Create the dashboard application framework and responsive layout.
-
----
-
-## Files
+# Architecture
 
 ```text
-frontend/
-
-app.py
-
-layout/
-    dashboard_layout.py
-
-assets/
-    style.css
+                  FastAPI Backend
+                         │
+                  WebSocket Streams
+                         │
+                         ▼
+                Dashboard WebSocket
+                         │
+                 Latest Message Cache
+                         │
+        ┌────────┬────────┬────────┬────────┐
+        ▼        ▼        ▼        ▼
+     Image   Controller  Target  Status
+    Callback   Callback Callback Callback
+        │        │        │        │
+        └────────┴────────┴────────┘
+                  │
+                  ▼
+           Dash UI Components
+                  │
+                  ▼
+      Counter-UAS GCS Dashboard
 ```
 
 ---
 
-## Responsibilities
+# Core Components
 
-```text
-Dash Application
-
-Dashboard Layout
-
-Responsive Grid
-
-Panel Management
-
-Theme Configuration
-```
+| Component | Responsibility |
+|-----------|----------------|
+| app.py | Dashboard entry point |
+| websocket_client.py | Backend communication |
+| dashboard_layout.py | Dashboard layout |
+| callbacks | Live dashboard updates |
+| components | Reusable Plotly visualizations |
+| style.css | Dashboard styling |
 
 ---
 
-# P11.2 — WebSocket Client
-
-## Goal
-
-Implement a multi-channel WebSocket client for receiving live backend data.
-
----
-
-## Files
+# Data Flow
 
 ```text
-frontend/services/
-
-websocket_client.py
-```
-
----
-
-## Responsibilities
-
-```text
-WebSocket Connections
-
-Background Threads
-
+Backend WebSockets
+        │
+        ▼
+Dashboard WebSocket Client
+        │
+        ▼
 Latest Message Cache
-
-Connection Management
-
-Live Data Reception
+        │
+        ▼
+Dash Callbacks
+        │
+        ▼
+Plotly Components
+        │
+        ▼
+Operator Dashboard
 ```
 
 ---
 
-## Connected Channels
+# Dashboard Components
+
+| Component | Purpose |
+|-----------|---------|
+| Guidance vs Controller | Compare desired and applied commands |
+| Image Error | Monitor image-space tracking error |
+| Target Lock | Display target acquisition status |
+| System Status | Display mission information |
+| 3D Trajectory | Future trajectory visualization |
+
+---
+
+# Runtime Architecture
 
 ```text
-Telemetry
-
-Guidance
-
-Control
-
-Tracking
-
-Target State
+        Dash Application
+               │
+       Background Threads
+               │
+               ▼
+      WebSocket Client
+               │
+               ▼
+      Latest Message Cache
+               │
+               ▼
+       Dash Callbacks
+               │
+               ▼
+       Plotly Graphs
 ```
 
----
-
-# P11.3 — Dashboard Callbacks
-
-## Goal
-
-Implement callback-driven real-time dashboard updates.
+The dashboard maintains persistent WebSocket connections while Dash callbacks periodically update the user interface using the latest cached robotics data.
 
 ---
 
-## Files
+# Visualization
 
-```text
-frontend/callbacks/
+## Guidance vs Controller
 
-controller_callback.py
+Displays:
 
-image_callback.py
+- Guidance yaw
+- Guidance pitch
+- Controller yaw
+- Controller pitch
+- Command limits
 
-target_callback.py
+Purpose:
 
-trajectory_callback.py
-
-status_callback.py
-```
-
----
-
-## Responsibilities
-
-```text
-Read Latest Messages
-
-Maintain History Buffers
-
-Generate Plotly Figures
-
-Update Dashboard Components
-```
+Evaluate controller tracking performance.
 
 ---
 
-# P11.4 — UI Components
+## Image Error
 
-## Goal
+Displays:
 
-Create reusable dashboard UI components.
+- Horizontal image error
+- Vertical image error
+- Target lock thresholds
 
----
+Purpose:
 
-## Files
-
-```text
-frontend/components/
-
-controller_graph.py
-
-image_error_graph.py
-
-target_graph.py
-
-trajectory_graph.py
-
-status_panel.py
-```
+Monitor visual alignment between the interceptor and target.
 
 ---
 
-## Responsibilities
+## Target Lock
 
-```text
-Reusable Graph Components
+Displays:
 
-Status Panel
+- Target lock status
+- Collective thrust
 
-Graph Configuration
+Purpose:
 
-UI Separation
-```
-
----
-
-# P11.5 — 3D Trajectory Graph
-
-## Goal
-
-Provide the dashboard structure for future 3D mission visualization.
+Correlate target acquisition with controller response.
 
 ---
 
-## Current Status
+## System Status
+
+Displays:
+
+- Flight mode
+- Track ID
+- Target class
+- Detection confidence
+- Guidance commands
+- Controller outputs
+
+Purpose:
+
+Provide a concise overview of the mission state.
+
+---
+
+## 3D Trajectory
+
+Current status:
 
 ```text
 Placeholder
 ```
 
----
+Future visualization includes:
 
-## Future Visualization
-
-```text
-UAV Position
-
-Target Position
-
-Predicted Target
-
-Estimated Target
-
-Flight Path
-
-Interception Path
-```
+- UAV trajectory
+- Target trajectory
+- Predicted target position
+- Interception path
 
 ---
 
-# P11.6 — Image Error Graph
-
-## Goal
-
-Visualize image-space tracking performance.
-
----
-
-## Data Source
-
-```text
-Guidance Message
-```
-
----
-
-## Displays
-
-```text
-Image Error X
-
-Image Error Y
-
-Positive Lock Threshold
-
-Negative Lock Threshold
-```
-
----
-
-## Purpose
-
-```text
-Monitor camera alignment with the detected target.
-```
-
----
-
-# P11.7 — Guidance vs Controller Graph
-
-## Goal
-
-Compare guidance commands with controller outputs.
-
----
-
-## Data Sources
-
-```text
-Guidance Message
-
-Control Message
-```
-
----
-
-## Displays
-
-```text
-Guidance Pitch
-
-Guidance Yaw
-
-Control Pitch
-
-Control Yaw
-
-Pitch Limits
-
-Yaw Limits
-```
-
----
-
-## Purpose
-
-```text
-Evaluate controller tracking performance and command following.
-```
-
----
-
-# P11.8 — Controller Increment Graph
-
-## Goal
-
-Visualize controller outputs.
-
----
-
-## Status
-
-Merged into the Guidance vs Controller graph.
-
----
-
-## Reason
-
-```text
-Controller outputs already represent the commands sent to PX4.
-
-Maintaining a separate graph duplicated information.
-
-The merged visualization provides direct comparison between guidance commands and controller outputs.
-```
-
----
-
-# P11.9 — Target Lock Graph
-
-## Goal
-
-Monitor target acquisition together with thrust response.
-
----
-
-## Data Sources
-
-```text
-Guidance Message
-
-Control Message
-```
-
----
-
-## Displays
-
-```text
-Target Lock State
-
-Collective Thrust
-```
-
----
-
-## Purpose
-
-```text
-Correlate target acquisition with thrust commands during autonomous interception.
-```
-
----
-
-# P11.10 — Status Panel
-
-## Goal
-
-Provide a concise real-time mission summary.
-
----
-
-## Displays
-
-```text
-Flight Mode
-
-Track ID
-
-Target Class
-
-Detection Confidence
-
-Target Status
-
-Pitch / Yaw Commands
-
-Collective Thrust
-```
-
----
-
-## Purpose
-
-```text
-Allow operators to quickly assess mission state without inspecting graphs.
-```
-
----
-
-# P11.11 — Final Integration & Verification
-
-## Goal
-
-Integrate all dashboard modules into a single monitoring application.
-
----
-
-## Integration
-
-```text
-Dashboard Layout
-
-WebSocket Client
-
-Callbacks
-
-UI Components
-
-Graphs
-
-Status Panel
-```
-
----
-
-## Verification
-
-```text
-Image Error Stream
-
-Guidance Stream
-
-Control Stream
-
-Tracking Stream
-
-Target State Stream
-
-Status Updates
-
-Responsive Layout
-
-Real-Time Graph Updates
-```
-
----
-
-# Dashboard Layout
-
-```text
-┌─────────────────────────────────────────────────────────────┐
-│               Counter-UAS Monitoring Panel                  │
-├───────────────────────────────┬─────────────────────────────┤
-│                               │                             │
-│ Guidance vs Controller Graph  │ Image Error                │
-│                               │                             │
-├───────────────────────────────┼─────────────────────────────┤
-│                               │                             │
-│ Target Lock vs Thrust         │ System Status              │
-│                               │                             │
-└───────────────────────────────┴─────────────────────────────┘
-```
-
----
-
-# Dashboard Data Flow
-
-```text
-FastAPI Backend
-
-↓
-
-WebSocket Channels
-
-↓
-
-DashboardWebSocket
-
-↓
-
-Latest Message Cache
-
-↓
-
-Dash Callbacks
-
-↓
-
-Plotly Graphs
-
-↓
-
-Dashboard
-```
-
----
-
-# Verification
+# Execution
 
 ## Start Dashboard
 
@@ -542,43 +221,49 @@ python3 -m frontend.app
 
 ---
 
-## Verify WebSocket Connections
+## Open Dashboard
 
 ```text
-Telemetry
-
-Guidance
-
-Control
-
-Tracking
-
-Target State
+http://localhost:8050
 ```
+
+---
+
+# Verification
+
+## Verify Backend Connection
+
+Confirm successful WebSocket connections for:
+
+- Telemetry
+- Target State
+- Tracking
+- Guidance
+- Control
 
 ---
 
 ## Verify Dashboard
 
-```text
-Image Error Graph
+Ensure the following components update in real time:
 
-Guidance vs Controller Graph
-
-Target Lock vs Thrust Graph
-
-System Status Panel
-
-Responsive Dashboard Layout
-```
+- Guidance vs Controller graph
+- Image Error graph
+- Target Lock graph
+- System Status panel
 
 ---
+
+# Results
+
+- Developed a real-time Ground Control Station dashboard.
+- Integrated live WebSocket communication with the backend.
+- Visualized guidance, tracking, and control performance.
+- Implemented a modular Plotly Dash interface.
+- Established the operator interface for monitoring autonomous missions.
+
 ---
 
-# Result
+# Next Phase
 
-P11 delivers the first operational Ground Control Station (GCS) monitoring dashboard for the Counter-UAS Autonomous Interceptor.
-
-The dashboard receives live telemetry through multiple backend WebSocket streams and provides operators with real-time visualization of image tracking error, guidance commands, controller outputs, target lock status, and mission state through a modular, responsive interface.
-
-The implemented architecture serves as the foundation for future enhancements including 3D trajectory visualization, mission replay, telemetry analytics, and advanced operator tools.
+Future enhancements will extend the dashboard with 3D mission visualization, mission replay, telemetry analytics, multi-vehicle support, and advanced operator tools.

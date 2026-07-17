@@ -51,6 +51,8 @@ An autonomous interceptor must instead rely on its own onboard perception to ide
 
 Developing such a system requires integrating computer vision, robotics, autonomous guidance, flight control, and real-time communication into a single reliable software architecture capable of operating in dynamic environments.
 
+---
+
 # Solution
 
 This project presents a modular vision-based Counter-UAS autonomous interception system that performs the complete perception-to-control pipeline using onboard sensing.
@@ -61,68 +63,13 @@ In addition to the autonomous robotics pipeline, the project includes a complete
 
 The modular ROS2 architecture enables each subsystem to be developed, tested, and deployed independently while supporting future expansion toward edge deployment, GPS-denied navigation, and multi-target autonomous interception.
 
-# System Pipeline
-
-```text
-Camera
-   │
-   ▼
-YOLO Detection
-   │
-   ▼
-DeepSORT Tracking
-   │
-   ▼
-State Estimation
-   │
-   ▼
-Guidance
-   │
-   ▼
-Flight Control
-   │
-   ▼
-PX4 Offboard
-   │
-   ▼
-Interceptor UAV
-```
-
 ---
 
 # System Architecture
 
-```text
-                    PX4 + Gazebo
-
-                          │
-
-                     Camera Sensor
-
-                          │
-
-                    ROS2 Perception
-
-                          │
-
-YOLO → DeepSORT → Kalman Filter → Guidance → Control
-
-                          │
-
-                     PX4 Offboard
-
-────────────────────────────────────────────
-
-                    ROS2 Bridge
-
-────────────────────────────────────────────
-
-      FastAPI → PostgreSQL → WebSocket
-
-────────────────────────────────────────────
-
-                 Plotly Dash
-```
+<p align="center">
+<img src="docs/architecture_design/C-UAS-HLD.png" width="600">
+</p>
 
 ---
 
@@ -133,29 +80,11 @@ YOLO → DeepSORT → Kalman Filter → Guidance → Control
 | Robotics | ROS2 Humble, PX4 SITL, Gazebo Garden |
 | Computer Vision | OpenCV, YOLO, DeepSORT |
 | State Estimation | Kalman Filter |
+| Communication | MAVLink, PyMAVLink, REST API, WebSockets |
 | Backend | FastAPI, SQLAlchemy, PostgreSQL |
 | Frontend | Plotly Dash |
 | DevOps | Docker, Docker Compose, GitHub Actions |
-| Language | Python |
-
----
-
-# Project Structure
-
-```text
-Counter_UAS/
-
-├── ros2_WS/
-├── backend/
-├── frontend/
-├── docker/
-├── requirements/
-├── docs/
-├── models/
-├── assets/
-└── README.md
-```
-
+| Programming Languages | Python, C++ |
 ---
 
 # Development Phases
@@ -197,7 +126,7 @@ Counter_UAS/
 > Real-time telemetry, guidance, control commands, target lock status, and mission monitoring.
 
 <p align="center">
-<img src="assets/dashboard.png" width="900">
+<img src="assets/dashboard.png" width="400">
 </p>
 
 ---
@@ -207,14 +136,32 @@ Counter_UAS/
 > Integrated visualization showing detection, tracking, estimation, guidance, and control overlays.
 
 <p align="center">
-<img src="assets/visualization.png" width="900">
+<img src="assets/visualization.png" width="400">
 </p>
 
 ---
 
 # Running the Project
 
-## Robotics
+## 1. Start PX4 SITL Simulation
+
+```bash
+make px4_sitl gz_x500
+```
+
+## 2. Start Micro XRCE-DDS Agent
+
+```bash
+MicroXRCEAgent udp4 -p 8888
+```
+
+## 3. Launch QGroundControl Station
+
+```bash
+./QGroundControl.AppImage
+```
+
+## 4. Launch Robotics & AI Pipeline
 
 ```bash
 source /opt/ros/humble/setup.bash
@@ -223,17 +170,19 @@ source ros2_WS/install/setup.bash
 ros2 launch uas_launch uas.launch.py
 ```
 
----
+## 5. Start Database Server
 
-## Backend
+```bash
+sudo systemctl start postgresql
+```
+
+## 6. Start Backend Server
 
 ```bash
 python3 -m backend.main
 ```
 
----
-
-## Dashboard
+## 7. Start Frontend Server
 
 ```bash
 python3 -m frontend.app
@@ -241,7 +190,7 @@ python3 -m frontend.app
 
 ---
 
-# DevOps
+# DevOps Infrastructure
 
 Implemented in V1
 
@@ -262,32 +211,22 @@ Planned
 # Future Roadmap
 
 ### V1
-
-Vision-Based Autonomous Interceptor ✅
+* Vision-Based Autonomous Interceptor ✅
 
 ### V2
-
-3D Target Localization
-
-Stereo Vision
-
-Depth Estimation
+* 3D Target Localization
+* Stereo Vision
+* Depth Estimation
 
 ### V3
-
-GPS-Denied Navigation
-
-SLAM
-
-Visual-Inertial Odometry
+* GPS-Denied Navigation
+* SLAM
+* Visual-Inertial Odometry
 
 ### V4
-
-Multi-Target Counter-UAS Platform
-
-Swarm Interception
-
-Mission Planning
+* Multi-Target Counter-UAS Platform
+* Swarm Interception
+* Mission Planning
 
 ---
 
@@ -313,13 +252,9 @@ Commercial use, production deployment, redistribution for commercial purposes, o
 See the [LICENSE](LICENSE) file for the complete license terms.
 ---
 
-# Author
+# Author - Himanshu Raj
 
-**Himanshu Raj**
-
-**Connect**
-
-- LinkedIn: https://www.linkedin.com/in/himanshuraj/
+- LinkedIn: https://www.linkedin.com/in/raj04h
 - Email: himanshuraj.hr9934@gmail.com
 
 <div align="center">

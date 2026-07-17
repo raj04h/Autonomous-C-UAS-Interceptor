@@ -1,170 +1,206 @@
 # P5 – Tracking Layer
 
-## Objective
+## Overview
 
-Transform raw detections into persistent target tracks capable of maintaining target identity across frames and providing stable target information for downstream state estimation, guidance, and control modules.
+This phase extends the perception pipeline by converting independent object detections into persistent target tracks.
 
-Goal:
+DeepSORT is integrated to associate detections across consecutive frames, maintain unique target identities, and provide stable tracking information for downstream state estimation, guidance, and flight control.
+
+---
+
+# Objectives
+
+- Integrate DeepSORT for multi-object tracking.
+- Maintain persistent target identities across frames.
+- Publish standardized tracking messages.
+- Benchmark tracking performance.
+- Provide stable inputs for state estimation.
+
+---
+
+# Pipeline Position
 
 ```text
-Detection Stream
-       │
-       ▼
+P4 – Detection Layer
+        │
+        ▼
+P5 – Tracking Layer
+        │
+        ▼
+P6 – State Estimation
+```
 
-Target Association
-       │
-       ▼
+---
 
+# Architecture
+
+```text
+        /detections
+             │
+             ▼
+     tracking_pipeline.py
+             │
+      ┌──────┼────────┐
+      ▼      ▼        ▼
+Subscriber DeepSORT Publisher
+Manager    Tracker   Manager
+                     │
+                     ▼
+                  /tracks
+                     │
+                     ▼
+                 Track.msg
+```
+
+---
+
+# Core Components
+
+| Component | Responsibility |
+|-----------|----------------|
+| tracking_pipeline.py | Tracking pipeline entry point |
+| tracker_subscriber_manager.py | Subscribe to detection messages |
+| detection_converter.py | Convert detections to DeepSORT format |
+| deepsort_tracker.py | Target association and identity tracking |
+| tracker_publisher_manager.py | Publish tracking results |
+| tracking_benchmark.py | Measure runtime performance |
+| Track.msg | Standardized tracking message |
+
+---
+
+# Data Flow
+
+```text
+Detection Messages
+        │
+        ▼
+Detection Conversion
+        │
+        ▼
+DeepSORT Tracking
+        │
+        ▼
 Track Generation
-       │
-       ▼
-
-Persistent Target IDs
-       │
-       ▼
-
-Track Publishing
+        │
+        ▼
+Track Publisher
+        │
+        ▼
+/tracks
 ```
 
 ---
 
-## Architecture
+# ROS2 Interfaces
 
-```text
-/detections
-      │
+## Subscribed Topics
 
-/camera/frame
-      │
-      ▼
-
-tracking_pipeline.py
-      │
-      ├── Tracker Subscriber Manager
-      │
-      ├── Detection Converter
-      │
-      ├── DeepSORT Tracker
-      │
-      ├── Tracking Benchmark
-      │
-      └── Tracker Publisher Manager
-                 │
-                 ▼
-
-              /tracks
-                 │
-                 ▼
-
-             Track.msg
-```
+| Topic | Message |
+|--------|---------|
+| `/detections` | Detection.msg |
+| `/frame` | Processed camera frame |
 
 ---
 
-## ROS2 Package
+## Published Topics
 
-```text
-tracking_node
-```
-
----
-
-## Core Components
-
-```text
-tracking_pipeline.py
-
-tracker_subscriber_manager.py
-
-tracker_publisher_manager.py
-
-detection_converter.py
-
-deepsort_tracker.py
-
-tracking_benchmark.py
-```
+| Topic | Message |
+|--------|---------|
+| `/tracks` | Track.msg |
 
 ---
 
-## Interface Package
+## Custom Message
 
-```text
-interfaces/msg/Track.msg
-```
+### Track.msg
 
----
-
-# P5.1 – Create Tracking Package
-
-## Goal
-
-Create a dedicated ROS2 package responsible for target tracking and identity management.
-
-## Implementation
-
-Created:
-
-```text
-tracking_node
-```
-
-## Responsibilities
-
-```text
-Detection Subscription
-
-Frame Subscription
-
-Target Association
-
-Track Generation
-
-Track Publishing
-```
+| Field | Description |
+|--------|-------------|
+| track_id | Unique target identifier |
+| class_name | Detected object class |
+| confidence | Detection confidence |
+| x1, y1 | Bounding box (top-left) |
+| x2, y2 | Bounding box (bottom-right) |
+| center_x, center_y | Target center coordinates |
+| confirmed | Track confirmation status |
 
 ---
 
-# P5.2 – Track Interface
+# Implementation Summary
 
-## Goal
+The tracking layer receives object detections from the perception pipeline and converts them into the format required by DeepSORT.
 
-Standardize tracking outputs for downstream estimation and guidance modules.
+DeepSORT performs target association using appearance and motion information, allowing each detected object to retain a persistent identity across consecutive frames. Confirmed tracks are converted into a standardized ROS2 message and published for downstream state estimation.
 
-## Implementation
+The modular architecture separates ROS2 communication, tracking logic, and message publishing, allowing the tracking algorithm to be replaced without affecting the rest of the autonomy pipeline.
 
-Created:
+---
 
-```text
-interfaces/msg/Track.msg
-```
+# Tracking Configuration
 
-## Message Definition
+The tracking pipeline was configured for aerial target tracking using DeepSORT with:
 
-```text
-int32 track_id
+- Persistent track management
+- Appearance-based association
+- Motion prediction
+- Confidence filtering
+- Airplane target class
 
-string class_name
+---
 
-float32 confidence
+# Execution
 
-int32 x1
-int32 y1
-
-int32 x2
-int32 y2
-
-int32 center_x
-int32 center_y
-
-bool confirmed
-```
-
-## Build Interface
+## Build Package
 
 ```bash
-colcon build --packages-select interfaces
+cd ros2_WS
+
+colcon build --packages-select tracking_node
+
+source install/setup.bash
 ```
+
+---
+
+## Run Detection Pipeline
+
+```bash
+ros2 run perception_node detector_pipeline
+```
+
+---
+
+## Run Tracking Pipeline
+
+```bash
+ros2 run tracking_node tracker_pipeline
+```
+
+---
+
+# Verification
+
+## Verify Tracking Topic
+
+```bash
+ros2 topic list | grep tracks
+```
+
+Expected
+
+```text
+/tracks
+```
+
+---
+
+## Verify Tracking Messages
+
+```bash
+ros2 topic echo /tracks
+```
+
+---
 
 ## Verify Interface
 
@@ -174,237 +210,16 @@ ros2 interface show interfaces/msg/Track
 
 ---
 
-# P5.3 – DeepSORT Integration
+# Results
 
-## Goal
-
-Integrate DeepSORT for target association and persistent identity tracking.
-
-## Implementation
-
-Created:
-
-```text
-deepsort_tracker.py
-```
-
-## Responsibilities
-
-```text
-Initialize DeepSORT
-
-Convert Detection Format
-
-Track Association
-
-Track Management
-
-Return Active Tracks
-```
-
-## DeepSORT Configuration
-
-```python
-MAX_AGE = 30
-
-N_INIT = 3
-
-MAX_IOU_DISTANCE = 0.7
-
-MAX_COSINE_DISTANCE = 0.3
-
-EMBEDDER = "mobilenet"
-
-HALF_PRECISION = True
-
-BGR = True
-
-MIN_CONFIDENCE = 0.20
-
-TARGET_CLASSES = [
-    "airplane"
-]
-```
+- Integrated DeepSORT into the perception pipeline.
+- Implemented persistent target identity management.
+- Published standardized tracking messages to ROS2.
+- Maintained stable tracks across consecutive frames.
+- Prepared reliable target information for state estimation.
 
 ---
 
-# P5.4 – Tracking Pipeline
+# Next Phase
 
-## Goal
-
-Create a centralized tracking pipeline responsible for managing all tracking operations.
-
-## Implementation
-
-Created:
-
-```text
-tracking_pipeline.py
-```
-
-## Responsibilities
-
-```text
-Initialize ROS2
-
-Manage Subscribers
-
-Manage Publishers
-
-Run Tracking Pipeline
-
-Manage DeepSORT
-
-Publish Tracks
-
-Run Benchmarking
-```
-
-## Execution Flow
-
-```text
-/camera/frame
-       │
-
-/detections
-       │
-       ▼
-
-Tracker Subscriber Manager
-       │
-       ▼
-
-Detection Converter
-       │
-       ▼
-
-DeepSORT Tracker
-       │
-       ▼
-
-Track Generation
-       │
-       ▼
-
-Track Publisher
-       │
-       ▼
-
-/tracks
-```
-
----
-
-# P5.5 – Track Publisher
-
-## Goal
-
-Publish standardized tracking outputs into ROS2.
-
-## Implementation
-
-Created:
-
-```text
-tracker_publisher_manager.py
-```
-
-## Responsibilities
-
-```text
-Track Data Conversion
-
-Track.msg Creation
-
-/tracks Publishing
-```
-
-## Published Topic
-
-```text
-/ tracks
-```
-
----
-
-
-# P5.7 – Tracking Benchmarking
-
-## Goal
-
-Measure tracking performance and track quality metrics.
-
-## Implementation
-
-Created:
-
-```text
-tracking_benchmark.py
-```
-
-### Run Detection Pipeline
-
-Terminal 1
-
-```bash
-ros2 run perception_node detector_pipeline
-```
-
----
-
-### Run Tracking Pipeline
-
-Terminal 2
-
-```bash
-ros2 run tracking_node tracker_pipeline
-```
-
----
-
-### Verify Interface
-
-```bash
-ros2 interface show interfaces/msg/Track
-```
-
----
-
-## Final Tracking Architecture
-
-```text
-/camera/frame
-       │
-
-/detections
-       │
-       ▼
-
-tracker_subscriber_manager.py
-       │
-       ▼
-
-detection_converter.py
-       │
-       ▼
-
-deepsort_tracker.py
-       │
-       ▼
-
-tracking_benchmark.py
-       │
-       ▼
-
-tracker_publisher_manager.py
-       │
-       ▼
-
-/tracks
-       │
-       ▼
-
-Track.msg
-```
-
----
+The next phase estimates the target's motion state using Kalman filtering, providing position, velocity, acceleration, and trajectory prediction for autonomous guidance.

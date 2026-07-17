@@ -1,10 +1,72 @@
-# P3 – Camera & Perception Foundation
+# P3 – Camera Integration & Perception Foundation
 
-## Objective
+## Overview
 
-Establish the perception foundation by integrating camera sensing into the simulation environment and investigating image transport between Gazebo and ROS2.
+This phase establishes the visual sensing foundation for the autonomous perception pipeline by integrating a forward-facing camera into the PX4 simulation environment.
 
-Goal:
+The objective was to stream camera images from Gazebo into ROS2 for real-time OpenCV processing. During implementation, the Gazebo camera and image transport pipeline were thoroughly investigated, revealing a limitation in the ROS-Gazebo image bridge. To maintain project progress, perception development continued using prerecorded video input while leaving the middleware issue isolated for future infrastructure work.
+
+---
+
+# Objectives
+
+- Integrate a forward-facing camera with the PX4 X500 model.
+- Verify camera image and calibration streams in Gazebo.
+- Develop a ROS2 camera subscriber.
+- Evaluate Gazebo-to-ROS2 image transport.
+- Establish the perception input pipeline.
+
+---
+
+# Pipeline Position
+
+```text
+P2 – ROS2 Application Layer
+        │
+        ▼
+P3 – Camera Integration
+        │
+        ▼
+P4 – Detection Layer
+```
+
+---
+
+# Architecture
+
+```text
+              PX4 SITL
+                  │
+                  ▼
+           Gazebo Camera
+                  │
+                  ▼
+          Gazebo Transport
+                  │
+                  ▼
+         ROS-Gazebo Bridge
+                  │
+                  ▼
+          ROS2 Camera Node
+                  │
+                  ▼
+           OpenCV Processing
+```
+
+---
+
+# Core Components
+
+| Component | Responsibility |
+|-----------|----------------|
+| Front Camera | Simulated onboard vision sensor |
+| Gazebo Transport | Camera image streaming |
+| ROS-Gazebo Bridge | Gazebo → ROS2 image forwarding |
+| camera_listener.py | ROS2 camera subscriber |
+
+---
+
+# Data Flow
 
 ```text
 Gazebo Camera
@@ -13,7 +75,7 @@ Gazebo Camera
 Image Stream
         │
         ▼
-ROS2 Camera Pipeline
+ROS2 Camera Node
         │
         ▼
 OpenCV Processing
@@ -21,88 +83,38 @@ OpenCV Processing
 
 ---
 
-## Architecture
+# Communication Interfaces
 
-```text
-PX4 SITL
-    │
-    ▼
-Gazebo Camera
-    │
-    ▼
-Gazebo Transport
-    │
-    ▼
-ROS-Gazebo Bridge
-    │
-    ▼
-ROS2 Camera Node
-    │
-    ▼
-OpenCV Frame
-```
+## Gazebo Topics
+
+| Topic | Description |
+|--------|-------------|
+| `/world/default/model/x500_0/link/base_link/sensor/front_camera/image` | Camera image stream |
+| `/world/default/model/x500_0/link/base_link/sensor/front_camera/camera_info` | Camera calibration data |
 
 ---
 
-## Components
+## ROS2 Node
 
-### Camera System
-
-```text
-Front Camera Sensor
-
-Camera Info Stream
-
-Image Stream
-```
+| Component | Responsibility |
+|-----------|----------------|
+| camera_listener.py | Subscribe to camera images |
 
 ---
 
-### Gazebo Topics
+# Implementation Summary
 
-```text
-/world/default/model/x500_0/link/base_link/sensor/front_camera/image
+A forward-facing camera sensor was successfully integrated into the PX4 X500 simulation model.
 
-/world/default/model/x500_0/link/base_link/sensor/front_camera/camera_info
-```
+The camera image stream and calibration information were verified within Gazebo Transport. A ROS2 camera subscriber was also prepared to receive image data through the ROS-Gazebo bridge.
 
----
-
-### ROS2 Node
-
-```text
-camera_listener.py
-```
+Although camera metadata was successfully bridged, image frames could not be forwarded reliably into ROS2 due to limitations within the image transport layer. After isolating the issue, the project adopted prerecorded video input as the perception source, allowing development of the computer vision pipeline to continue without blocking subsequent phases.
 
 ---
 
-## Execution Steps
+# Execution
 
-### P3.1 – Camera Sensor Integration
-
-#### Goal
-
-Attach a front-facing camera sensor to the PX4 X500 vehicle.
-
-#### Result
-
-```text
-Camera Sensor Added
-
-Camera Stream Available
-
-Camera Calibration Data Available
-```
-
----
-
-### P3.2 – Camera Topic Discovery
-
-#### Goal
-
-Verify camera topics inside Gazebo Transport.
-
-#### Commands
+## Discover Camera Topics
 
 ```bash
 gz topic -l | grep front_camera
@@ -110,7 +122,7 @@ gz topic -l | grep front_camera
 
 ---
 
-#### Inspect Image Stream
+## Inspect Camera Image Stream
 
 ```bash
 gz topic -e -t \
@@ -119,7 +131,7 @@ gz topic -e -t \
 
 ---
 
-#### Inspect Camera Information
+## Inspect Camera Information
 
 ```bash
 gz topic -e -t \
@@ -128,37 +140,7 @@ gz topic -e -t \
 
 ---
 
-### P3.3 – Camera Subscriber Node
-
-#### Goal
-
-Create ROS2 node for camera image subscription.
-
-#### Node
-
-```text
-camera_listener.py
-```
-
-#### Implementation
-
-```text
-ROS2 Subscriber
-
-sensor_msgs/Image
-
-QoS Configuration
-```
-
----
-
-### P3.4 – ROS-Gazebo Image Bridge
-
-#### Goal
-
-Forward Gazebo camera stream into ROS2.
-
-#### Camera Info Bridge
+## Camera Info Bridge
 
 ```bash
 ros2 run ros_gz_bridge parameter_bridge \
@@ -167,7 +149,7 @@ ros2 run ros_gz_bridge parameter_bridge \
 
 ---
 
-#### Image Bridge
+## Image Bridge
 
 ```bash
 ros2 run ros_gz_image image_bridge \
@@ -176,144 +158,78 @@ ros2 run ros_gz_image image_bridge \
 
 ---
 
-## Verification
+# Verification
 
-### Verify Camera Topics
+## Verify Camera Topics
 
 ```bash
 gz topic -l | grep front_camera
 ```
 
-Expected:
-
-```text
-Image Topic
-
-Camera Info Topic
-```
-
 ---
 
-### Verify Camera Stream
+## Verify Image Stream
 
 ```bash
 gz topic -e -t \
 /world/default/model/x500_0/link/base_link/sensor/front_camera/image
 ```
 
-Observed:
+Expected:
 
 ```text
-Image Frames Streaming
+Image frames streaming
 ```
 
 ---
 
-### Verify Camera Information
+## Verify Camera Information
 
 ```bash
 gz topic -e -t \
 /world/default/model/x500_0/link/base_link/sensor/front_camera/camera_info
 ```
 
-Observed:
+Expected:
 
 ```text
-Camera Intrinsics Available
+Camera calibration
 
-Camera Calibration Available
+Camera intrinsics
 
-Resolution Available
+Image resolution
 ```
 
 ---
 
-### Verify ROS2 Camera Topic
+## Verify ROS2 Camera Topics
 
 ```bash
 ros2 topic list
 ```
 
-Observed:
+---
 
-```text
-Camera Topic Visible
-```
+# Engineering Decision
+
+During testing, the camera sensor operated correctly within Gazebo, but image frames could not be reliably forwarded to ROS2 through the ROS-Gazebo image bridge.
+
+Since this issue was isolated to the middleware layer rather than the perception algorithms, the project intentionally switched to prerecorded video as the image source. This decision allowed development of the detection, tracking, estimation, guidance, and control pipeline to continue without delaying the overall project.
+
+The bridge issue is documented as future infrastructure work rather than an application-layer limitation.
 
 ---
 
-## Limitations
+# Results
 
-ROS2 Image Frames   
-
-Gazebo Sim ↔ ROS-GZ Bridge layer      ✗
-```
-
----
-
-### Missing Components
-
-```text
-sensor_msgs/Image
-
-cv_bridge
-
-image_transport
-
-compressed image transport
-
-camera_info synchronization
-```
+- Successfully integrated a forward-facing camera into PX4 SITL.
+- Verified camera image and calibration streams in Gazebo.
+- Implemented a ROS2 camera subscriber.
+- Isolated the ROS-Gazebo image transport limitation.
+- Established prerecorded video as the perception input for subsequent development.
 
 ---
 
-### Root Cause
+# Next Phase
 
-```text
-ros_gz_image
-
-ROS Image Transport
-
-Gazebo → ROS2 Image Forwarding
-```
-
-Issue isolated to image bridge layer.
-
----
-
-## Future Improvements
-
-```text
-Fix ROS-Gazebo Image Bridge
-
-Enable sensor_msgs/Image Pipeline
-
-Integrate cv_bridge
-
-Integrate image_transport
-
-Direct ROS2 OpenCV Processing
-```
-
----
-
-## Decision
-
-To avoid blocking project development:
-
-```text
-Skip ROS-Gazebo image bridge debugging.
-
-Continue perception development using:
-
-Video File Input
-
-OpenCV
-
-YOLO
-```
-
-Bridge issue will be revisited later as an infrastructure task.
-
----
-
+The next phase builds the object detection pipeline using YOLO to identify aerial targets from the video stream and publish standardized detection messages for downstream tracking.

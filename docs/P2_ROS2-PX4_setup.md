@@ -1,10 +1,86 @@
-# P2 – ROS2 Application Layer
+# P2 – ROS2 Application Layer & Package Foundation
 
-## Objective
+## Overview
 
-Establish PX4 ↔ ROS2 communication at the application layer and create custom ROS2 nodes for telemetry monitoring and vehicle state awareness.
+After establishing communication between PX4 and ROS2 in P1, this phase builds the software foundation for the autonomous robotics stack.
 
-Goal:
+A modular ROS2 workspace is created by organizing the project into independent packages responsible for sensing, perception, tracking, estimation, guidance, and control. Initial subscriber nodes are implemented to verify telemetry reception and vehicle status monitoring from PX4.
+
+---
+
+# Objectives
+
+- Create a modular ROS2 package structure.
+- Organize the project into independent functional modules.
+- Implement telemetry subscriber nodes.
+- Monitor vehicle state information from PX4.
+- Validate ROS2 package registration and execution.
+
+---
+
+# Pipeline Position
+
+```text
+P1 – PX4 & ROS2 Integration
+        │
+        ▼
+P2 – ROS2 Application Layer
+        │
+        ▼
+P3 – Camera & Perception Foundation
+```
+
+---
+
+# Architecture
+
+```text
+                  PX4 SITL
+                      │
+                      ▼
+               MicroXRCEAgent
+                      │
+                      ▼
+                     ROS2
+                      │
+        ┌─────────────┴─────────────┐
+        ▼                           ▼
+Telemetry Subscriber      Vehicle Status Subscriber
+        │                           │
+        └─────────────┬─────────────┘
+                      ▼
+              Vehicle Monitoring
+```
+
+---
+
+# Core Components
+
+## ROS2 Packages
+
+| Package | Responsibility |
+|----------|----------------|
+| interfaces | Custom ROS2 messages |
+| sensor_node | Sensor and telemetry interfaces |
+| perception_node | Object detection |
+| tracking_node | Target tracking |
+| estimation_node | State estimation |
+| guidance_node | Guidance generation |
+| control_node | Flight control |
+
+---
+
+## Sensor Node
+
+| Component | Responsibility |
+|-----------|----------------|
+| telemetry_listener.py | Vehicle telemetry subscriber |
+| vehicle_status_listener.py | Vehicle status subscriber |
+| camera_listener.py | Camera subscriber (used in next phase) |
+
+---
+
+# Data Flow
 
 ```text
 PX4 Telemetry
@@ -13,7 +89,7 @@ PX4 Telemetry
 ROS2 Subscribers
         │
         ▼
-Application Layer Nodes
+Sensor Node
         │
         ▼
 Vehicle Monitoring
@@ -21,170 +97,62 @@ Vehicle Monitoring
 
 ---
 
-## Architecture
+# ROS2 Interfaces
 
-```text
-PX4 SITL
-    │
-    ▼
-DDS Bridge
-    │
-    ▼
-ROS2
-    │
-    ├──────────────► telemetry_listener.py
-    │
-    └──────────────► vehicle_status_listener.py
-                                │
-                                ▼
-                      Vehicle Monitoring
-```
+## Subscribed Topics
+
+| Topic | Message |
+|--------|---------|
+| `/fmu/out/vehicle_local_position` | VehicleLocalPosition |
+| `/fmu/out/vehicle_status` | VehicleStatus |
 
 ---
 
-## Components
+## Extracted Telemetry
 
-### ROS2 Packages
-
-```text
-interfaces
-sensor_node
-perception_node
-tracking_node
-estimation_node
-guidance_node
-control_node
-```
+- Position (X, Y, Z)
+- Velocity (X, Y, Z)
 
 ---
 
-### Sensor Node
+## Vehicle Status
 
-```text
-telemetry_listener.py
-
-vehicle_status_listener.py
-
-camera_listener.py
-```
+- Arming State
+- Navigation State
+- Vehicle Status
 
 ---
 
-### PX4 Topics
+# Implementation Summary
 
-```text
-/fmu/out/vehicle_local_position
+This phase establishes the software architecture used throughout the project by separating each subsystem into an independent ROS2 package.
 
-/fmu/out/vehicle_status
-```
+Telemetry subscriber nodes were implemented to receive vehicle position, velocity, and status information from PX4. These nodes verify that the ROS2 application layer can successfully consume telemetry data published through the DDS bridge.
+
+The resulting package structure provides a scalable foundation for implementing the perception, tracking, estimation, guidance, and control pipelines in subsequent phases.
 
 ---
 
-## Execution Steps
+# Execution
 
-### P2.1 – Create ROS2 Package Structure
-
-#### Goal
-
-Create project package architecture for future autonomy stack development.
-
-#### Commands
+## Create ROS2 Packages
 
 ```bash
 cd ros2_WS/src
 
-ros2 pkg create \
---build-type ament_python \
-sensor_node
+ros2 pkg create --build-type ament_python sensor_node
+ros2 pkg create --build-type ament_python perception_node
+ros2 pkg create --build-type ament_python tracking_node
+ros2 pkg create --build-type ament_python estimation_node
+ros2 pkg create --build-type ament_python guidance_node
+ros2 pkg create --build-type ament_python control_node
 
-ros2 pkg create \
---build-type ament_python \
-perception_node
-
-ros2 pkg create \
---build-type ament_python \
-tracking_node
-
-ros2 pkg create \
---build-type ament_python \
-estimation_node
-
-ros2 pkg create \
---build-type ament_python \
-guidance_node
-
-ros2 pkg create \
---build-type ament_python \
-control_node
-
-ros2 pkg create \
---build-type ament_cmake \
-interfaces
+ros2 pkg create --build-type ament_cmake interfaces
 ```
 
 ---
 
-### P2.2 – Telemetry Subscriber
-
-#### Goal
-
-Receive vehicle position and velocity data from PX4.
-
-#### Topic
-
-```text
-/fmu/out/vehicle_local_position
-```
-
-#### Extracted Data
-
-```text
-Position X
-
-Position Y
-
-Position Z
-
-Velocity X
-
-Velocity Y
-
-Velocity Z
-```
-
----
-
-### P2.3 – Vehicle Status Subscriber
-
-#### Goal
-
-Monitor vehicle state information.
-
-#### Topic
-
-```text
-/fmu/out/vehicle_status
-```
-
-#### Extracted Data
-
-```text
-Arming State
-
-Navigation State
-
-Vehicle State
-```
-
----
-
-### P2.4 – Telemetry Monitoring
-
-#### Goal
-
-Verify telemetry data is continuously received from PX4.
-
-#### Command
+## Run Telemetry Listener
 
 ```bash
 ros2 run sensor_node telemetry_listener
@@ -192,13 +160,7 @@ ros2 run sensor_node telemetry_listener
 
 ---
 
-### P2.5 – Vehicle Status Monitoring
-
-#### Goal
-
-Verify vehicle state information is continuously received.
-
-#### Command
+## Run Vehicle Status Listener
 
 ```bash
 ros2 run sensor_node vehicle_status_listener
@@ -206,34 +168,31 @@ ros2 run sensor_node vehicle_status_listener
 
 ---
 
-## Verification
+# Verification
 
-### Verify Telemetry Topic
+## Verify Telemetry
 
 ```bash
-ros2 topic echo \
-/fmu/out/vehicle_local_position
+ros2 topic echo /fmu/out/vehicle_local_position
 ```
 
 ---
 
-### Verify Vehicle Status Topic
+## Verify Vehicle Status
 
 ```bash
-ros2 topic echo \
-/fmu/out/vehicle_status
+ros2 topic echo /fmu/out/vehicle_status
 ```
 
 ---
 
-### Verify Telemetry Frequency
+## Verify Telemetry Frequency
 
 ```bash
-ros2 topic hz \
-/fmu/out/vehicle_local_position
+ros2 topic hz /fmu/out/vehicle_local_position
 ```
 
-Observed:
+Expected:
 
 ```text
 ~100 Hz
@@ -241,7 +200,7 @@ Observed:
 
 ---
 
-### Verify Package Registration
+## Verify Package Registration
 
 ```bash
 ros2 pkg executables sensor_node
@@ -256,3 +215,17 @@ vehicle_status_listener
 ```
 
 ---
+
+# Results
+
+- Created a modular ROS2 package architecture.
+- Established the project structure for the autonomy pipeline.
+- Implemented telemetry and vehicle status subscribers.
+- Successfully received real-time PX4 telemetry through ROS2.
+- Validated package registration and executable discovery.
+
+---
+
+# Next Phase
+
+The next phase integrates the onboard camera into the simulation environment and establishes the perception foundation required for computer vision processing.
