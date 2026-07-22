@@ -2,7 +2,7 @@
 
 # Counter-UAS Autonomous Interceptor
 
-> Counter-UAS Autonomous Interceptor is a modular vision-based autonomous interception system capable of detecting, tracking, estimating, and pursuing an aerial target using only onboard visual perception. Unlike GPS-based pursuit systems, the interceptor relies entirely on camera observations, target state estimation, and autonomous guidance commands.
+Counter-UAS Autonomous Interceptor is a modular vision-based autonomous interception system capable of detecting, tracking, estimating, and pursuing an aerial target using only onboard visual perception. Unlike GPS-based pursuit systems, the interceptor relies entirely on camera observations, target state estimation, and autonomous guidance commands.
 
 ![Status](https://img.shields.io/badge/Version-v1.0.0-success)
 ![ROS2](https://img.shields.io/badge/ROS2-Humble-blue)
