@@ -125,6 +125,19 @@ The modular ROS2 architecture enables each subsystem to be developed, tested, an
 
 ---
 
+# Performance Metrics
+
+| Component | Performance |
+|-----------|------------:|
+| Camera Acquisition | 30 FPS |
+| Detection & Tracking (YOLO26m, DeepSORT) | 14 FPS |
+| State Estimation & Guidance Layer (KalmanFilter) | 5-6 FPS |
+| Final Autonomous Pipeline | 2–3 FPS |
+
+> **Test Environment:** Ubuntu 22.04, ROS2 Humble, PX4 SITL, Gazebo Garden, CPU (Intel i5)-based inference.
+
+---
+
 # Running the Project
 
 ## 1. Start PX4 SITL Simulation
