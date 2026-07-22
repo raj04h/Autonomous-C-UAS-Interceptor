@@ -2,9 +2,7 @@
 
 # Counter-UAS Autonomous Interceptor
 
-### Vision-Based Autonomous Drone Interception System
-
-**ROS2 • PX4 • Gazebo • Computer Vision • Autonomous Flight Control**
+> Counter-UAS Autonomous Interceptor is a modular vision-based autonomous interception system capable of detecting, tracking, estimating, and pursuing an aerial target using only onboard visual perception. Unlike GPS-based pursuit systems, the interceptor relies entirely on camera observations, target state estimation, and autonomous guidance commands.
 
 ![Status](https://img.shields.io/badge/Version-v1.0.0-success)
 ![ROS2](https://img.shields.io/badge/ROS2-Humble-blue)
@@ -17,13 +15,21 @@
 
 ---
 
-# Overview
+### Visualization
 
-Counter-UAS Autonomous Interceptor is a modular vision-based autonomous interception system capable of detecting, tracking, estimating, and pursuing an aerial target using only onboard visual perception.
+> Integrated visualization showing detection, tracking, estimation, guidance, and control overlays.
 
-The project demonstrates an end-to-end autonomous robotics pipeline built on **ROS2**, **PX4**, **Gazebo**, **Computer Vision**, **FastAPI**, and **Plotly Dash**.
+<p align="center">
+<img src="assets/visualization.png" width="900">
+</p>
 
-Unlike GPS-based pursuit systems, the interceptor relies entirely on camera observations, target state estimation, and autonomous guidance commands.
+### Monitoring Dashboard
+
+> Real-time telemetry, guidance, control commands, target lock status, and mission monitoring.
+
+<p align="center">
+<img src="assets/dashboard.png" width="900">
+</p>
 
 ---
 
@@ -116,28 +122,6 @@ The modular ROS2 architecture enables each subsystem to be developed, tested, an
 - Interface with PX4 Offboard Control
 - Stream telemetry to a real-time dashboard
 - Store mission telemetry in PostgreSQL
-
----
-
-# Dashboard
-
-### Monitoring Dashboard
-
-> Real-time telemetry, guidance, control commands, target lock status, and mission monitoring.
-
-<p align="center">
-<img src="assets/dashboard.png" width="400">
-</p>
-
----
-
-### Visualization
-
-> Integrated visualization showing detection, tracking, estimation, guidance, and control overlays.
-
-<p align="center">
-<img src="assets/visualization.png" width="400">
-</p>
 
 ---
 
