@@ -69,6 +69,8 @@ In addition to the autonomous robotics pipeline, the project includes a complete
 
 The modular ROS2 architecture enables each subsystem to be developed, tested, and deployed independently while supporting future expansion toward edge deployment, GPS-denied navigation, and multi-target autonomous interception.
 
+<img width="985" height="93" alt="image" src="https://github.com/user-attachments/assets/ed3416da-582e-4b26-ad57-8ab269d53f58" />
+
 ---
 
 # System Architecture
