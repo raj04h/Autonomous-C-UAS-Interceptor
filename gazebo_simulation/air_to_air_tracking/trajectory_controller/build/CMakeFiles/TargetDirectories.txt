@@ -1,0 +1,3 @@
+/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/gazebo_simulation/air_to_air_tracking/trajectory_controller/build/CMakeFiles/target_trajectory.dir
+/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/gazebo_simulation/air_to_air_tracking/trajectory_controller/build/CMakeFiles/edit_cache.dir
+/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/gazebo_simulation/air_to_air_tracking/trajectory_controller/build/CMakeFiles/rebuild_cache.dir

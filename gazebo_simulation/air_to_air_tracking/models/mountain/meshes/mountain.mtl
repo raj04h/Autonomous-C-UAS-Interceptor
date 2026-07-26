@@ -1,0 +1,10 @@
+# Counter-UAS Mountain Material
+
+newmtl MountainMaterial
+
+Ka 0.18 0.24 0.12
+Kd 0.30 0.38 0.18
+Ks 0.02 0.02 0.02
+Ns 5.0
+d 1.0
+illum 2

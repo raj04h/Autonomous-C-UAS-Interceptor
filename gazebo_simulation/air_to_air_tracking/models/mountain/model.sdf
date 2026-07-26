@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+
+<sdf version="1.9">
+
+  <model name="mountain">
+
+    <static>true</static>
+
+    <link name="mountain_link">
+
+      <visual name="mountain_visual">
+
+        <geometry>
+
+          <mesh>
+            <uri>model://mountain/meshes/mountain.obj</uri>
+          </mesh>
+
+        </geometry>
+
+      </visual>
+
+    </link>
+
+  </model>
+
+</sdf>

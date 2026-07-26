@@ -1,0 +1,272 @@
+<?xml version="1.0" ?>
+
+<sdf version="1.9">
+
+  <world name="air_to_air">
+
+    <!-- Physics -->
+    <physics name="default_physics" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <!-- Gazebo Systems -->
+    <plugin
+      filename="gz-sim-physics-system"
+      name="gz::sim::systems::Physics">
+    </plugin>
+
+    <plugin
+      filename="gz-sim-user-commands-system"
+      name="gz::sim::systems::UserCommands">
+    </plugin>
+
+    <plugin
+      filename="gz-sim-scene-broadcaster-system"
+      name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+
+    <!-- Sensor System -->
+    <plugin
+      filename="gz-sim-sensors-system"
+      name="gz::sim::systems::Sensors">
+
+      <render_engine>ogre2</render_engine>
+
+    </plugin>
+
+    <!-- Scene -->
+    <scene>
+      <ambient>0.6 0.6 0.6 1.0</ambient>
+      <background>0.75 0.85 1.0 1.0</background>
+      <shadows>true</shadows>
+    </scene>
+
+    <!-- Sun -->
+    <light type="directional" name="sun">
+
+      <cast_shadows>true</cast_shadows>
+
+      <pose>0 0 100 0 0 0</pose>
+
+      <diffuse>0.9 0.9 0.9 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+
+      <direction>-0.5 0.2 -1.0</direction>
+
+    </light>
+
+  <!-- Temporary Ground Plane -->
+  <model name="ground_plane">
+
+    <static>true</static>
+
+    <!-- Tilt ground plane for visual flight scene -->
+    <pose>0 0 0 0 0 0</pose>
+
+    <link name="link">
+
+      <collision name="collision">
+        <geometry>
+          <plane>
+            <normal>0 0 1</normal>
+            <size>2000 2000</size>
+          </plane>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+
+        <geometry>
+          <plane>
+            <normal>0 0 1</normal>
+            <size>1000 1000</size>
+          </plane>
+        </geometry>
+
+        <material>
+          <ambient>0.20 0.35 0.15 1</ambient>
+          <diffuse>0.25 0.45 0.20 1</diffuse>
+          <specular>0.05 0.05 0.05 1</specular>
+        </material>
+
+      </visual>
+
+    </link>
+
+  </model>
+
+
+  <!-- Environment: Trees -->
+
+  <!-- Mid-distance -->
+
+  <include>
+    <uri>model://tree</uri>
+    <name>tree_5</name>
+    <pose>100 8 0 0 0 1</pose>
+    <static>true</static>
+  </include>
+
+  <!-- Distant background -->
+
+  <include>
+    <uri>model://tree</uri>
+    <name>tree_6</name>
+    <pose>140 30 0 0 0 0</pose>
+    <static>true</static>
+  </include>
+
+  <!-- Additional Vegetation -->
+
+  <include>
+    <uri>model://tree</uri>
+    <name>tree_9</name>
+    <pose>95 68 0 0 0 0</pose>
+    <static>true</static>
+  </include>
+
+  <include>
+    <uri>model://tree</uri>
+    <name>tree_10</name>
+    <pose>90 49 0 0 0 0</pose>
+    <static>true</static>
+  </include>
+
+  <!-- ================= LEFT RIVER BANK ===================== -->
+
+  <include>
+    <uri>model://tree</uri>
+    <name>tree_12</name>
+    <pose>32 -33 0 0 0 -0.5</pose>
+    <static>true</static>
+  </include>
+
+
+  <include>
+    <uri>model://tree</uri>
+    <name>tree_13</name>
+    <pose>58 51 0 0 0 0.1</pose>
+    <static>true</static>
+  </include>
+
+  <!-- ================= RIGHT RIVER BANK ==================== -->
+
+  <include>
+    <uri>model://tree</uri>
+    <name>tree_19</name>
+    <pose>140 80 0 0 0 0.3</pose>
+    <static>true</static>
+  </include>
+
+  <include>
+    <uri>model://tree</uri>
+    <name>tree_20</name>
+    <pose>130 -10 0 0 0 1.1</pose>
+    <static>true</static>
+  </include>
+
+  <!-- Background Mountain -->
+
+  <include>
+    <uri>model://mountain</uri>
+    <name>mountain_3</name>
+    <pose>326.54 43.76 0 0 0 0</pose>
+  </include>
+
+  <include>
+    <uri>model://mountain</uri>
+    <name>mountain_5</name>
+    <pose>372.33 78.92 0 0 0 0</pose>
+  </include>
+
+  <!-- Target Fixed-Wing UAV  -->
+  <include>
+    <uri>model://advanced_plane</uri>
+
+    <name>target_fixedwing</name>
+
+    <pose>3 1 35 0 0 0</pose>
+
+    <static>true</static>
+
+  </include>
+
+
+    <!-- FPV Camera Platform-->
+
+    <model name="fpv_camera_platform">
+
+      <!-- Fixed for initial camera validation -->
+      <static>true</static>
+
+      <pose>2 0 36.5 0 0.4 0</pose>
+
+      <link name="camera_link">
+
+        <!-- Small visual body for debugging -->
+        <visual name="camera_body_visual">
+
+          <geometry>
+            <box>
+              <size>0.20 0.15 0.10</size>
+            </box>
+          </geometry>
+
+          <material>
+            <ambient>0.1 0.1 0.1 1</ambient>
+            <diffuse>0.1 0.1 0.1 1</diffuse>
+          </material>
+
+        </visual>
+
+
+        <!-- RGB FPV Camera                                        -->
+        <sensor name="fpv_camera" type="camera">
+
+          <always_on>true</always_on>
+
+          <update_rate>30</update_rate>
+
+          <topic>/air_to_air/fpv_camera/image</topic>
+
+          <camera>
+
+            <!-- 90 degree horizontal FOV -->
+            <horizontal_fov>1.57079632679</horizontal_fov>
+
+            <image>
+
+              <width>1280</width>
+
+              <height>720</height>
+
+              <format>R8G8B8</format>
+
+            </image>
+
+            <clip>
+
+              <near>0.1</near>
+
+              <far>1000</far>
+
+            </clip>
+
+          </camera>
+
+        </sensor>
+
+      </link>
+
+    </model>
+  </world>
+
+</sdf>

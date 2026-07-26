@@ -1,0 +1,3 @@
+/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/gazebo_simulation/air_to_air_tracking/camera_recorder/build/CMakeFiles/camera_recorder.dir
+/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/gazebo_simulation/air_to_air_tracking/camera_recorder/build/CMakeFiles/edit_cache.dir
+/mnt/5252B43652B420A1/Deep_Project/Counter_UAS/gazebo_simulation/air_to_air_tracking/camera_recorder/build/CMakeFiles/rebuild_cache.dir
