@@ -1,20 +1,22 @@
-
 # ROS2 Workspace
 
 ros2_WS/build/
 ros2_WS/install/
 ros2_WS/log/
 
+
 # ROS Generated
 
 *.egg-info/
 ros2_WS/src/px4_msgs/
+
 
 # Python
 
 __pycache__/
 *.py[cod]
 *.so
+
 
 # Virtual Environments
 
@@ -23,21 +25,26 @@ cv_env/
 ros_env/
 .env
 
+
 # IDE
 
 .vscode/
 .idea/
 .history/
 
+
 # Linux
 
 *.swp
 *.swo
 *~
+.fuse_hidden*
+
 
 # Datasets
 
 datasets/
+
 
 # Models
 
@@ -47,21 +54,37 @@ models/**/*.engine
 
 models/yolo_training/runs/
 
+
+# Model Weights
+
+*.pt
+*.onnx
+*.engine
+
+
 # Logs
 
 logs/
+
 
 # Colcon
 
 .colcon/
 
+
+# Gazebo Generated Build Files
+
+gazebo_simulation/air_to_air_tracking/camera_recorder/build/
+gazebo_simulation/air_to_air_tracking/trajectory_controller/build/
+
+
+# Gazebo Test Recordings
+
+*.mkv
+*.mkv
+
+
 # OS
 
 .DS_Store
 Thumbs.db
-
-
-# Model weights
-*.pt
-*.onnx
-*.engine

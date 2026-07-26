@@ -10,20 +10,14 @@ class OverlayService:
     def __init__(self):
 
         self.cfg = VisualizationConfig
-
-    # ======================================
     # Header
-    # ======================================
-
     def draw_header(
         self,
         frame,
         subscriber,
     ):
 
-        # -----------------------------
         # Background
-        # -----------------------------
 
         cv2.rectangle(
             frame,
@@ -33,9 +27,7 @@ class OverlayService:
             -1,
         )
 
-        # -----------------------------
         # Title
-        # -----------------------------
 
         cv2.putText(
             frame,
@@ -47,9 +39,7 @@ class OverlayService:
             2,
         )
 
-        # -----------------------------
         # FPS
-        # -----------------------------
 
         fps = f"{subscriber.fps:.1f}"
 
@@ -73,9 +63,7 @@ class OverlayService:
             2,
         )
 
-        # -----------------------------
         # OFFBOARD STATUS
-        # -----------------------------
 
         offboard_text = "INACTIVE"
         offboard_color = (0, 0, 255)
@@ -107,9 +95,7 @@ class OverlayService:
             2,
         )
 
-        # -----------------------------
         # TARGET LOCK
-        # -----------------------------
 
         lock_text = "SEARCH"
         lock_color = (0, 0, 255)
@@ -140,11 +126,7 @@ class OverlayService:
             lock_color,
             2,
         )
-
-    # ======================================
     # Left Panel
-    # ======================================
-
     def draw_left_panel(
         self,
         frame,
@@ -156,9 +138,7 @@ class OverlayService:
         x = 20
         y = 80
 
-        # --------------------------
         # Detection
-        # --------------------------
 
         class_name = "--"
         confidence = "--"
@@ -183,9 +163,7 @@ class OverlayService:
 
             center = f"({cx}, {cy})"
 
-        # --------------------------
         # Tracking
-        # --------------------------
 
         track_id = "--"
         confirmed = "--"
@@ -195,9 +173,7 @@ class OverlayService:
             track_id = str(track.track_id)
             confirmed = str(track.confirmed)
 
-        # --------------------------
         # State Estimation
-        # --------------------------
 
         position = "--"
         velocity = "--"
@@ -220,9 +196,7 @@ class OverlayService:
                 f"{target_state.ay:.2f})"
             )
 
-        # --------------------------
         # Panel Data
-        # --------------------------
 
         sections = [
             (
@@ -252,9 +226,7 @@ class OverlayService:
             ),
         ]
 
-        # --------------------------
         # Draw Panel
-        # --------------------------
 
         for title, lines in sections:
 
@@ -285,11 +257,7 @@ class OverlayService:
                 y += 28
 
             y += 40
-
-    # ======================================
     # Right Panel
-    # ======================================
-
     def draw_right_panel(
         self,
         frame,
@@ -300,9 +268,7 @@ class OverlayService:
         x = self.cfg.WINDOW_WIDTH - 240
         y = 80
 
-        # --------------------------
         # Guidance
-        # --------------------------
 
         error_x = "--"
         error_y = "--"
@@ -317,9 +283,7 @@ class OverlayService:
             pitch_cmd = f"{guidance.pitch_command:.3f}"
             yaw_cmd = f"{guidance.yaw_command:.3f}"
 
-        # --------------------------
         # Control
-        # --------------------------
 
         roll = "--"
         pitch = "--"
@@ -337,9 +301,7 @@ class OverlayService:
 
             offboard = str(control.offboard_enabled)
 
-        # --------------------------
         # Panel Data
-        # --------------------------
 
         sections = [
             (
@@ -363,9 +325,7 @@ class OverlayService:
             ),
         ]
 
-        # --------------------------
         # Draw Panel
-        # --------------------------
 
         for title, lines in sections:
 
@@ -438,11 +398,7 @@ class OverlayService:
             color,
             -1,
         )
-
-    # ======================================
     # Detection Bounding Box
-    # ======================================
-
     def draw_detection_bbox(
         self,
         frame,
@@ -459,9 +415,7 @@ class OverlayService:
         x2 = int(detection.x2)
         y2 = int(detection.y2)
 
-        # ---------------------------------
         # Tactical Corner Box
-        # ---------------------------------
 
         corner = 20
         thickness = 2
@@ -471,7 +425,7 @@ class OverlayService:
             frame,
             (x1, y1),
             (x1 + corner, y1),
-            self.cfg.GREEN,
+            self.cfg.RED,
             thickness,
         )
 
@@ -479,7 +433,7 @@ class OverlayService:
             frame,
             (x1, y1),
             (x1, y1 + corner),
-            self.cfg.GREEN,
+            self.cfg.RED,
             thickness,
         )
 
@@ -488,7 +442,7 @@ class OverlayService:
             frame,
             (x2, y1),
             (x2 - corner, y1),
-            self.cfg.GREEN,
+            self.cfg.RED,
             thickness,
         )
 
@@ -496,7 +450,7 @@ class OverlayService:
             frame,
             (x2, y1),
             (x2, y1 + corner),
-            self.cfg.GREEN,
+            self.cfg.RED,
             thickness,
         )
 
@@ -505,7 +459,7 @@ class OverlayService:
             frame,
             (x1, y2),
             (x1 + corner, y2),
-            self.cfg.GREEN,
+            self.cfg.RED,
             thickness,
         )
 
@@ -513,7 +467,7 @@ class OverlayService:
             frame,
             (x1, y2),
             (x1, y2 - corner),
-            self.cfg.GREEN,
+            self.cfg.RED,
             thickness,
         )
 
@@ -522,7 +476,7 @@ class OverlayService:
             frame,
             (x2, y2),
             (x2 - corner, y2),
-            self.cfg.GREEN,
+            self.cfg.RED,
             thickness,
         )
 
@@ -530,7 +484,7 @@ class OverlayService:
             frame,
             (x2, y2),
             (x2, y2 - corner),
-            self.cfg.GREEN,
+            self.cfg.RED,
             thickness,
         )
 
@@ -561,11 +515,9 @@ class OverlayService:
             0.5,
             (0, 0, 0),
             1,
-        )
-    # ======================================
-    # Track Information
-    # ======================================
+        )    
 
+    # Track Information
     def draw_track(
         self,
         frame,
@@ -578,16 +530,12 @@ class OverlayService:
         if not track.valid:
             return
 
-        # -----------------------------
         # Track Center
-        # -----------------------------
 
         cx = int(track.center_x)
         cy = int(track.center_y)
 
-        # ---------------------------------
         # Military Target Reticle
-        # ---------------------------------
 
         gap = 8
         length = 18
@@ -598,7 +546,7 @@ class OverlayService:
             frame,
             (cx - length, cy),
             (cx - gap, cy),
-            self.cfg.RED,
+            self.cfg.GREEN,
             thickness,
         )
 
@@ -607,7 +555,7 @@ class OverlayService:
             frame,
             (cx + gap, cy),
             (cx + length, cy),
-            self.cfg.RED,
+            self.cfg.GREEN,
             thickness,
         )
 
@@ -616,7 +564,7 @@ class OverlayService:
             frame,
             (cx, cy - length),
             (cx, cy - gap),
-            self.cfg.RED,
+            self.cfg.GREEN,
             thickness,
         )
 
@@ -625,7 +573,7 @@ class OverlayService:
             frame,
             (cx, cy + gap),
             (cx, cy + length),
-            self.cfg.RED,
+            self.cfg.GREEN,
             thickness,
         )
 
@@ -637,9 +585,7 @@ class OverlayService:
             self.cfg.RED,
             2,
         )
-        # -----------------------------
         # Track ID
-        # -----------------------------
 
         label = f"TGT-{track.track_id}"
 
@@ -652,11 +598,7 @@ class OverlayService:
             self.cfg.RED,
             2,
         )
-
-    # ======================================
     # Estimated Position
-    # ======================================
-
     def draw_estimated_position(
         self,
         frame,
@@ -675,9 +617,7 @@ class OverlayService:
         pred_x = int(target_state.pred_x)
         pred_y = int(target_state.pred_y)
 
-        # ---------------------------------
         # Prediction Line
-        # ---------------------------------
 
         cv2.line(
             frame,
@@ -687,15 +627,13 @@ class OverlayService:
             2,
         )
 
-        # ---------------------------------
         # Predicted Position
-        # ---------------------------------
 
         cv2.circle(
             frame,
             (pred_x, pred_y),
             7,
-            self.cfg.YELLOW,
+            self.cfg.BLUE,
             2,
         )
 
@@ -705,7 +643,7 @@ class OverlayService:
             (pred_x + 10, pred_y - 10),
             cv2.FONT_HERSHEY_SIMPLEX,
             0.5,
-            self.cfg.YELLOW,
+            self.cfg.BLUE,
             2,
         )
 
@@ -737,11 +675,7 @@ class OverlayService:
             self.cfg.CYAN,
             2,
         )
-
-    # ======================================
     # Panel Background
-    # ======================================
-
     def draw_panel_background(self, frame):
 
         overlay = frame.copy()
@@ -818,12 +752,7 @@ class OverlayService:
             self.cfg.YELLOW,
             2,
         )
-
-    # ======================================
     # Footer
-    # ======================================
-
-
     def draw_footer(
         self,
         frame,
@@ -831,9 +760,7 @@ class OverlayService:
 
         footer_top = self.cfg.WINDOW_HEIGHT - self.cfg.FOOTER_HEIGHT
 
-        # ----------------------------------
         # Transparent Background
-        # ----------------------------------
 
         overlay = frame.copy()
 
@@ -858,14 +785,13 @@ class OverlayService:
         )
 
         y = footer_top + 28
+        marker_y = y - 5
 
-        # ==================================
         # Track Center
-        # ==================================
 
         cv2.circle(
             frame,
-            (40, y - 5),
+            (35, marker_y),
             6,
             self.cfg.RED,
             -1,
@@ -874,30 +800,26 @@ class OverlayService:
         cv2.putText(
             frame,
             "Track Center",
-            (55, y),
+            (50, y),
             cv2.FONT_HERSHEY_SIMPLEX,
             0.55,
             self.cfg.WHITE,
             1,
         )
 
-        # ==================================
         # Estimated Position
-        # ==================================
 
-        # Filled cyan dot
         cv2.circle(
             frame,
-            (260, y - 5),
+            (220, marker_y),
             6,
             self.cfg.CYAN,
             -1,
         )
 
-        # White outline
         cv2.circle(
             frame,
-            (260, y - 5),
+            (220, marker_y),
             8,
             self.cfg.WHITE,
             2,
@@ -906,21 +828,39 @@ class OverlayService:
         cv2.putText(
             frame,
             "Estimated Position",
-            (278, y),
+            (238, y),
             cv2.FONT_HERSHEY_SIMPLEX,
             0.55,
             self.cfg.WHITE,
             1,
         )
 
-        # ==================================
+        # Predicted Position
+
+        cv2.circle(
+            frame,
+            (455, marker_y),
+            8,
+            self.cfg.BLUE,
+            2,
+        )
+
+        cv2.putText(
+            frame,
+            "Predicted Position",
+            (473, y),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.55,
+            self.cfg.WHITE,
+            1,
+        )
+
         # Guidance
-        # ==================================
 
         cv2.arrowedLine(
             frame,
-            (560, y - 5),
-            (585, y - 5),
+            (690, marker_y),
+            (720, marker_y),
             self.cfg.YELLOW,
             2,
             tipLength=0.35,
@@ -929,20 +869,18 @@ class OverlayService:
         cv2.putText(
             frame,
             "Guidance",
-            (595, y),
+            (730, y),
             cv2.FONT_HERSHEY_SIMPLEX,
             0.55,
             self.cfg.WHITE,
             1,
         )
 
-        # ==================================
         # Target Indicator
-        # ==================================
 
         cv2.drawMarker(
             frame,
-            (780, y - 5),
+            (875, marker_y),
             self.cfg.RED,
             markerType=cv2.MARKER_TILTED_CROSS,
             markerSize=14,
@@ -952,15 +890,12 @@ class OverlayService:
         cv2.putText(
             frame,
             "TGT Indicator",
-            (795, y),
+            (892, y),
             cv2.FONT_HERSHEY_SIMPLEX,
             0.55,
             self.cfg.WHITE,
             1,
         )
-
-    # Draw Complete Overlay
-
     # Draw Complete Overlay
 
     def draw(self, frame, subscriber):
@@ -974,16 +909,10 @@ class OverlayService:
         guidance = subscriber.latest_guidance
 
         control = subscriber.latest_control
-
-        # ---------------------------------------
         # HUD Background
-        # ---------------------------------------
 
         self.draw_panel_background(frame)
-
-        # ---------------------------------------
         # World Overlay
-        # ---------------------------------------
 
         self.draw_detection_bbox(frame, detection)
 
@@ -992,10 +921,7 @@ class OverlayService:
         self.draw_estimated_position(frame, target_state)
 
         self.draw_guidance_vector(frame, guidance)
-
-        # ---------------------------------------
         # HUD
-        # ---------------------------------------
 
         self.draw_header(frame, subscriber)
 
@@ -1016,10 +942,7 @@ class OverlayService:
             frame,
             guidance,
         )
-
-        # ---------------------------------------
         # Footer
-        # ---------------------------------------
 
         self.draw_footer(frame)
 

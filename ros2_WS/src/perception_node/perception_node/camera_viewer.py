@@ -1,10 +1,3 @@
-"""
-Responsibilities:
-    1. Open Video
-    2. Read Frames
-    3. Cleanup
-"""
-
 import cv2
 
 from perception_node.config_perception import (

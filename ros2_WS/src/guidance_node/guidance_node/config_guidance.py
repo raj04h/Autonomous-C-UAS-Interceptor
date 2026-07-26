@@ -24,8 +24,8 @@ class GuidanceConfig:
     MIN_PITCH_CMD = -1.0
 
     # Target lock (pixels)
-    LOCK_THRESHOLD_X = 20
-    LOCK_THRESHOLD_Y = 20
+    LOCK_THRESHOLD_X = 35
+    LOCK_THRESHOLD_Y = 25
 
     DEFAULT_YAW_CMD = 0.0
     DEFAULT_PITCH_CMD = 0.0

@@ -11,9 +11,7 @@ def main():
 
     rclpy.init()
 
-    # -----------------------------
     # Create Objects
-    # -----------------------------
 
     viewer = ViewerService()
 

@@ -19,5 +19,6 @@ class TrackingConfig:
     TARGET_CLASSES =[
         "FixedWing",
         "Quadrotor",
-        "Hexacopter"
+        "Hexacopter",
+        "Aeroplane"
     ]

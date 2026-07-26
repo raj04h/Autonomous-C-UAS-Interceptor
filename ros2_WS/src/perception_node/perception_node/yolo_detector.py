@@ -1,14 +1,4 @@
-
-# YOLO Detector
-#
-# Responsibility:
-#   1. Load YOLO Model
-#   2. Run Inference
-#   3. Convert YOLO Results
-#   4. Return Standard Detection Format
-#
 # Output Format:
-#
 # [
 #     {
 #         "class_name": "drone",

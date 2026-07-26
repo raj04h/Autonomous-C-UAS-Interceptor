@@ -4,9 +4,8 @@ project:
 
 assets:
 
-  video_path: assets/drone_video.mp4
+  video_path: assets/gz3_sim@30fps.mkv
 
 models:
 
-  yolo_model_path: models/trained_model/FixedWing_V1.pt
-
+  yolo_model_path: AI_models/trained_model/FixedWing_V1.pt

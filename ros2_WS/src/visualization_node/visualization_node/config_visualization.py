@@ -56,4 +56,5 @@ class VisualizationConfig:
     WHITE = (255, 255, 255)
     YELLOW = (0, 255, 255)
     CYAN = (255, 255, 0)
+    BLUE=(255,0,0)
     RED = (0, 0, 255)
