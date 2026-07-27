@@ -1,4 +1,3 @@
-// ============================================================
 // 60-Second Air-to-Air Target Trajectory
 //
 // Phase 1 (0-5 s)   : Center Acquisition
@@ -9,7 +8,6 @@
 // Phase 6 (36-44 s) : Opposite-Side Climbing S-Turn
 // Phase 7 (44-55 s) : Tight Figure-Eight / Dogfight Weave
 // Phase 8 (55-60 s) : Final Center Convergence / Lock
-// ============================================================
 
 
 
@@ -26,9 +24,7 @@
 #include <thread>
 #include <vector>
 
-// ============================================================
 // Configuration
-// ============================================================
 
 class TrajectoryConfig
 {
@@ -51,9 +47,7 @@ public:
 };
 
 
-// ============================================================
 // Trajectory Data
-// ============================================================
 
 struct TrajectoryWaypoint
 {
@@ -264,9 +258,7 @@ static const std::vector<TrajectoryWaypoint> TRAJECTORY = {
     {60.00, 4.500, 0.000, 35.500, 0.0, 0.0, 0.0},
 };
 
-// ============================================================
 // Target Trajectory Controller
-// ============================================================
 
 class TargetTrajectoryController {
 public:
@@ -354,9 +346,7 @@ public:
 private:
     gz::transport::Node node;
 
-    // ========================================================
     // Validate waypoint configuration
-    // ========================================================
 
     bool ValidateTrajectory() const
     {
@@ -408,9 +398,7 @@ private:
         return true;
     }
 
-    // ========================================================
     // Execute one waypoint segment
-    // ========================================================
 
     bool ExecuteSegment(
         const TrajectoryWaypoint &start,
@@ -538,13 +526,11 @@ private:
         return true;
     }
 
-    // ========================================================
     // SmoothStep
     //
     // s(t) = 3t² - 2t³
     //
     // Gives zero interpolation velocity at both endpoints.
-    // ========================================================
 
     static double SmoothStep(double t)
     {
@@ -554,9 +540,7 @@ private:
                (3.0 - 2.0 * t);
     }
 
-    // ========================================================
     // Interpolate X/Y/Z
-    // ========================================================
 
     static void InterpolatePosition(
         const TrajectoryWaypoint &start,
@@ -625,9 +609,7 @@ private:
             sr * sp * cy;
     }
 
-    // ========================================================
     // Send pose to Gazebo
-    // ========================================================
 
     bool SendPose(
         double x,
@@ -642,10 +624,8 @@ private:
         request.set_name(
             TrajectoryConfig::MODEL_NAME);
 
-        // ========================================================
-        // Position
-        // ========================================================
-
+            // Position
+    
         auto *position =
             request.mutable_position();
 
@@ -653,10 +633,8 @@ private:
         position->set_y(y);
         position->set_z(z);
 
-        // ========================================================
-        // RPY -> Quaternion
-        // ========================================================
-
+            // RPY -> Quaternion
+    
         double qw;
         double qx;
         double qy;
@@ -679,10 +657,8 @@ private:
         orientation->set_y(qy);
         orientation->set_z(qz);
 
-        // ========================================================
-        // Gazebo Service Request
-        // ========================================================
-
+            // Gazebo Service Request
+    
         gz::msgs::Boolean response;
 
         bool result = false;
@@ -717,9 +693,7 @@ private:
     }
 };
 
-// ============================================================
 // Execution Layer
-// ============================================================
 
 int main()
 {

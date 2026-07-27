@@ -82,7 +82,8 @@ The project also includes a robotics backend for telemetry persistence and real-
 
 The modular ROS2 architecture allows perception, estimation, guidance, control, simulation, visualization, backend, and monitoring components to be developed and tested independently.
 
-<img width="985" height="93" alt="image" src="https://github.com/user-attachments/assets/ed3416da-582e-4b26-ad57-8ab269d53f58" />
+<p align="center">
+<img width="800" height="93" alt="image" src="stpa_decision_flow.png" />
 
 ---
 
@@ -91,38 +92,6 @@ The modular ROS2 architecture allows perception, estimation, guidance, control, 
 <p align="center">
 <img src="docs/architecture_design/C-UAS-HLD.png" width="600">
 </p>
-
-
----
-
-# Air-to-Air Simulation Pipeline
-
-```text
-              Gazebo Air-to-Air World
-                       │
-          ┌────────────┼────────────┐
-          ▼            ▼            ▼
-     Environment   FPV Camera   Target UAV
-                                    │
-                                    ▼
-                            Trajectory Generator
-                                    │
-                                    ▼
-                             Scripted Motion
-                                    │
-                                    ▼
-                              Camera Stream
-                                    │
-                                    ▼
-                              Recorded Video
-                                    │
-                                    ▼
-                         ROS2 Autonomy Pipeline
-```
-
-The target UAV uses deterministic scripted kinematic motion rather than an independent PX4 flight controller.
-
-This makes the simulation suitable for repeatable perception and autonomy testing.
 
 ---
 
@@ -157,55 +126,34 @@ The simulation contains:
 - Scripted target trajectory generator
 - Gazebo Transport camera stream
 
-The target trajectory exercises multiple perception states:
+## Simulation Pipeline
 
 ```text
-PATROL
-   │
-   ▼
-DETECTION
-   │
-   ▼
-TRACKING
-   │
-   ▼
-CONVERGENCE
-   │
-   ▼
-LOCK
-   │
-   ▼
-EVASIVE BREAK
-   │
-   ▼
-SEARCH
-   │
-   ▼
-REACQUISITION
-   │
-   ▼
-FINAL LOCK
+              Gazebo Air-to-Air World
+                       │
+          ┌────────────┼────────────┐
+          ▼            ▼            ▼
+     Environment   FPV Camera   Target UAV
+                                    │
+                                    ▼
+                            Trajectory Generator
+                                    │
+                                    ▼
+                        Motion + Position + Attitude
+                                    │
+                                    ▼
+                              Camera Stream
+                                    │
+                                    ▼
+                              Recorded Video
+                                    │
+                                    ▼
+                         ROS2 Autonomy Pipeline
 ```
 
-The target is moved using deterministic Gazebo pose updates.
-
-```text
-Trajectory Generator
-        │
-        ▼
-Position + Attitude
-        │
-        ▼
-Gazebo Pose Service
-        │
-        ▼
-Fixed-Wing Target
-        │
-        ▼
-FPV Camera
-```
-
-This subsystem is designed for visual perception testing rather than aerodynamic validation of the target aircraft.
+- The target UAV uses deterministic scripted kinematic motion rather than an independent PX4 flight controller. 
+- This makes the simulation suitable for repeatable perception and autonomy testing. 
+- This subsystem is designed for visual perception testing rather than aerodynamic validation of the target aircraft.
 
 ---
 
@@ -355,12 +303,6 @@ From the project root:
 source gazebo_simulation/air_to_air_tracking/setup_env.sh
 ```
 
-Verify the Gazebo resource path:
-
-```bash
-echo $GZ_SIM_RESOURCE_PATH
-```
-
 The resource path should include the custom air-to-air models/worlds and the required PX4 Gazebo resources.
 
 ---
@@ -401,18 +343,13 @@ gz topic -i -t /air_to_air/fpv_camera/image
 
 ## 4. Run Target Trajectory
 
-Open another terminal and start the scripted fixed-wing target trajectory.
-
-First configure the Gazebo environment:
+Run the compiled trajectory executable:
 
 ```bash
-source gazebo_simulation/air_to_air_tracking/setup_env.sh
-```
+cmake ..
+make -j$(nproc)
 
-Then run the compiled trajectory executable:
-
-```bash
-./gazebo_simulation/air_to_air_tracking/build/testing_trajectory
+./gazebo_simulation/air_to_air_tracking/trajectory_controller/build/target_trajectory
 ```
 
 The trajectory generator continuously sends target pose updates to:
@@ -456,6 +393,10 @@ FINAL LOCK
 ## 5. Record Simulation Footage — Optional
 
 Recording is optional and is only required when generating a new perception video for the ROS2 autonomy pipeline.
+
+```bash
+./gazebo_simulation/air_to_air_tracking/camera_recorder/build/camera_recorder
+```
 
 Start recording after:
 
@@ -557,7 +498,7 @@ Recording does not affect the Gazebo trajectory itself and can be omitted when o
 
 # Documentation
 
-Detailed implementation documentation is available in the `docs/` directory.
+Detailed implementation documentation is available in the [**Docs directory**](docs/).
 
 Documentation & Development Phases covers:
 
@@ -609,13 +550,13 @@ The source code is available for:
 
 Commercial use, production deployment, redistribution for commercial purposes, or monetization of this project requires prior written permission from the copyright holder.
 
-See the `LICENSE` file for the complete license terms.
+### See the [LICENSE](LICENSE) file for the complete license terms.
 
 ---
 
 # Author - Himanshu Raj
 
-- :contentReference[oaicite:1]{index=1}
+- LinkedIN: https://www.linkedin.com/in/raj04h
 - Email: himanshuraj.hr9934@gmail.com
 
 <div align="center">

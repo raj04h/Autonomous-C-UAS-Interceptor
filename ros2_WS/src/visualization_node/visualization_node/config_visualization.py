@@ -45,6 +45,14 @@ class VisualizationConfig:
 
     VIDEO_PATH = PROJECT_ROOT / CONFIG["assets"]["video_path"]
 
+    # Visualization Recording
+
+    RECORDING_DIR = PROJECT_ROOT / "testing_samples"
+
+    RECORDING_PATH = RECORDING_DIR / "visualization_output.mp4"
+
+    RECORDING_FPS = 30
+
     HEADER_HEIGHT = 45
     FOOTER_HEIGHT = 35
 
@@ -56,5 +64,5 @@ class VisualizationConfig:
     WHITE = (255, 255, 255)
     YELLOW = (0, 255, 255)
     CYAN = (255, 255, 0)
-    BLUE=(255,0,0)
+    BLUE = (255, 0, 0)
     RED = (0, 0, 255)

@@ -55,6 +55,15 @@ DEVOPS
 """
 Gazebo Virtual World Launch
 
+1. source gazebo_simulation/air_to_air_tracking/setup_env.sh
+2. gz sim gazebo_simulation/air_to_air_tracking/worlds/air_to_air.sdf
+
+3. make -j$(nproc)
+
+4. ./gazebo_simulation/air_to_air_tracking/trajectory_controller/build/target_trajectory
+
+5. ./gazebo_simulation/air_to_air_tracking/camera_recorder/build/camera_recorder
+
 | Final time      | Content                                                       | Duration |
 | --------------- | ------------------------------------------------------------- | -------: |
 | `0:00–0:05`     | Title + one-line system objective                             |      5 s |

@@ -1,3 +1,4 @@
+
 """
 Responsibilities:
     1. Create Visualization Window
@@ -34,8 +35,8 @@ class ViewerService:
             self.width,
             self.height,
         )
-   
-   # Dispay Frame
+
+    # Dispay Frame
     def render(
         self,
         frame,
@@ -45,13 +46,13 @@ class ViewerService:
             self.window_name,
             frame,
         )
-   
-   # Exit
+
+    # Exit
     def should_exit(self):
 
         return (cv2.waitKey(1) & 0xFF) == 27
-   
-   # Cleaup
+
+    # Cleaup
     def cleanup(self):
 
         cv2.destroyAllWindows()

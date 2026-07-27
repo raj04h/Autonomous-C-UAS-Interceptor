@@ -29,9 +29,7 @@
 #include <string>
 #include <thread>
 
-// ============================================================
 // Configuration
-// ============================================================
 
 class RecorderConfig
 {
@@ -43,7 +41,7 @@ public:
     // Output video
     // Output video
     static constexpr const char *OUTPUT_FILE =
-        "air_to_air_raw.mkv";
+        "gazebo_simulation/recorder_sample/air_to_air_raw.mkv";
 
     // Must match air_to_air.sdf
     static constexpr int FRAME_WIDTH = 1280;
@@ -54,9 +52,7 @@ public:
     static constexpr std::uint64_t LOG_INTERVAL_FRAMES = 30;
 };
 
-// ============================================================
 // Global shutdown
-// ============================================================
 
 std::atomic<bool> g_running{true};
 
@@ -65,9 +61,7 @@ void SignalHandler(int)
     g_running.store(false);
 }
 
-// ============================================================
 // Camera Recorder
-// ============================================================
 
 class GazeboCameraRecorder
 {
@@ -100,9 +94,7 @@ public:
         Stop();
     }
 
-    // ========================================================
     // Initialize subscriber
-    // ========================================================
 
     bool Initialize()
     {
@@ -131,9 +123,7 @@ public:
         return true;
     }
 
-    // ========================================================
     // Main execution loop
-    // ========================================================
 
     void Run()
     {
@@ -159,9 +149,7 @@ private:
 
     std::chrono::steady_clock::time_point firstFrameTime;
 
-    // ========================================================
     // Gazebo image callback
-    // ========================================================
 
     void OnImage(const gz::msgs::Image &msg)
     {
@@ -172,9 +160,7 @@ private:
 
         std::lock_guard<std::mutex> lock(writerMutex);
 
-        // ----------------------------------------------------
         // Validate dimensions
-        // ----------------------------------------------------
 
         const int width =
             static_cast<int>(msg.width());
@@ -200,14 +186,12 @@ private:
             return;
         }
 
-        // ----------------------------------------------------
         // Validate RGB buffer
         //
         // SDF:
         // <format>R8G8B8</format>
         //
         // 1280 * 720 * 3 bytes
-        // ----------------------------------------------------
 
         const std::size_t expectedSize =
             static_cast<std::size_t>(width) *
@@ -230,9 +214,7 @@ private:
             return;
         }
 
-        // ----------------------------------------------------
         // Wrap Gazebo RGB data
-        // ----------------------------------------------------
 
         cv::Mat rgbFrame(
             height,
@@ -240,12 +222,10 @@ private:
             CV_8UC3,
             const_cast<char *>(imageData.data()));
 
-        // ----------------------------------------------------
         // Convert RGB -> BGR
         //
         // Gazebo: RGB
         // OpenCV VideoWriter: BGR
-        // ----------------------------------------------------
 
         cv::Mat bgrFrame;
 
@@ -254,9 +234,7 @@ private:
             bgrFrame,
             cv::COLOR_RGB2BGR);
 
-        // ----------------------------------------------------
         // Initialize writer on first valid frame
-        // ----------------------------------------------------
 
         if (!writerInitialized)
         {
@@ -271,17 +249,13 @@ private:
                 std::chrono::steady_clock::now();
         }
 
-        // ----------------------------------------------------
         // Write frame
-        // ----------------------------------------------------
 
         writer.write(bgrFrame);
 
         ++frameCount;
 
-        // ----------------------------------------------------
         // Runtime diagnostics
-        // ----------------------------------------------------
 
         if (frameCount %
                 RecorderConfig::LOG_INTERVAL_FRAMES ==
@@ -291,9 +265,7 @@ private:
         }
     }
 
-    // ========================================================
     // Initialize OpenCV VideoWriter
-    // ========================================================
 
     bool InitializeWriter()
     {
@@ -354,9 +326,7 @@ private:
         return true;
     }
 
-    // ========================================================
     // Statistics
-    // ========================================================
 
     void PrintStatistics() const
     {
@@ -387,9 +357,7 @@ private:
             << std::endl;
     }
 
-    // ========================================================
     // Cleanup
-    // ========================================================
 
     void Stop()
     {
@@ -427,9 +395,7 @@ private:
     }
 };
 
-// ============================================================
 // Execution Layer
-// ============================================================
 
 int main()
 {
