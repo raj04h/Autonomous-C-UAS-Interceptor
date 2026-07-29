@@ -2,7 +2,7 @@
 
 # Counter-UAS Autonomous Interceptor
 
-Counter-UAS Autonomous Interceptor is a modular vision-based autonomous interception system capable of detecting, tracking, estimating, and pursuing an aerial target using onboard visual perception. The system integrates computer vision, state estimation, autonomous guidance, PX4 flight control, a custom air-to-air Gazebo simulation environment, and real-time mission monitoring.
+Counter-UAS Autonomous Interceptor is a ROS2-based vision-guided autonomous interception system capable of detecting, tracking, estimating, and pursuing an aerial target using onboard visual perception. The system integrates computer vision, state estimation, autonomous guidance, PX4 flight control, a custom air-to-air Gazebo simulation environment, and real-time mission monitoring.
 
 ![Status](https://img.shields.io/badge/Version-v1.0.0-success)
 ![ROS2](https://img.shields.io/badge/ROS2-Humble-blue)
@@ -72,7 +72,7 @@ Developing such a system requires integrating computer vision, robotics, state e
 
 # Solution
 
-This project implements a modular vision-based Counter-UAS autonomous interceptor architecture covering the complete perception-to-flight-control pipeline.
+This project implements a modular vision-guided Counter-UAS autonomous interceptor architecture covering the complete perception-to-flight-control pipeline.
 
 The system combines YOLO-based object detection, DeepSORT tracking, Kalman Filter state estimation, target-motion prediction, image-space guidance, closed-loop control, and PX4 Offboard integration.
 
