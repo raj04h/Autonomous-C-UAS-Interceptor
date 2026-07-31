@@ -15,12 +15,15 @@ Counter-UAS Autonomous Interceptor is a ROS2-based vision-guided autonomous inte
 
 ---
 
-### Visualization
+### Testing Sample Visualization
 
 > Integrated tactical visualization showing detection, tracking, state estimation, guidance, target lock, and flight-control information.
 
 <p align="center">
-<img src="assets/visualization.png" width="900">
+  <video width="900" controls>
+    <source src="Couter-UAS_Testing.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
 </p>
 
 
@@ -83,7 +86,7 @@ The project also includes a robotics backend for telemetry persistence and real-
 The modular ROS2 architecture allows perception, estimation, guidance, control, simulation, visualization, backend, and monitoring components to be developed and tested independently.
 
 <p align="center">
-<img width="800" height="93" alt="image" src="stpa_decision_flow.png" />
+<img width="800" height="93" alt="image" src="assets/stpa_decision_flow.png" />
 
 ---
 
