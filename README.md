@@ -19,7 +19,7 @@ Counter-UAS Autonomous Interceptor is a ROS2-based vision-guided autonomous inte
 
 > Integrated tactical visualization showing detection, tracking, state estimation, guidance, target lock, and flight-control information.
 
-[![Watch the video](./assets/testing_deomo.png)](./Counter-UAS_Testing.mp4)
+[![Watch the video](./assets/testing_deomo.png)](https://youtu.be/REf9U0Fz4DM?si=1klOZJ7nc7uzXfju)
 
 
 ### Monitoring Dashboard
