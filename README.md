@@ -10,6 +10,7 @@ Counter-UAS Autonomous Interceptor is a ROS2-based vision-guided autonomous inte
 ![Gazebo](https://img.shields.io/badge/Gazebo-Garden-purple)
 ![Python](https://img.shields.io/badge/Python-3.10-yellow)
 ![License](https://img.shields.io/badge/License-Counter--UAS%20Research%20v1.0.0-blue)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/raj04h/Vision-Based-Autonomous-Counter-Drone-System)
 
 </div>
 
